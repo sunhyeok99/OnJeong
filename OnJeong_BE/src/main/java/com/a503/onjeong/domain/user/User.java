@@ -1,6 +1,5 @@
 package com.a503.onjeong.domain.user;
 
-import com.a503.onjeong.domain.attachment.Attachment;
 import com.a503.onjeong.global.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
