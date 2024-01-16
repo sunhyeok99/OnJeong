@@ -1,15 +1,12 @@
 package com.a503.onjeong.domain.user;
 
+import com.a503.onjeong.domain.attachment.Attachment;
 import com.a503.onjeong.global.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseEntity {
 
@@ -31,5 +28,22 @@ public class User extends BaseEntity {
     private UserType type;
 
     @Column(name = "refresh_token")
-    private String kakaorRefreshToken;
+    private String refreshToken;
+
+    @Builder
+    public User(
+            Long kakaoId,
+            String name,
+            UserType type,
+            String refreshToken
+    ){
+        this.kakaoId = kakaoId;
+        this.name = name;
+        this.type = type;
+        this.refreshToken = refreshToken;
+    }
+
+    public void savePhoneNumber(String phoneNumber){
+        this.phoneNumber = phoneNumber;
+    }
 }
