@@ -1,10 +1,7 @@
 package com.a503.onjeong.domain.phonebook;
 
 import com.a503.onjeong.domain.user.User;
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +13,8 @@ public class Phonebook {
     @EmbeddedId
     private PhonebookId phonebookId;
 
-    @ManyToOne() //userId로
+    @ManyToOne(fetch=FetchType.LAZY) //userId로
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Column(name = "phonebook_name")
