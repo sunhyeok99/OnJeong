@@ -38,6 +38,16 @@ dependencies {
     // Oauth2
     implementation 'org.springframework.security:spring-security-oauth2-jose'
 
+    // Json 라이브러리
+    implementation 'org.json:json:20220320'
+    implementation group: 'com.googlecode.json-simple', name:'json-simple', version:'1.1.1'
+
+    // Spring Security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // JAVA JWT
+    implementation("com.auth0:java-jwt:3.16.0")
+
 }
 
 tasks.named('test') {
