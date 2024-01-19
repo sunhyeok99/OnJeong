@@ -1,17 +1,16 @@
 package com.a503.onjeong.domain.user;
 
-import com.a503.onjeong.global.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User extends BaseEntity {
+public class User {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long Id;
+    private Long id;
 
     @Column(name = "kakao_id")
     private Long kakaoId;
@@ -26,6 +25,9 @@ public class User extends BaseEntity {
     @Column(name = "user_type", nullable = false)
     private UserType type;
 
+    @Column(name = "kakao_refresh_token")
+    private String kakaoRefreshToken;
+
     @Column(name = "refresh_token")
     private String refreshToken;
 
@@ -33,16 +35,25 @@ public class User extends BaseEntity {
     public User(
             Long kakaoId,
             String name,
-            UserType type,
-            String refreshToken
+            UserType type
     ){
         this.kakaoId = kakaoId;
         this.name = name;
         this.type = type;
+    }
+
+    // 리프레시 토큰 세팅
+    public void setRefreshToken(String refreshToken){
         this.refreshToken = refreshToken;
     }
 
-    public void savePhoneNumber(String phoneNumber){
+    // 카카오 리프레시 토큰 세팅
+    public void setKakaoRefreshToken(String kakaoRefreshToken){
+        this.kakaoRefreshToken = kakaoRefreshToken;
+    }
+
+    // 핸드폰 번호 세틸
+    public void setPhoneNumber(String phoneNumber){
         this.phoneNumber = phoneNumber;
     }
 }
