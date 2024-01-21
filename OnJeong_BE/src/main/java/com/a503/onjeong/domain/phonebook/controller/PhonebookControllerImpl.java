@@ -20,7 +20,7 @@ public class PhonebookControllerImpl implements PhonebookController {
 
     @Override
     @PostMapping("/list")
-    public ResponseEntity<Void> phonebookList(@RequestBody PhonebookDTO phonebookDTO) {
+    public ResponseEntity<Void> phonebookList(@RequestBody PhonebookDTO phonebookDTO) { //연락처 받기
         phonebookService.phonebookList(phonebookDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
