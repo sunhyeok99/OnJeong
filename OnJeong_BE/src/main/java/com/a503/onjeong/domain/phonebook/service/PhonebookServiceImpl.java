@@ -23,9 +23,8 @@ public class PhonebookServiceImpl implements PhonebookService {
     public void phonebookList(PhonebookDTO phonebookDTO) { //연락처에서 유저들만 phonebook db에 저장
         Long userId = phonebookDTO.getUserId(); //유저 id
         Map<String, String> phonebook = phonebookDTO.getPhonebook(); //<전화번호, 이름>
-        List<String> phoneNumList = new ArrayList<>();
 
-        phoneNumList.addAll(phonebook.keySet());//전화번호 리스트
+        List<String> phoneNumList = new ArrayList<>(phonebook.keySet());//전화번호 리스트
         List<User> userList = userRepository.findByPhoneBook(phoneNumList); //연락처에 있는 유저객체가 담긴 리스트
 
         for (User user : userList) {

@@ -1,7 +1,6 @@
 package com.a503.onjeong.domain.phonebook;
 
 import com.a503.onjeong.domain.user.User;
-import com.a503.onjeong.domain.user.UserType;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
