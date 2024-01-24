@@ -25,5 +25,6 @@ public class NewsControllerImpl implements NewsController {
     public List<News> newsList() {
 
         return newsService.getNewsDatas();
+
     }
 }
