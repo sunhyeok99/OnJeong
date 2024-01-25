@@ -79,9 +79,8 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
                 .requestMatchers("/doc", "/swagger*/**", "/favicon*/**", "/v2/api-docs") // 스웨거 괸련 경로 허용
-                .requestMatchers("/auth/**") // 로그인 관련 경로 허용
-                .requestMatchers("/**"); // 개발 기간 동안 모든 경로 허용
-                // 로그인, 재발급 필터는 시큐리티를 거쳐야 해서 모든 경로 허용하면 오류, 주석 지우고 해보길..
+                .requestMatchers("/auth/**"); // 로그인 관련 경로 허용
+                // 검증이 필요 없는 경로를 추가해야함
 
     }
 
