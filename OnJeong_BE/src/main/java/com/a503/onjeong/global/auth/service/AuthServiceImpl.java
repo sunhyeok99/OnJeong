@@ -8,6 +8,11 @@ import com.sun.jdi.InternalException;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import net.nurigo.sdk.NurigoApp;
+import net.nurigo.sdk.message.exception.NurigoMessageNotReceivedException;
+import net.nurigo.sdk.message.model.Message;
+import net.nurigo.sdk.message.service.DefaultMessageService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.util.Random;
+
 
 /* 인증, 인가 관련 서비스 */
 @Transactional(readOnly = true)
@@ -29,6 +36,16 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
     private final UserRepository userRepository;
     private final KakaoService kakaoService;
 
+    @Value("${phone.API_KEY}")
+    private String API_KEY;
+
+    /* 배포시 수정 */
+    @Value("${phone.API_SECRET_KEY}")
+    private String API_SECRET_KEY;
+
+    @Value("${phone.DOMAIN}")
+    private String DOMAIN;
+
     @PostConstruct
     public void initWebClient() {
         //서버 배포시 서버에 할당된 IP로 변경 예정
@@ -38,7 +55,7 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
     /* 회원 가입 */
     @Override
     @Transactional
-    public void signup(String kakaoAccessToken, String kakaoRefreshToken,
+    public Long signup(String kakaoAccessToken, String kakaoRefreshToken,
                        String phoneNumber, HttpServletResponse response) {
         // 유저 정보 추출
         KakaoDto.UserInfo userInfo = kakaoService.getUserInfo(kakaoAccessToken, kakaoRefreshToken);
@@ -62,12 +79,14 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
         user.setPhoneNumber(phoneNumber);
         // 카카오 리프레시 토큰 갱신
         user.setKakaoRefreshToken(userInfo.getKakaoRefreshToken());
+
+        return user.getId();
     }
 
     /* 로그인 (검증) */
     @Override
     @Transactional
-    public LoginResponseDto login(String kakaoAccessToken, Long userId, HttpServletResponse response) {
+    public Long login(String kakaoAccessToken, Long userId, HttpServletResponse response) {
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new InternalException("존재 하지 않은 유저 예외")
         );
@@ -89,7 +108,7 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
         user.setKakaoRefreshToken(responseDto.getKakaoRefreshToken());
         user.setRefreshToken(responseDto.getRefreshToken());
 
-        return new LoginResponseDto(user.getId());
+        return user.getId();
     }
 
     /* 카카오 로그인 */
@@ -149,5 +168,36 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
                 .retrieve()
                 .toEntity(LoginFilterResponseDto.class)
                 .block();
+    }
+
+    /* 전화 번호 인증 함수 */
+    public String phoneVerification(String phoneNumber) {
+        DefaultMessageService messageService = NurigoApp.INSTANCE.initialize(API_KEY,
+                API_SECRET_KEY, DOMAIN);
+
+        Message message = new Message();
+        String randomNumber = getRandomNumber();
+        message.setFrom("01090443111");
+        message.setTo(phoneNumber);
+        message.setText("본인확인을 위해 인증번호 [" + randomNumber + "]을 입력해 주세요.");
+
+        try {
+            messageService.send(message);
+        } catch (NurigoMessageNotReceivedException exception) {
+            throw new InternalException(exception.getMessage());
+        } catch (Exception exception) {
+            throw new InternalException(exception.getMessage());
+        }
+        return randomNumber;
+    }
+
+    private String getRandomNumber(){
+        Random random = new Random(); // 랜덤 객체 생성
+        StringBuilder sb = new StringBuilder();
+
+        for (int i=0; i<5; i++){
+            sb.append(random.nextInt(10));
+        }
+        return sb.toString();
     }
 }

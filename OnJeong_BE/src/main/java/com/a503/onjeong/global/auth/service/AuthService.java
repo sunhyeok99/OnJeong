@@ -12,15 +12,17 @@ import java.net.UnknownHostException;
 @Service
 public interface AuthService {
 
-    void signup(String kakaoAccessToken, String kakaoRefreshToken,
+    Long signup(String kakaoAccessToken, String kakaoRefreshToken,
                 String phoneNumber, HttpServletResponse response);
 
-    LoginResponseDto login(String kakaoAccessToken, Long userId, HttpServletResponse response) throws UnknownHostException, IllegalAccessException;
+    Long login(String kakaoAccessToken, Long userId, HttpServletResponse response) throws UnknownHostException, IllegalAccessException;
 
     KakaoDto.Token kakaoLogin(String code);
 
     void reissueToken(String refreshToken, HttpServletResponse response);
 
     UserDetails loadUserByUsername(String id) throws UsernameNotFoundException;
+
+    String phoneVerification(String phoneNumber);
 
 }

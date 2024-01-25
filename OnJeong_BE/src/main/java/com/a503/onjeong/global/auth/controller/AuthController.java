@@ -1,7 +1,6 @@
 package com.a503.onjeong.global.auth.controller;
 
 import com.a503.onjeong.global.auth.dto.KakaoDto;
-import com.a503.onjeong.global.auth.dto.LoginResponseDto;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,12 +10,12 @@ import java.net.UnknownHostException;
 @RestController
 public interface AuthController {
     @GetMapping("/signup")
-    void signup(@RequestHeader("Kakao-Access-Token") String kakaoAccessToken,
+    Long signup(@RequestHeader("Kakao-Access-Token") String kakaoAccessToken,
                 @RequestHeader("Kakao-Refresh-Token") String kakaoRefreshToken,
                 @RequestParam String phoneNumber, HttpServletResponse response);
 
     @GetMapping("/login")
-    LoginResponseDto login(@RequestHeader(value = "Kakao-Access-Token") String kakaoAccessToken,
+    Long login(@RequestHeader(value = "Kakao-Access-Token") String kakaoAccessToken,
                            @RequestParam Long userId, HttpServletResponse response) throws UnknownHostException, IllegalAccessException;
 
     @GetMapping("/kakao/redirect")
@@ -25,6 +24,9 @@ public interface AuthController {
     @GetMapping("/reissue")
     public void reissue(@RequestHeader(value = "Refresh-Token") String refreshToken,
                         HttpServletResponse response);
+
+    @GetMapping("/phone")
+    public String phoneVerification(@RequestParam String phoneNumber);
 
     @GetMapping("/logout")
     public void logout();
