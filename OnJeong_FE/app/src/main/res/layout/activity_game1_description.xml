@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <include layout="@layout/activity_main_bar" />
+
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="430dp"
+        android:layout_marginLeft="80dp"
+        android:background="@color/orange"
+        android:text="취소"
+        android:textColor="@color/black"
+        android:textSize="27dp"/>
+
+    <Button
+        android:id="@+id/gameStart"
+        android:layout_toRightOf="@id/cancel"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="430dp"
+        android:background="@color/orange"
+        android:text="게임시작"
+        android:textColor="@color/black"
+        android:textSize="27dp" />
+</RelativeLayout>
