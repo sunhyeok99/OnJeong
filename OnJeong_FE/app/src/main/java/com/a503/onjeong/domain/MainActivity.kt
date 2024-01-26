@@ -1,10 +1,11 @@
-package com.example.myapplication
+package com.a503.onjeong.domain
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplication.NewsActivity
+import com.example.myapplication.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
