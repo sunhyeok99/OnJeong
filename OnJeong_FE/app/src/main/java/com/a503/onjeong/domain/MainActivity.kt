@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.NewsActivity
+import com.a503.onjeong.domain.news.activity.NewsActivity
 import com.example.myapplication.R
 
 class MainActivity : AppCompatActivity() {
