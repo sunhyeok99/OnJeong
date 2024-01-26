@@ -32,15 +32,39 @@
         <activity android:name=".StartActivity" />
         <activity android:name="com.a503.onjeong.domain.MainActivity"/>
 
-        <!-- DescriptionActivity 추가 -->
-<!--        <activity-->
-<!--            android:name=".DescriptionActivity"-->
-<!--            android:exported="true">-->
-<!--        </activity>-->
-<!--        <activity-->
-<!--            android:name=".NewsActivity"-->
-<!--            android:exported="true">-->
-<!--        </activity>-->
+        <activity
+            android:name=".NewsActivity"
+            android:parentActivityName=".MainActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name="com.a503.onjeong.domain.game.GameActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name="com.a503game.onjeong.domain.game.Game1Lobby"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name="com.a503.onjeong.domain.game.Game2Lobby"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name="com.a503.onjeong.domain.game.Game1Description"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name="com.a503.onjeong.domain.game.Game2Description"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name="com.a503.onjeong.domain.game.Game2Activity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name="com.a503.onjeong.domain.game.Game1Activity"
+            android:exported="true">
+        </activity>
 
     </application>
     <!-- url 사용을 위해 인터넷 접속 허가-->

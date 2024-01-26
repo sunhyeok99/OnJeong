@@ -1,3 +1,5 @@
+package com.a503.onjeong.domain.news.adaptor
+
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -6,10 +8,10 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.example.myapplication.News
+import com.a503.onjeong.domain.news.dto.News
 import com.example.myapplication.R
 
-class NewsAdapter(context: Context, resource: Int, objects: List<News>) :
+class NewsAdaptor(context: Context, resource: Int, objects: List<News>) :
     ArrayAdapter<News>(context, resource, objects) {
         // 카테고리에 따라 뉴스를 필터링하기 위해
         // adapter로 25개의 기사를 불러온 후에
