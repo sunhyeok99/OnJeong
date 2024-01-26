@@ -1,7 +1,7 @@
-package com.example.myapplication
+package com.a503.onjeong.domain.news.activity
 
-import NetRetrofit
-import NewsAdapter
+
+import com.a503.onjeong.domain.news.adaptor.NewsAdaptor
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -11,6 +11,11 @@ import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.a503.onjeong.domain.MainActivity
+import com.a503.onjeong.domain.news.api.NewsApiService
+import com.a503.onjeong.domain.news.dto.News
+import com.example.myapplication.R
+import com.example.myapplication.auth.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,7 +23,7 @@ import retrofit2.Response
 
 class NewsActivity : AppCompatActivity() {
     private lateinit var newsListView: ListView
-    private lateinit var adapter: NewsAdapter
+    private lateinit var adapter: NewsAdaptor
     private lateinit var selectedButton: Button
     private lateinit var mainTextView: TextView
     private lateinit var homeButton: Button
@@ -31,16 +36,17 @@ class NewsActivity : AppCompatActivity() {
         mainTextView = findViewById(R.id.mainText)
         mainTextView.text = "뉴스"
         // NetRetrofit을 생성
-        val netRetrofit = NetRetrofit.instance
+        val retrofit = RetrofitClient.getApiClient(this)
         // NetRetrofit의 service를 통해 newsList 호출
-        val res: Call<List<News>> = netRetrofit.service.newsList()
+        val service = retrofit.create(NewsApiService::class.java)
+        var call = service.newsList()
         // response가 null이 아니면 enqueue 호출
-        res.enqueue(object : Callback<List<News>> {
+        call.enqueue(object : Callback<List<News>> {
             override fun onResponse(call: Call<List<News>>, response: Response<List<News>>) {
                 // 성공 시 호출
                 if (response.isSuccessful) {
                     val newsList = response.body() ?: emptyList()
-                    adapter = NewsAdapter(this@NewsActivity, R.layout.activity_news_list, newsList)
+                    adapter = NewsAdaptor(this@NewsActivity, R.layout.activity_news_list, newsList)
                     newsListView.adapter = adapter
                     // 뉴스의 각각 카테고리 버튼을 선언
                     val button1: Button = findViewById(R.id.category1)

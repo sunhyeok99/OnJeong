@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.a503.onjeong.domain.news.dto
 
 import javax.persistence.*
 
