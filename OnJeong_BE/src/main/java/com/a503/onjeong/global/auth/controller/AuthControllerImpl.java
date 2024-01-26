@@ -20,21 +20,21 @@ public class AuthControllerImpl implements AuthController {
 
     /* 회원가입 */
     @GetMapping("/signup")
-    public void signup(@RequestHeader("Kakao-Access-Token") String kakaoAccessToken,
+    public Long signup(@RequestHeader("Kakao-Access-Token") String kakaoAccessToken,
                        @RequestHeader("Kakao-Refresh-Token") String kakaoRefreshToken,
                        @RequestParam String phoneNumber, HttpServletResponse response) {
-        authService.signup(kakaoAccessToken, kakaoRefreshToken, phoneNumber, response);
+        return authService.signup(kakaoAccessToken, kakaoRefreshToken, phoneNumber, response);
     }
 
     /* 자동 로그인 */
     @GetMapping("/login")
-    public LoginResponseDto login(@RequestHeader(value = "Kakao-Access-Token") String kakaoAccessToken,
-                                  @RequestParam Long userId, HttpServletResponse response) throws UnknownHostException, IllegalAccessException {
+    public Long login(@RequestHeader(value = "Kakao-Access-Token") String kakaoAccessToken,
+                      @RequestParam Long userId, HttpServletResponse response) throws UnknownHostException, IllegalAccessException {
         return authService.login(kakaoAccessToken, userId, response);
     }
 
     /* 인가 코드를 통해 토큰 발급 */
-    @GetMapping("/kakao/redirect")
+    @GetMapping("/kakao/token")
     public KakaoDto.Token kakaoRedirect(@RequestParam("code") String code) {
         return authService.kakaoLogin(code);
     }
@@ -44,6 +44,12 @@ public class AuthControllerImpl implements AuthController {
     public void reissue(@RequestHeader(value = "Refresh-Token") String refreshToken,
                         HttpServletResponse response) {
         authService.reissueToken(refreshToken, response);
+    }
+
+    /* 전화번호 인증 */
+    @GetMapping("/phone")
+    public String phoneVerification(@RequestParam String phoneNumber) {
+        return authService.phoneVerification(phoneNumber);
     }
 
     /* 로그아웃 */

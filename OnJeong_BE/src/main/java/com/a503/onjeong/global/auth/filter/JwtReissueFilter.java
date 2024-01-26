@@ -15,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.naming.AuthenticationException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
@@ -102,8 +103,8 @@ public class JwtReissueFilter extends UsernamePasswordAuthenticationFilter {
         JSONObject json = new JSONObject();
 
         json.put("userId", user.getId());
-        json.put("accessToken", BEARER + accessToken);
-        json.put("refreshToken", BEARER + refreshToken);
+        json.put("accessToken", accessToken);
+        json.put("refreshToken", refreshToken);
         response.getWriter().write(String.valueOf(json));
     }
 
