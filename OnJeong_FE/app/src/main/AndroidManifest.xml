@@ -33,8 +33,7 @@
         <activity android:name="com.a503.onjeong.domain.MainActivity"/>
 
         <activity
-            android:name=".NewsActivity"
-            android:parentActivityName=".MainActivity"
+            android:name="com.a503.onjeong.domain.news.activity.NewsActivity"
             android:exported="true">
         </activity>
         <activity
@@ -42,7 +41,7 @@
             android:exported="true">
         </activity>
         <activity
-            android:name="com.a503game.onjeong.domain.game.Game1Lobby"
+            android:name="com.a503.onjeong.domain.game.Game1Lobby"
             android:exported="true">
         </activity>
         <activity
