@@ -60,6 +60,8 @@ dependencies {
     // 전화번호 인증 라이브러리
     implementation 'net.nurigo:sdk:4.2.7'
 
+    // S3 업로드 위한 aws 라이브러리
+    implementation 'com.amazonaws:aws-java-sdk-s3:1.12.281'
 }
 
 tasks.named('test') {
