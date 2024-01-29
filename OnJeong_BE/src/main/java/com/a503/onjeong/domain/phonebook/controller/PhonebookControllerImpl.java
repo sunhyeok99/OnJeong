@@ -1,6 +1,6 @@
 package com.a503.onjeong.domain.phonebook.controller;
 
-import com.a503.onjeong.domain.phonebook.dto.PhonebookDTO;
+import com.a503.onjeong.domain.phonebook.dto.PhonebookAllDTO;
 import com.a503.onjeong.domain.phonebook.service.PhonebookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,9 +19,9 @@ public class PhonebookControllerImpl implements PhonebookController {
     private final PhonebookService phonebookService;
 
     @Override
-    @PostMapping("/list")
-    public ResponseEntity<Void> phonebookList(@RequestBody PhonebookDTO phonebookDTO) { //연락처 받기
-        phonebookService.phonebookList(phonebookDTO);
+    @PostMapping("/save")
+    public ResponseEntity<Void> phonebookSave(@RequestBody PhonebookAllDTO phonebookAllDTO) { //연락처 받기
+        phonebookService.phonebookSave(phonebookAllDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
