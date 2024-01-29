@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.a503.onjeong.domain.game.GameActivity
+import com.a503.onjeong.domain.mypage.activity.MyPageActivity
 import com.a503.onjeong.domain.news.activity.NewsActivity
 import com.example.myapplication.R
 
@@ -23,6 +24,13 @@ class MainActivity : AppCompatActivity() {
         val news : RelativeLayout = findViewById(R.id.btnNews)
         news.setOnClickListener {
             val intent = Intent(this, NewsActivity::class.java)
+            startActivity(intent)
+        }
+
+        //마이페이지 접근
+        val mypage : RelativeLayout = findViewById(R.id.btnInfo)
+        mypage.setOnClickListener {
+            val intent = Intent(this, MyPageActivity::class.java)
             startActivity(intent)
         }
     }
