@@ -20,28 +20,30 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
             android:text="로고"
-            android:textSize="18dp"/>
+            android:textSize="18dp" />
+
         <TextView
             android:id="@+id/main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="메인"
-            android:textSize="25sp"
-            android:textColor="@color/black"
+            android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"/>
+            android:text="메인"
+            android:textColor="@color/black"
+            android:textSize="25sp" />
     </RelativeLayout>
+
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="8"
-        android:columnCount="2"
-        android:rowCount="4"
-        android:columnOrderPreserved="false"
-        android:useDefaultMargins="true"
-        android:alignmentMode="alignMargins"
+        android:layout_gravity="bottom"
         android:layout_marginTop="40dp"
-        android:layout_gravity="bottom">
+        android:layout_weight="8"
+        android:alignmentMode="alignMargins"
+        android:columnCount="2"
+        android:columnOrderPreserved="false"
+        android:rowCount="4"
+        android:useDefaultMargins="true">
 
         <RelativeLayout
             android:id="@+id/btnWeather"
@@ -49,8 +51,8 @@
             android:layout_height="130dp"
             android:layout_columnWeight="1"
             android:layout_gravity="fill_horizontal"
-            android:background="@drawable/shape_round"
-            android:layout_margin="13dp">
+            android:layout_margin="13dp"
+            android:background="@drawable/shape_round">
 
             <ImageView
                 android:id="@+id/btnImage1"
@@ -64,10 +66,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:gravity="center"
                 android:text="날씨"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:gravity="center"/>
+                android:textSize="18sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -80,26 +82,26 @@
             android:background="@color/white">
 
 
-        <ImageView
+            <ImageView
                 android:id="@+id/btnImage2"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-            android:layout_margin="8dp"
-                android:src="@drawable/ic_launcher_background"
-                android:scaleType="fitXY"/>
+                android:layout_margin="8dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_launcher_background" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:gravity="center"
                 android:text="뉴스"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:gravity="center"/>
+                android:textSize="18sp" />
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/btnCall"
+            android:id="@+id/btnVideoCall"
             android:layout_width="30dp"
             android:layout_height="130dp"
             android:layout_columnWeight="1"
@@ -108,23 +110,24 @@
             android:background="@color/white">
 
 
-        <ImageView
+            <ImageView
                 android:id="@+id/btnImage3"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-            android:layout_margin="8dp"
-                android:src="@drawable/ic_launcher_background"
-                android:scaleType="fitXY"/>
+                android:layout_margin="8dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_launcher_background" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:gravity="center"
                 android:text="영상통화"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:gravity="center"/>
+                android:textSize="18sp" />
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/btnCounseller"
             android:layout_width="30dp"
@@ -135,23 +138,24 @@
             android:background="@color/white">
 
 
-        <ImageView
+            <ImageView
                 android:id="@+id/btnImage4"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-            android:layout_margin="8dp"
-                android:src="@drawable/ic_launcher_background"
-                android:scaleType="fitXY"/>
+                android:layout_margin="8dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_launcher_background" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:gravity="center"
                 android:text="상담원 연결"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:gravity="center"/>
+                android:textSize="18sp" />
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/btnWelfare"
             android:layout_width="30dp"
@@ -162,23 +166,24 @@
             android:background="@color/white">
 
 
-        <ImageView
+            <ImageView
                 android:id="@+id/btnImage5"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-            android:layout_margin="8dp"
-                android:src="@drawable/ic_launcher_background"
-                android:scaleType="fitXY"/>
+                android:layout_margin="8dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_launcher_background" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:gravity="center"
                 android:text="복지 서비스"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:gravity="center"/>
+                android:textSize="18sp" />
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/btnEdu"
             android:layout_width="30dp"
@@ -189,23 +194,24 @@
             android:background="@color/white">
 
 
-        <ImageView
+            <ImageView
                 android:id="@+id/btnImage6"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-            android:layout_margin="8dp"
-                android:src="@drawable/ic_launcher_background"
-                android:scaleType="fitXY"/>
+                android:layout_margin="8dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_launcher_background" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:gravity="center"
                 android:text="온라인 교육"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:gravity="center"/>
+                android:textSize="18sp" />
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/btnGame"
             android:layout_width="30dp"
@@ -231,11 +237,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:gravity="center"
                 android:text="게임"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:gravity="center"/>
+                android:textSize="18sp" />
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/btnInfo"
             android:layout_width="30dp"
@@ -246,24 +253,23 @@
             android:background="@color/white">
 
 
-        <ImageView
+            <ImageView
                 android:id="@+id/btnImage8"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-            android:layout_margin="8dp"
-                android:src="@drawable/ic_launcher_background"
-                android:scaleType="fitXY"/>
+                android:layout_margin="8dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_launcher_background" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:gravity="center"
                 android:text="마이페이지"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:gravity="center"/>
+                android:textSize="18sp" />
         </RelativeLayout>
-
 
 
     </GridLayout>

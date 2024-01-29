@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <!-- url 사용을 위해 인터넷 접속 허가 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- 영상통화 permission -->
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
     <application
-        android:usesCleartextTraffic="true"
-
-
-
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -15,57 +20,49 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OnJeong"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <activity
+            android:name="com.a503.onjeong.domain.videocall.activity.VideoCallActivity"
+            android:exported="false" />
         <activity
             android:name="com.a503.onjeong.domain.login.activity.AutoLoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name="com.a503.onjeong.domain.login.activity.LoginActivity"/>
+        <activity android:name="com.a503.onjeong.domain.login.activity.LoginActivity" />
         <activity android:name=".KakaoLoginActivity" />
         <activity android:name=".TelephoneActivity" />
         <activity android:name=".StartActivity" />
-        <activity android:name="com.a503.onjeong.domain.MainActivity"/>
-
+        <activity android:name="com.a503.onjeong.domain.MainActivity" />
         <activity
             android:name="com.a503.onjeong.domain.news.activity.NewsActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name="com.a503.onjeong.domain.game.GameActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name="com.a503.onjeong.domain.game.Game1Lobby"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name="com.a503.onjeong.domain.game.Game2Lobby"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name="com.a503.onjeong.domain.game.Game1Description"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name="com.a503.onjeong.domain.game.Game2Description"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name="com.a503.onjeong.domain.game.Game2Activity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name="com.a503.onjeong.domain.game.Game1Activity"
-            android:exported="true">
-        </activity>
-
+            android:exported="true"></activity>
     </application>
-    <!-- url 사용을 위해 인터넷 접속 허가-->
-    <uses-permission android:name="android.permission.INTERNET" />
+
 </manifest>
