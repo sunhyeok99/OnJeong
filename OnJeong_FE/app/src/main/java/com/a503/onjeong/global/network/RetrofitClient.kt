@@ -1,4 +1,4 @@
-package com.example.myapplication.auth
+package com.a503.onjeong.global.network
 
 import com.a503.onjeong.global.network.interceptor.AuthInterceptor
 import android.content.Context

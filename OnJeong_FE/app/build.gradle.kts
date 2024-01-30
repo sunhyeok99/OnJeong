@@ -2,14 +2,17 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     kotlin("kapt")
+
+    // firebase
+    id("com.google.gms.google-services")
 }
 
 android {
-    namespace = "com.example.myapplication"
+    namespace = "com.a503.onjeong"
     compileSdk = 34
     // id는 식별자
     defaultConfig {
-        applicationId = "com.example.myapplication"
+        applicationId = "com.a503.onjeong"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -21,7 +24,10 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -46,7 +52,7 @@ dependencies {
     // Lombok
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
     compileOnly("org.projectlombok:lombok:1.18.24")
-    annotationProcessor ("org.projectlombok:lombok:1.18.24")
+    annotationProcessor("org.projectlombok:lombok:1.18.24")
 
 // RecyclerView
     implementation("androidx.recyclerview:recyclerview:1.2.1")
@@ -60,6 +66,19 @@ dependencies {
 // 사진 불러오기 위한 glide
     implementation("com.github.bumptech.glide:glide:4.12.0")
     kapt("com.github.bumptech.glide:compiler:4.12.0")
+
+    // okhttp3
+//    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    // WebRTC
+    implementation("com.github.webrtc-sdk:android:104.+")
+    // Websocket
+    implementation("com.neovisionaries:nv-websocket-client:2.9")
+    // butterknife
+    implementation("com.jakewharton:butterknife:10.2.3")
+    annotationProcessor("com.jakewharton:butterknife-compiler:10.2.3")
+    //firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.7.1"))
+    implementation("com.google.firebase:firebase-messaging:23.4.0")
 
 
 }

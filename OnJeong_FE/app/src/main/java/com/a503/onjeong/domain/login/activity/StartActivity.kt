@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.a503.onjeong.domain.login.activity
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -6,8 +6,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.a503.onjeong.R
 import com.a503.onjeong.domain.MainActivity
-import com.example.myapplication.auth.RetrofitClient
+import com.a503.onjeong.domain.login.api.LoginApiService
+import com.a503.onjeong.global.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

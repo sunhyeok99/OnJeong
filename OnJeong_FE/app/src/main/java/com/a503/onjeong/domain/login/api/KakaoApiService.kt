@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.a503.onjeong.domain.login.api
 
 import com.a503.onjeong.domain.login.dto.KakaoDto
 import retrofit2.Call

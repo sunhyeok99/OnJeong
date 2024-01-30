@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.a503.onjeong.domain.login.api
 
 import retrofit2.Call
 import retrofit2.http.GET
