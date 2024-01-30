@@ -28,7 +28,7 @@ import com.a503.onjeong.domain.videocall.openvidu.Session;
 import com.a503.onjeong.domain.videocall.utils.CustomHttpClient;
 import com.a503.onjeong.domain.videocall.websocket.CustomWebSocket;
 import com.a503.onjeong.domain.videocall.activity.VideoCallActivity;
-import com.example.myapplication.R;
+import com.a503.onjeong.R;
 
 import org.jetbrains.annotations.NotNull;
 import org.webrtc.EglBase;

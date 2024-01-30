@@ -5,11 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.BuildCompat
-import com.example.myapplication.KakaoApiService
-import com.example.myapplication.KakaoLoginActivity
-import com.example.myapplication.R
-import com.example.myapplication.auth.RetrofitClient
+import com.a503.onjeong.domain.login.api.KakaoApiService
+import com.a503.onjeong.R
+import com.a503.onjeong.global.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

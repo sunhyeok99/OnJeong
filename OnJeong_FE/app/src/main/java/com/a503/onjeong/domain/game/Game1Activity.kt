@@ -6,7 +6,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.a503.onjeong.domain.MainActivity
-import com.example.myapplication.R
+import com.a503.onjeong.R
 
 class Game1Activity : AppCompatActivity() {
     private lateinit var homeButton: Button

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.a503.onjeong.domain.videocall.activity.VideoCallActivity">
+    tools:context=".domain.videocall.activity.VideoCallActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -98,6 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:autofillHints=""
                 android:hint="@string/application_server_url"
                 android:inputType="text"
                 android:text="@string/application_server_url"
@@ -109,6 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:autofillHints=""
                 android:hint="@string/session_name"
                 android:inputType="text"
                 android:text="@string/default_session_name"
@@ -120,6 +122,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:autofillHints=""
                 android:hint="@string/participant_name"
                 android:inputType="text"
                 android:text="@string/default_participant_name"

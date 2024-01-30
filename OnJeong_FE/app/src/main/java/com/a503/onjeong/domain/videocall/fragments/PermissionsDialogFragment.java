@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.a503.onjeong.domain.videocall.activity.VideoCallActivity;
-import com.example.myapplication.R;
+import com.a503.onjeong.R;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
