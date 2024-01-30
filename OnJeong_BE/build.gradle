@@ -63,6 +63,10 @@ dependencies {
     // OpenVidu 라이브러리
     implementation 'io.openvidu:openvidu-java-client:2.29.0'
 
+    // Firebase
+    implementation 'com.google.firebase:firebase-admin:9.1.1'
+
+
 }
 
 tasks.named('test') {

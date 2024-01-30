@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:orientation="vertical"
-    tools:context="com.a503.onjeong.domain.MainActivity">
+    tools:context=".domain.MainActivity">
 
     <RelativeLayout
         android:id="@+id/mainBar"

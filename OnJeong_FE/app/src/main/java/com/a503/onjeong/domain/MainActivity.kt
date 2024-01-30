@@ -2,12 +2,16 @@ package com.a503.onjeong.domain
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.a503.onjeong.domain.game.GameActivity
 import com.a503.onjeong.domain.news.activity.NewsActivity
 import com.a503.onjeong.domain.videocall.activity.VideoCallActivity
-import com.example.myapplication.R
+import com.a503.onjeong.R
+import com.google.android.gms.tasks.Task
+import com.google.firebase.messaging.FirebaseMessaging
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,5 +37,16 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, VideoCallActivity::class.java)
             startActivity(intent)
         }
+
+        //firebase test
+        FirebaseMessaging.getInstance().token
+            .addOnCompleteListener { task: Task<String> ->
+                if (!task.isSuccessful) {
+                    Log.w("FCM Log", "Fetching FCM registration token failed", task.exception)
+                    return@addOnCompleteListener
+                }
+                val token = task.result
+                Log.d("FCM Log", "Current token: $token")
+            }
     }
 }

@@ -2,14 +2,17 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     kotlin("kapt")
+
+    // firebase
+    id("com.google.gms.google-services")
 }
 
 android {
-    namespace = "com.example.myapplication"
+    namespace = "com.a503.onjeong"
     compileSdk = 34
     // id는 식별자
     defaultConfig {
-        applicationId = "com.example.myapplication"
+        applicationId = "com.a503.onjeong"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -73,6 +76,9 @@ dependencies {
     // butterknife
     implementation("com.jakewharton:butterknife:10.2.3")
     annotationProcessor("com.jakewharton:butterknife-compiler:10.2.3")
+    //firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.7.1"))
+    implementation("com.google.firebase:firebase-messaging:23.4.0")
 
 
 }
