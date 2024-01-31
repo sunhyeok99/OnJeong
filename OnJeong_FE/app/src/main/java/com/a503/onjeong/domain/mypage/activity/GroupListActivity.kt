@@ -1,5 +1,7 @@
 package com.a503.onjeong.domain.mypage.activity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ListView
@@ -23,13 +25,14 @@ class GroupListActivity : AppCompatActivity() {
     // NetRetrofit의 service를 통해 호출
     val service = retrofit.create(GroupApiService::class.java)
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_groups_list)
+        setContentView(R.layout.activity_group_list)
         groupListView = findViewById(R.id.groupListView)
 
-        // NetRetrofit의 service를 통해 newsList 호출
-        var userId = 1;
+        val sharedPreferences = getSharedPreferences("mySharedPreferences", Context.MODE_PRIVATE)
+        val userId = sharedPreferences.getLong("userId", 0L)
         val res=service.groupList(userId)
         // response가 null이 아니면 enqueue 호출
         if (res != null) {
@@ -43,7 +46,7 @@ class GroupListActivity : AppCompatActivity() {
                     println(groupList.size)
                     adapter = GroupListAdapter(
                         this@GroupListActivity,
-                        R.layout.activity_groups_list_item,
+                        R.layout.activity_group_list_item,
                         groupList
                     )
                     groupListView.adapter = adapter
@@ -66,7 +69,8 @@ class GroupListActivity : AppCompatActivity() {
         //그룹 생성 버튼
         groupAddBtn=findViewById(R.id.groupAddBtn)
         groupAddBtn.setOnClickListener(){
-
+            val intent = Intent(this, GroupCreateActivity::class.java)
+            startActivity(intent)
         }
 
     }

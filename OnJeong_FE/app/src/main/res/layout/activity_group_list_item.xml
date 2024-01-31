@@ -12,7 +12,8 @@
         android:layout_marginBottom="50dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:background="#F6BD4E">
+        android:background="@drawable/rect_round_main_color_button"
+        android:elevation="5dp">
 
         <TextView
             android:id="@+id/groupName"
@@ -22,7 +23,8 @@
             android:layout_marginTop="30dp"
             android:text="가족"
             android:textColor="@color/black"
-            android:textSize="30dp" />
+            android:textSize="30dp"
+          />
 
     </FrameLayout>
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.a503.onjeong.domain.mypage.activity
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.a503.onjeong.domain.MainActivity
 import com.a503.onjeong.domain.mypage.api.PhonebookApiService
 import com.a503.onjeong.domain.mypage.dto.PhonebookAllDTO
 import com.example.myapplication.R
@@ -19,6 +21,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MyPageActivity : AppCompatActivity() {
+    private lateinit var homeButton: Button
+    private lateinit var backButton: Button
     // NetRetrofit을 생성
     val retrofit = RetrofitClient.getApiClient(this)
     // NetRetrofit의 service를 통해 호출
@@ -41,6 +45,18 @@ class MyPageActivity : AppCompatActivity() {
             checkPermission()
         }
 
+        // 홈버튼 누르면 홈으로 이동하게
+        homeButton = findViewById(R.id.btnHome)
+        homeButton.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+        // 뒤로가기 버튼 누르면 뒤로(메인)이동
+        backButton = findViewById(R.id.btnBack)
+        backButton.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 
@@ -111,8 +127,10 @@ class MyPageActivity : AppCompatActivity() {
                 phonebook.put(phoneNumber, name);
             }
         }
+        val sharedPreferences = getSharedPreferences("mySharedPreferences", Context.MODE_PRIVATE)
+        val userId = sharedPreferences.getLong("userId", 0L)
         phonebookAllDTO.phonebook = phonebook;
-        phonebookAllDTO.userId = 1;
+        phonebookAllDTO.userId = userId;
         //이 객체 그대로 보내면 됨
         val call = service.phonebookSave(phonebookAllDTO)
         if (call != null) {

@@ -1,7 +1,9 @@
 package com.a503.onjeong.domain
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.a503.onjeong.domain.game.GameActivity
@@ -14,6 +16,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // 맨처음 시작은 activity_main창에서 시작한다.
         setContentView(R.layout.activity_main)
+
+        val sharedPreferences = getSharedPreferences("mySharedPreferences", Context.MODE_PRIVATE)
+
+        val userId = sharedPreferences.getLong("userId", 0L)
+         Log.d("userId","$userId")
+
+
         // 게임 설명 버튼을 누르면 게임 설명이 나오도록 버튼 설정
         val button : RelativeLayout = findViewById(R.id.btnGame)
         button.setOnClickListener {

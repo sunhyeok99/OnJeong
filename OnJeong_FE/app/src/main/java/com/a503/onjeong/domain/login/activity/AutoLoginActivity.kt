@@ -27,7 +27,7 @@ class AutoLoginActivity : AppCompatActivity() {
 //        editor.remove("jwtAccessToken")
 //        editor.remove("jwtRefreshToken")
 //        editor.remove("userId")
-//        editor.apply()
+        editor.apply()
 
         val kakaoAccessToken = sharedPreferences.getString("kakaoAccessToken", "none").toString()
         val userId = sharedPreferences.getLong("userId", 0L)

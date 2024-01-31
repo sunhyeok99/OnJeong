@@ -1,6 +1,7 @@
 package com.a503.onjeong.domain.mypage.api
 
 import com.a503.onjeong.domain.mypage.dto.PhonebookAllDTO
+import com.a503.onjeong.domain.mypage.dto.PhonebookDTO
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -14,4 +15,9 @@ interface PhonebookApiService {
     fun phonebookSave(
         @Body phonebookAllDTO: PhonebookAllDTO
     ): Call<Void?>?
+
+    @GET("/phonebook/list")
+    fun phonebookList(
+        @Query("userId") userId : Long
+    ): Call<List<PhonebookDTO>>
 }

@@ -9,25 +9,26 @@
 
     android:background="#FFFFFF">
 
+    <include layout="@layout/activity_main_bar" />
     <FrameLayout
 
         android:layout_width="wrap_content"
-        android:layout_height="350dp">
+        android:layout_height="320dp">
 
         <View
             android:id="@+id/ViewColorYellow"
-            android:layout_width="425dp"
+            android:layout_width="wrap_content"
             android:layout_height="300dp"
-            android:layout_marginTop="0dp"
-            android:layout_gravity=""
             android:background="#F6BD4E" />
 
         <ImageButton
             android:id="@+id/profileImgBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="120dp"
             android:layout_gravity="center"
+            android:src="@drawable/profile_img"
+            android:scaleType="fitCenter"
             />
 
 

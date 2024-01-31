@@ -14,7 +14,7 @@ class GroupListAdapter(context: Context, resource: Int, objects: List<GroupDTO>)
     private lateinit var adapter: GroupListAdapter
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val itemView = convertView ?: inflater.inflate(R.layout.activity_groups_list_item, parent, false)
+        val itemView = convertView ?: inflater.inflate(R.layout.activity_group_list_item, parent, false)
 
         val groupItem = getItem(position)
         val name: TextView = itemView.findViewById(R.id.groupName)
