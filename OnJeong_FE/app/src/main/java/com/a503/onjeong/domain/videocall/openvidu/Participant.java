@@ -1,4 +1,4 @@
-package com.a503.onjeong.global.webrtc.openvidu;
+package com.a503.onjeong.domain.videocall.openvidu;
 
 import android.util.Log;
 

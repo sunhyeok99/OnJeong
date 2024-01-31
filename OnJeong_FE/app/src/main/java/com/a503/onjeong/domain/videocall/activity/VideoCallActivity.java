@@ -21,12 +21,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.a503.onjeong.global.webrtc.fragments.PermissionsDialogFragment;
-import com.a503.onjeong.global.webrtc.openvidu.LocalParticipant;
-import com.a503.onjeong.global.webrtc.openvidu.RemoteParticipant;
-import com.a503.onjeong.global.webrtc.openvidu.Session;
-import com.a503.onjeong.global.webrtc.utils.CustomHttpClient;
-import com.a503.onjeong.global.webrtc.websocket.CustomWebSocket;
+import com.a503.onjeong.domain.videocall.fragments.PermissionsDialogFragment;
+import com.a503.onjeong.domain.videocall.openvidu.LocalParticipant;
+import com.a503.onjeong.domain.videocall.openvidu.RemoteParticipant;
+import com.a503.onjeong.domain.videocall.openvidu.Session;
+import com.a503.onjeong.domain.videocall.utils.CustomHttpClient;
+import com.a503.onjeong.domain.videocall.websocket.CustomWebSocket;
 import com.a503.onjeong.R;
 
 import org.jetbrains.annotations.NotNull;

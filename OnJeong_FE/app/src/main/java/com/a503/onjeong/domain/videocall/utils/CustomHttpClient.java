@@ -1,4 +1,4 @@
-package com.a503.onjeong.global.webrtc.utils;
+package com.a503.onjeong.domain.videocall.utils;
 
 import android.util.Log;
 
