@@ -2,7 +2,6 @@ package com.a503.onjeong.domain.mypage.dialog
 
 import android.app.Dialog
 import android.content.Context
-import android.widget.Button
 import android.widget.TextView
 import com.a503.onjeong.domain.mypage.dto.PhonebookDTO
 import com.example.myapplication.R

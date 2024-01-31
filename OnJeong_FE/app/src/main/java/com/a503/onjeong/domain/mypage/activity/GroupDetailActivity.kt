@@ -2,15 +2,10 @@ package com.a503.onjeong.domain.mypage.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.a503.onjeong.domain.MainActivity
-import com.a503.onjeong.domain.mypage.adapter.PhonebookListAdapter
 import com.a503.onjeong.domain.mypage.api.GroupApiService
-import com.a503.onjeong.domain.mypage.api.PhonebookApiService
-import com.a503.onjeong.domain.mypage.dto.PhonebookDTO
-import com.a503.onjeong.domain.mypage.listener.OnButtonClickListener
 import com.example.myapplication.R
 import com.example.myapplication.auth.RetrofitClient
 import retrofit2.Call
