@@ -1,4 +1,4 @@
-package com.a503.onjeong.domain.videocall.openvidu;
+package com.a503.onjeong.global.webrtc.openvidu;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -6,9 +6,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.a503.onjeong.domain.videocall.activity.VideoCallActivity;
-import com.a503.onjeong.domain.videocall.observers.CustomPeerConnectionObserver;
-import com.a503.onjeong.domain.videocall.observers.CustomSdpObserver;
-import com.a503.onjeong.domain.videocall.websocket.CustomWebSocket;
+import com.a503.onjeong.global.webrtc.observers.CustomPeerConnectionObserver;
+import com.a503.onjeong.global.webrtc.observers.CustomSdpObserver;
+import com.a503.onjeong.global.webrtc.websocket.CustomWebSocket;
 
 import org.webrtc.IceCandidate;
 import org.webrtc.MediaConstraints;

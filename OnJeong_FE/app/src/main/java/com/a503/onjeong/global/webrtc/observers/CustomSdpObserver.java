@@ -1,4 +1,4 @@
-package com.a503.onjeong.domain.videocall.observers;
+package com.a503.onjeong.global.webrtc.observers;
 
 import android.util.Log;
 

@@ -1,4 +1,4 @@
-package com.a503.onjeong.domain.videocall.openvidu;
+package com.a503.onjeong.global.webrtc.openvidu;
 
 import android.view.View;
 import android.widget.TextView;

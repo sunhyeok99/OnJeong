@@ -1,4 +1,4 @@
-package com.a503.onjeong.domain.videocall.constants;
+package com.a503.onjeong.global.webrtc.constants;
 
 public final class JsonConstants {
 

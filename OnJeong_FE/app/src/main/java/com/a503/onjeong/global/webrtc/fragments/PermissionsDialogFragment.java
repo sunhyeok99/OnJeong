@@ -1,4 +1,4 @@
-package com.a503.onjeong.domain.videocall.fragments;
+package com.a503.onjeong.global.webrtc.fragments;
 
 import android.app.Dialog;
 import android.os.Bundle;

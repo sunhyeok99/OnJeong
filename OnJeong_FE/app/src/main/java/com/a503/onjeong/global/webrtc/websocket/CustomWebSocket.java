@@ -1,4 +1,4 @@
-package com.a503.onjeong.domain.videocall.websocket;
+package com.a503.onjeong.global.webrtc.websocket;
 
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -7,12 +7,12 @@ import android.util.Pair;
 import android.widget.Toast;
 
 import com.a503.onjeong.domain.videocall.activity.VideoCallActivity;
-import com.a503.onjeong.domain.videocall.constants.JsonConstants;
-import com.a503.onjeong.domain.videocall.observers.CustomSdpObserver;
-import com.a503.onjeong.domain.videocall.openvidu.LocalParticipant;
-import com.a503.onjeong.domain.videocall.openvidu.Participant;
-import com.a503.onjeong.domain.videocall.openvidu.RemoteParticipant;
-import com.a503.onjeong.domain.videocall.openvidu.Session;
+import com.a503.onjeong.global.webrtc.constants.JsonConstants;
+import com.a503.onjeong.global.webrtc.observers.CustomSdpObserver;
+import com.a503.onjeong.global.webrtc.openvidu.LocalParticipant;
+import com.a503.onjeong.global.webrtc.openvidu.Participant;
+import com.a503.onjeong.global.webrtc.openvidu.RemoteParticipant;
+import com.a503.onjeong.global.webrtc.openvidu.Session;
 import com.neovisionaries.ws.client.ThreadType;
 import com.neovisionaries.ws.client.WebSocket;
 import com.neovisionaries.ws.client.WebSocketException;
