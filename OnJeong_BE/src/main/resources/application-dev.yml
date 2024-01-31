@@ -43,7 +43,7 @@ cloud:
 
 openvidu:
   url: https://i10a503.p.ssafy.io/
-  secret: MY_SECRET
+  secret: ${OPENVIDU_SECRET}
 
 firebase:
   config: onjeong-firebase-admin-sdk.json
