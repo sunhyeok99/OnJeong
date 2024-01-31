@@ -20,8 +20,10 @@ class GroupListActivity : AppCompatActivity() {
     private lateinit var groupListView: ListView
     private lateinit var adapter: GroupListAdapter
     private lateinit var groupAddBtn: Button
+
     // NetRetrofit을 생성
     val retrofit = RetrofitClient.getApiClient(this)
+
     // NetRetrofit의 service를 통해 호출
     val service = retrofit.create(GroupApiService::class.java)
 
@@ -33,7 +35,7 @@ class GroupListActivity : AppCompatActivity() {
 
         val sharedPreferences = getSharedPreferences("mySharedPreferences", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getLong("userId", 0L)
-        val res=service.groupList(userId)
+        val res = service.groupList(userId)
         // response가 null이 아니면 enqueue 호출
         if (res != null) {
             res.enqueue(object : Callback<List<GroupDTO>> {
@@ -60,15 +62,14 @@ class GroupListActivity : AppCompatActivity() {
 
         //그룹 누르면 다른 액티비티로 가게
         groupListView.setOnItemClickListener { parent, view, position, id ->
-            val selectedNewsItem = adapter.getItem(position)
-            if (selectedNewsItem != null) {
-                // 클릭된 아이템의 url을 일단 가져옴
-                val url = selectedNewsItem.userList
-            }
+            val selectedGroup = adapter.getItem(position)?.groupId?.toString()
+            val intent = Intent(this, GroupDetailActivity::class.java)
+            intent.putExtra("selectedGroup", selectedGroup)
+            startActivity(intent)
         }
         //그룹 생성 버튼
-        groupAddBtn=findViewById(R.id.groupAddBtn)
-        groupAddBtn.setOnClickListener(){
+        groupAddBtn = findViewById(R.id.groupAddBtn)
+        groupAddBtn.setOnClickListener() {
             val intent = Intent(this, GroupCreateActivity::class.java)
             startActivity(intent)
         }

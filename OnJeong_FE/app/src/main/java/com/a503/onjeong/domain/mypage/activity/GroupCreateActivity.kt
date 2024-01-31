@@ -33,7 +33,6 @@ class GroupCreateActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // 맨처음 시작은 activity_main창에서 시작한다.
         setContentView(R.layout.activity_group_create)
         // 먼저 checkListAdapter를 초기화하고 checkListView에 설정
         var checkList: ArrayList<PhonebookDTO>
