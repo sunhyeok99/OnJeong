@@ -15,4 +15,7 @@ public interface GroupService {
     void groupDelete(Long groupId);
 
     void groupUpdate(GroupUserListDTO groupUserListDTO);
+
+
+    GroupDTO groupDetail(GroupDTO groupDTO);
 }

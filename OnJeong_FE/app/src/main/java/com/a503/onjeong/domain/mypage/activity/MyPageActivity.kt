@@ -68,7 +68,6 @@ class MyPageActivity : AppCompatActivity() {
         Log.d("status", "$status")
         if (status == PackageManager.PERMISSION_GRANTED) {
             // 권한이 이미 허용되어 있을 때의 처리
-            Log.d("테스트입니다.", "permission granted")
             // 연락처를 가져와서 서버에 전송하는 함수 호출
             sendPhonebook()
         } else {
@@ -78,7 +77,6 @@ class MyPageActivity : AppCompatActivity() {
                 arrayOf(android.Manifest.permission.READ_CONTACTS),
                 100
             )
-            Log.d("test", "permission requested")
         }
     }
 
@@ -122,7 +120,6 @@ class MyPageActivity : AppCompatActivity() {
                         i++
                     }
                 }
-
                 Log.d("GetContact", "이름 : $name 번호 : $id 전화번호 :$phoneNumber")
                 phonebook.put(phoneNumber, name);
             }
@@ -131,16 +128,13 @@ class MyPageActivity : AppCompatActivity() {
         val userId = sharedPreferences.getLong("userId", 0L)
         phonebookAllDTO.phonebook = phonebook;
         phonebookAllDTO.userId = userId;
-        //이 객체 그대로 보내면 됨
+        //객체 보내기
         val call = service.phonebookSave(phonebookAllDTO)
         if (call != null) {
             call.enqueue(object : Callback<Void?> {
                 override fun onResponse(call: Call<Void?>, response: Response<Void?>) {
-                    Log.d("성공!!!!!!!!!!!!!!!!!", "성공 : ${response.raw()}")
                 }
-
                 override fun onFailure(call: Call<Void?>, t: Throwable) {
-                    Log.d("실패!!!!!!!!!!", "실패 : $t")
                 }
             })
         }

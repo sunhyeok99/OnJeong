@@ -1,6 +1,5 @@
 package com.a503.onjeong.domain.group.dto;
 
-import com.a503.onjeong.domain.user.User;
 import lombok.Builder;
 import lombok.Data;
 
@@ -12,14 +11,14 @@ public class GroupUserListDTO {
     private Long groupId;
     private Long ownerId;
     private String name;
-    private List<User> userList = new ArrayList<>();
+    private List<Long> userList = new ArrayList<>();
 
     @Builder
     public GroupUserListDTO(
             Long groupId,
             Long ownerId,
             String name,
-            List<User> userList
+            List<Long> userList
     ) {
         this.groupId = groupId;
         this.name = name;

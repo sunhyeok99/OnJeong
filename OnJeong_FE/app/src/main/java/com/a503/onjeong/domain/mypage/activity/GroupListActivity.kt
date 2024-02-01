@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import com.a503.onjeong.domain.MainActivity
 import com.a503.onjeong.domain.mypage.adapter.GroupListAdapter
 import com.a503.onjeong.domain.mypage.api.GroupApiService
 import com.a503.onjeong.domain.mypage.dto.GroupDTO
@@ -17,6 +18,8 @@ import retrofit2.Response
 
 
 class GroupListActivity : AppCompatActivity() {
+    private lateinit var homeButton: Button
+    private lateinit var backButton: Button
     private lateinit var groupListView: ListView
     private lateinit var adapter: GroupListAdapter
     private lateinit var groupAddBtn: Button
@@ -71,6 +74,20 @@ class GroupListActivity : AppCompatActivity() {
         groupAddBtn = findViewById(R.id.groupAddBtn)
         groupAddBtn.setOnClickListener() {
             val intent = Intent(this, GroupCreateActivity::class.java)
+            startActivity(intent)
+        }
+
+        // 홈버튼 누르면 홈으로 이동하게
+        homeButton = findViewById(R.id.btnHome)
+        homeButton.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
+        // 뒤로가기 버튼 누르면 뒤로(메인)이동
+        backButton = findViewById(R.id.btnBack)
+        backButton.setOnClickListener {
+            val intent = Intent(this, GroupListActivity::class.java)
             startActivity(intent)
         }
 

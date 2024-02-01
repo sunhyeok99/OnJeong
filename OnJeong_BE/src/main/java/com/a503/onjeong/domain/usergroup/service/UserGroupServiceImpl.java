@@ -5,9 +5,11 @@ import com.a503.onjeong.domain.group.dto.GroupDTO;
 import com.a503.onjeong.domain.group.repository.GroupRepository;
 import com.a503.onjeong.domain.user.User;
 import com.a503.onjeong.domain.user.dto.UserDTO;
+import com.a503.onjeong.domain.user.repository.UserRepository;
 import com.a503.onjeong.domain.usergroup.UserGroup;
 import com.a503.onjeong.domain.usergroup.repository.UserGroupRepository;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,19 +23,20 @@ import java.util.Optional;
 public class UserGroupServiceImpl implements UserGroupService {
     private final UserGroupRepository userGroupRepository;
     private final GroupRepository groupRepository;
+    private final UserRepository userRepository;
 
     @Override
     @Transactional
-    public void userGroupCreate(List<User> userList, Long groupId) {
+    public void userGroupCreate(@NotNull List<Long> userList, Long groupId) {
         Optional<Group> group = groupRepository.findById(groupId);
         Group group1 = group.orElseThrow();
 
-        for (User user : userList) {
+        for (Long userId : userList) {
             UserGroup userGroup = UserGroup.builder()
-                    .userId(user.getId())
+                    .userId(userId)
                     .groupId(groupId)
                     .group(group1)
-                    .user(user)
+                    .user(userRepository.findById(userId).orElseThrow())
                     .build();
 
             userGroupRepository.save(userGroup);
@@ -45,23 +48,9 @@ public class UserGroupServiceImpl implements UserGroupService {
         userGroupRepository.deleteAllByGroupId(groupId);
     }
 
-    @Override
-    public void userGroupUpdate(GroupDTO groupDTO) {
-        Optional<List<UserGroup>> list = userGroupRepository.findAllByGroupId(groupDTO.getGroupId());
-
-        List<UserDTO> userList = groupDTO.getUserList();
-        h:
-        for (UserGroup userGroup : list.orElseThrow()) { //지금 있는 그룹에 멤버들
-            for (UserDTO user : userList) {//새로운 멤버들
-                if (userGroup.getUser().getId() == user.getUserId()) continue h;
-
-            }
-        }
-    }
 
     @Override
-    public List<GroupDTO> findAllByGroupId(Optional<List<Group>> groupList) {
-        //그룹 리스트에서 group을 빼서 usergroup에서 user
+    public List<GroupDTO> findAllByGroupId(@NotNull Optional<List<Group>> groupList) {
         List<GroupDTO> groupDTOList = new ArrayList<>();
         for (Group group : groupList.orElseThrow()) {
             Optional<List<UserGroup>> userList = userGroupRepository.findAllByGroupId(group.getId());
@@ -76,13 +65,33 @@ public class UserGroupServiceImpl implements UserGroupService {
                 userDTOList.add(userDTO);
             }
             GroupDTO groupDTO = GroupDTO.builder()
-                            .userList(userDTOList)
-                            .groupId(group.getId())
-                            .name(group.getName())
-                            .build();
+                    .userList(userDTOList)
+                    .groupId(group.getId())
+                    .name(group.getName())
+                    .build();
             groupDTOList.add(groupDTO);
 
         }
         return groupDTOList;
+    }
+
+    @Override
+    public GroupDTO groupDetail(Long groupId) {
+        Optional<List<UserGroup>> userGroupList = userGroupRepository.findAllByGroupId(groupId);
+        List<UserDTO> userDTOList=new ArrayList<>();
+        for(UserGroup userGroup:userGroupList.orElseThrow()){
+            User user=userGroup.getUser();
+            UserDTO userDTO=UserDTO.builder()
+                    .phoneNumber(user.getPhoneNumber())
+                    .userId(user.getId())
+                    .name(user.getName())
+                    .build();
+            userDTOList.add(userDTO);
+        }
+        GroupDTO groupDTO=GroupDTO.builder()
+                .groupId(groupId)
+                .userList(userDTOList)
+                .build();
+        return groupDTO;
     }
 }

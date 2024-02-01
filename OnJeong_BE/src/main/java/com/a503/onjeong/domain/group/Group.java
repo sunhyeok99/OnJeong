@@ -4,10 +4,12 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Getter
 @NoArgsConstructor
+@DynamicUpdate
 @Table(name="meet")
 public class Group {
 
@@ -21,8 +23,6 @@ public class Group {
 
     @Column(name = "owner_id")
     private Long ownerId;
-
-
     @Builder
     public Group(
             String name,
@@ -30,5 +30,8 @@ public class Group {
     ){
         this.name=name;
         this.ownerId=ownerId;
+    }
+    public void updateGroupName (String name) {
+        this.name = name;
     }
 }

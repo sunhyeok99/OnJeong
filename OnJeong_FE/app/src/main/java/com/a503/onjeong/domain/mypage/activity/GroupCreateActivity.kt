@@ -3,7 +3,6 @@ package com.a503.onjeong.domain.mypage.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
@@ -34,11 +33,11 @@ class GroupCreateActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_group_create)
-        // 먼저 checkListAdapter를 초기화하고 checkListView에 설정
+
         var checkList: ArrayList<PhonebookDTO>
         checkList = ArrayList()
         checkListView = findViewById(R.id.checkListView)
-        checkListAdapter = CheckListAdapter(
+        checkListAdapter = CheckListAdapter( //선택한 사람들 구성원 리스트에 넣어주는 어댑터
             this@GroupCreateActivity,
             R.layout.activity_check_list_item,
             checkList
@@ -52,9 +51,9 @@ class GroupCreateActivity : AppCompatActivity() {
 
         val retrofit = RetrofitClient.getApiClient(this)
         val service = retrofit.create(PhonebookApiService::class.java)
+
         //연락처 리스트 뽑기
-        val res = service.phonebookList(userId)
-        // response가 null이 아니면 enqueue 호출
+        val res = service.phonebookList(userId,null)
         if (res != null) {
             res.enqueue(object : Callback<List<PhonebookDTO>> {
                 override fun onResponse(
@@ -62,18 +61,16 @@ class GroupCreateActivity : AppCompatActivity() {
                     response: Response<List<PhonebookDTO>>
                 ) {
                     val phonebookList = response.body() ?: emptyList()
-                    phonebookListAdapter = PhonebookListAdapter(
+                    phonebookListAdapter = PhonebookListAdapter( //연락처에 있는 사람들 어댑터
                         this@GroupCreateActivity,
                         R.layout.activity_phonebook_list_item,
                         phonebookList, object : OnButtonClickListener {
                             override fun onButtonClick(data: PhonebookDTO) {
-                                if (data.isCheck) {
+                                if (data.isChecked==1) {
                                     checkList.add(data)
                                 } else {
                                     checkList.remove(data)
                                 }
-                                Log.d("여기는 액티비티 adpter안", "${data.isCheck}")
-                                Log.d("여기는 사이즈", "${checkList.size}")
                                 checkListAdapter.notifyDataSetChanged()
                             }
                         }
@@ -81,14 +78,10 @@ class GroupCreateActivity : AppCompatActivity() {
                     phonebookListView.adapter = phonebookListAdapter
 
                     for (phonebookDTO: PhonebookDTO in phonebookList) {
-                        if (phonebookDTO.isCheck) checkList.add(phonebookDTO)
+                        if (phonebookDTO.isChecked==1) checkList.add(phonebookDTO)
                     }
-
                 }
-
-
                 override fun onFailure(call: Call<List<PhonebookDTO>>, t: Throwable) {
-
                 }
             })
         }
@@ -100,24 +93,26 @@ class GroupCreateActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+
         // 뒤로가기 버튼 누르면 뒤로(메인)이동
         backButton = findViewById(R.id.btnBack)
         backButton.setOnClickListener {
-            val intent = Intent(this, MyPageActivity::class.java)
+            val intent = Intent(this, GroupListActivity::class.java)
             startActivity(intent)
         }
+
         val groupApiservice = retrofit.create(GroupApiService::class.java)
-        // 완료 후 그룹 생성
+        // 그룹 생성 버튼
         groupCreateBtn = findViewById(R.id.groupCreateBtn)
         groupCreateBtn.setOnClickListener {
             var groupName: EditText = findViewById(R.id.groupName)
-            //friendId만 담은 리승트
+            //friendId만 담은 리스트
             var userList: ArrayList<Long> = ArrayList()
             for (phonebookDTO: PhonebookDTO in checkList) {
                 userList.add(phonebookDTO.freindId)
             }
-            var groupUserListDTO: GroupUserListDTO =
-                GroupUserListDTO(userId, groupName.text.toString(),userList)
+            val groupUserListDTO =
+                GroupUserListDTO(0,userId, groupName.text.toString(),userList)
             val res = groupApiservice.groupCreate(groupUserListDTO)
             // response가 null이 아니면 enqueue 호출
             if (res != null) {
@@ -126,10 +121,8 @@ class GroupCreateActivity : AppCompatActivity() {
                         call: Call<Void>,
                         response: Response<Void>
                     ) {
-
                     }
                     override fun onFailure(call: Call<Void>, t: Throwable) {
-
                     }
                 })
             }
@@ -138,6 +131,5 @@ class GroupCreateActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
 
 }

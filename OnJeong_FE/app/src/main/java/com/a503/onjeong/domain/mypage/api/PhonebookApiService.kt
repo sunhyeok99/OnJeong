@@ -17,6 +17,6 @@ interface PhonebookApiService {
 
     @GET("/phonebook/list")
     fun phonebookList(
-        @Query("userId") userId : Long
+        @Query("userId") userId: Long, @Query("groupId") groupId: Long?
     ): Call<List<PhonebookDTO>>
 }

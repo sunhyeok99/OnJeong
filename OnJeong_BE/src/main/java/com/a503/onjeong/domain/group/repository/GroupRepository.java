@@ -17,7 +17,4 @@ public interface GroupRepository extends JpaRepository<Group, Long> {
 
     Optional<Group> findAllById(Long groupId);
 
-    @Modifying
-    @Query(value = "update meet g set g.group_name= :name where g.group_id= :groupId", nativeQuery = true)
-    void updateGroupName(@Param(value = "name") String name, @Param(value = "groupId") Long groupId);
 }

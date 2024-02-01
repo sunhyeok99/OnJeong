@@ -21,8 +21,6 @@ class GroupListAdapter(context: Context, resource: Int, objects: List<GroupDTO>)
         if (groupItem != null) {
             name.text = groupItem.name
         }
-//        val userList: List<UserDTO>? = groupItem?.userList
-
         return itemView
     }
 
