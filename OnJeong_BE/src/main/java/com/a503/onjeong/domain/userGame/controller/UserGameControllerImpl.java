@@ -1,0 +1,40 @@
+package com.a503.onjeong.domain.userGame.controller;
+
+import com.a503.onjeong.domain.userGame.UserGame;
+import com.a503.onjeong.domain.userGame.dto.UserGameDto;
+import com.a503.onjeong.domain.userGame.repository.UserGameRepository;
+import com.a503.onjeong.domain.userGame.service.UserGameService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/game")
+public class UserGameControllerImpl implements UserGameController {
+
+    private final UserGameService userGameService;
+    private final UserGameRepository userGameRepository;
+    @GetMapping("/lists")
+    // 해당 게임에 해당하는 유저들의 리스트 반환(userId와 score쓸거임)
+    public List<UserGame> topScoreList(@RequestParam Long gameId) {
+        return userGameService.userGameList(gameId);
+    }
+    @PostMapping("/save")
+    // 해당 게임정보를 반환해서 있으면 update , 없으면 save 진행
+    public UserGame scoreSave(@RequestBody UserGameDto userGameDto) {
+        UserGame userGame = scoreDetails(userGameDto.getUserId(),userGameDto.getGameId());
+        if(userGame != null){
+            return userGameService.updateScore(userGameDto);
+        }
+        return userGameService.save(userGameDto);
+    }
+
+    @GetMapping("/details")
+    // 해당 유저의 게임 정보를 반환
+    public UserGame scoreDetails(@RequestParam Long userId, Long gameId) {
+        return userGameService.userGameDetails(userId, gameId);
+    }
+
+}

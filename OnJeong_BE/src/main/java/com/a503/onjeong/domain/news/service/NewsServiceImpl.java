@@ -2,6 +2,7 @@ package com.a503.onjeong.domain.news.service;
 
 import com.a503.onjeong.domain.news.News;
 import com.a503.onjeong.domain.news.repository.NewsRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -19,6 +20,7 @@ public class NewsServiceImpl implements NewsService {
     private final NewsRepository newsRepository;
 
     @Override
+    @Transactional
     // 크롤링해서 뉴스 데이터 받아옴
     public List<News> getNewsDatas() {
         // 먼저 db 초기화
