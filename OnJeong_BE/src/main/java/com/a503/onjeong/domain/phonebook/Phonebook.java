@@ -16,8 +16,9 @@ public class Phonebook {
     @EmbeddedId //복합키 매핑(userId+freindId)
     private PhonebookId phonebookId;
 
+    @MapsId("userId")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id" ,insertable = false, updatable = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Column(name = "phonebook_num")
@@ -25,15 +26,18 @@ public class Phonebook {
 
     @Column(name = "phonebook_name")
     private String phonebookName;
+
     @Builder
     public Phonebook(
             Long userId,
             Long friendId,
+            User user,
             String phonebookNum,
             String phonebookName
     ) {
         this.phonebookId=new PhonebookId(userId,friendId);
         this.phonebookNum = phonebookNum;
         this.phonebookName = phonebookName;
+        this.user=user;
     }
 }

@@ -7,8 +7,8 @@
 
     <Button
         android:id="@+id/btnBack"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:layout_marginStart="16dp"
         android:background="@drawable/back" />
@@ -24,8 +24,8 @@
         android:layout_centerHorizontal="true"/>
     <Button
         android:id="@+id/btnHome"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="16dp"

@@ -1,11 +1,30 @@
 package com.a503.onjeong.domain.phonebook.dto;
 
+import lombok.Builder;
 import lombok.Data;
-import java.util.HashMap;
-import java.util.Map;
 
 @Data
 public class PhonebookDTO {
+    private Long freindId;
     private Long userId;
-    private Map<String,String> phonebook = new HashMap<>();
+    private String phonebookNum;
+    private String phonebookName;
+    private int isChecked=0;
+
+
+    @Builder
+    public PhonebookDTO(
+            Long userId,
+            Long freindId,
+            String phonebookNum,
+            String phonebookName,
+            int isChecked
+
+    ) {
+        this.userId = userId;
+        this.freindId = freindId;
+        this.phonebookNum = phonebookNum;
+        this.phonebookName = phonebookName;
+        this.isChecked=isChecked;
+    }
 }
