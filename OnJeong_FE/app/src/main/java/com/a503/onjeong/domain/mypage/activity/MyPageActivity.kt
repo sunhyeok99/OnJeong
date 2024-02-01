@@ -11,11 +11,12 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.a503.onjeong.R
 import com.a503.onjeong.domain.MainActivity
 import com.a503.onjeong.domain.mypage.api.PhonebookApiService
 import com.a503.onjeong.domain.mypage.dto.PhonebookAllDTO
-import com.example.myapplication.R
-import com.example.myapplication.auth.RetrofitClient
+import com.a503.onjeong.global.network.RetrofitClient
+
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

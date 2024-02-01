@@ -3,8 +3,8 @@ package com.a503.onjeong.domain.mypage.dialog
 import android.app.Dialog
 import android.content.Context
 import android.widget.TextView
+import com.a503.onjeong.R
 import com.a503.onjeong.domain.mypage.dto.PhonebookDTO
-import com.example.myapplication.R
 
 class UserAlertDialog(context: Context, phonebookItem: PhonebookDTO) : Dialog(context) {
     init {

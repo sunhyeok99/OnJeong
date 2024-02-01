@@ -6,12 +6,13 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import com.a503.onjeong.R
 import com.a503.onjeong.domain.MainActivity
 import com.a503.onjeong.domain.mypage.adapter.GroupListAdapter
 import com.a503.onjeong.domain.mypage.api.GroupApiService
 import com.a503.onjeong.domain.mypage.dto.GroupDTO
-import com.example.myapplication.R
-import com.example.myapplication.auth.RetrofitClient
+import com.a503.onjeong.global.network.RetrofitClient
+
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

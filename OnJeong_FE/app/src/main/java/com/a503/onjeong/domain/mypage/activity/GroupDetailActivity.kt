@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import com.a503.onjeong.R
 import com.a503.onjeong.domain.MainActivity
 import com.a503.onjeong.domain.mypage.adapter.CheckListAdapter
 import com.a503.onjeong.domain.mypage.adapter.PhonebookListAdapter
@@ -18,8 +19,7 @@ import com.a503.onjeong.domain.mypage.dto.GroupDTO
 import com.a503.onjeong.domain.mypage.dto.GroupUserListDTO
 import com.a503.onjeong.domain.mypage.dto.PhonebookDTO
 import com.a503.onjeong.domain.mypage.listener.OnButtonClickListener
-import com.example.myapplication.R
-import com.example.myapplication.auth.RetrofitClient
+import com.a503.onjeong.global.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
