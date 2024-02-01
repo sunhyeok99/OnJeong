@@ -1,4 +1,4 @@
-package com.a503.onjeong.domain.game
+package com.a503.onjeong.domain.game.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.a503.onjeong.domain.MainActivity
 import com.a503.onjeong.R
 
-class Game1Lobby : AppCompatActivity() {
+class Game1Activity : AppCompatActivity() {
     private lateinit var homeButton: Button
     private lateinit var backButton: Button
     private lateinit var gameStart: Button

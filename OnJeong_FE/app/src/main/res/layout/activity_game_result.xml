@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <include layout="@layout/activity_main_bar"/>
+
+    <LinearLayout
+        android:layout_width="500dp"
+        android:layout_height="250dp"
+        android:layout_centerInParent="true"
+        android:background="#EDCB54"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/result_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="게임 종료"
+            android:textColor="#000000"
+            android:textSize="28sp" />
+        <!-- 게임 결과 텍스트 뷰 -->
+        <TextView
+            android:id="@+id/result_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="게임 점수: 1000"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <!-- 유저 이름 텍스트 뷰 -->
+        <TextView
+            android:id="@+id/result_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="유저 이름: "
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <!-- 랭킹 등수 텍스트 뷰 -->
+        <TextView
+            android:id="@+id/result_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="랭킹 등수: 1st"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- 나가기 버튼 -->
+            <Button
+                android:id="@+id/game_exit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:layout_weight="1"
+                android:text="나가기" />
+
+            <!-- 랭킹보기 버튼 -->
+            <Button
+                android:id="@+id/game_rank"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:text="랭킹보기" />
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

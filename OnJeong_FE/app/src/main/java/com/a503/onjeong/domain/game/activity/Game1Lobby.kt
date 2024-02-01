@@ -1,4 +1,4 @@
-package com.a503.onjeong.domain.game
+package com.a503.onjeong.domain.game.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,20 +8,18 @@ import androidx.appcompat.app.AppCompatActivity
 import com.a503.onjeong.domain.MainActivity
 import com.a503.onjeong.R
 
-class Game2Lobby : AppCompatActivity() {
+class Game1Lobby : AppCompatActivity() {
     private lateinit var homeButton: Button
     private lateinit var backButton: Button
     private lateinit var gameStart: Button
     private lateinit var gameDescription: Button
         private lateinit var mainTextView: TextView
-    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_game2)
-
+        setContentView(R.layout.activity_game1)
 
         mainTextView = findViewById(R.id.mainText)
-        mainTextView.text = "게임-같은 그림 찾기"
+        mainTextView.text = "게임-애니팡"
         homeButton = findViewById(R.id.btnHome)
         homeButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
@@ -31,11 +29,6 @@ class Game2Lobby : AppCompatActivity() {
         backButton = findViewById(R.id.btnBack)
         backButton.setOnClickListener {
             val intent = Intent(this, GameActivity::class.java)
-            startActivity(intent)
-        }
-        gameStart = findViewById(R.id.gameStart)
-        gameStart.setOnClickListener {
-            val intent = Intent(this, Game2Activity::class.java)
             startActivity(intent)
         }
 

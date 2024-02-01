@@ -12,22 +12,20 @@
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
         android:orientation="horizontal">
-
         <TextView
             android:id="@+id/game_mark"
             android:layout_width="80dp"
             android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:scaleType="fitXY"
             android:text="3라운드"
             android:textColor="@color/black"
             android:textSize="24dp"
-            android:textStyle="bold" />
-
+            android:textStyle="bold"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="fitXY"/>
         <TextView
-            android:id="@+id/result_text"
+            android:id="@+id/time_text"
             android:layout_width="100dp"
             android:layout_height="80dp"
             android:layout_marginLeft="70dp"
@@ -70,7 +68,6 @@
             android:layout_marginBottom="8dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_launcher_background" />
-
         <ImageView
             android:id="@+id/game_image2"
             android:layout_width="110dp"
@@ -80,7 +77,6 @@
             android:layout_marginBottom="8dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_launcher_background" />
-
         <ImageView
             android:id="@+id/game_image3"
             android:layout_width="110dp"
@@ -90,7 +86,6 @@
             android:layout_marginBottom="8dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_launcher_background" />
-
         <ImageView
             android:id="@+id/game_image4"
             android:layout_width="110dp"
@@ -100,7 +95,6 @@
             android:layout_marginBottom="8dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_launcher_background" />
-
         <ImageView
             android:id="@+id/game_image5"
             android:layout_width="110dp"
@@ -110,7 +104,6 @@
             android:layout_marginBottom="8dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_launcher_background" />
-
         <ImageView
             android:id="@+id/game_image6"
             android:layout_width="110dp"
@@ -120,7 +113,6 @@
             android:layout_marginBottom="8dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_launcher_background" />
-
         <ImageView
             android:id="@+id/game_image7"
             android:layout_width="110dp"
@@ -130,7 +122,6 @@
             android:layout_marginBottom="8dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_launcher_background" />
-
         <ImageView
             android:id="@+id/game_image8"
             android:layout_width="110dp"
@@ -140,7 +131,6 @@
             android:layout_marginBottom="8dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_launcher_background" />
-
         <ImageView
             android:id="@+id/game_image9"
             android:layout_width="110dp"
@@ -150,7 +140,6 @@
             android:layout_marginBottom="8dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_launcher_background" />
-
         <ImageView
             android:id="@+id/game_image10"
             android:layout_width="110dp"
@@ -160,7 +149,6 @@
             android:layout_marginBottom="8dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_launcher_background" />
-
         <ImageView
             android:id="@+id/game_image11"
             android:layout_width="110dp"
@@ -170,7 +158,6 @@
             android:layout_marginBottom="8dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_launcher_background" />
-
         <ImageView
             android:id="@+id/game_image12"
             android:layout_width="110dp"

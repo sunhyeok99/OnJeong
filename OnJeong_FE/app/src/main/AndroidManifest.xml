@@ -47,25 +47,25 @@
             android:name=".domain.news.activity.NewsActivity"
             android:exported="true" />
         <activity
-            android:name=".domain.game.GameActivity"
+            android:name=".domain.game.activity.GameActivity"
             android:exported="true" />
         <activity
-            android:name=".domain.game.Game1Lobby"
+            android:name=".domain.game.activity.Game1Lobby"
             android:exported="true" />
         <activity
-            android:name=".domain.game.Game2Lobby"
+            android:name=".domain.game.activity.Game2Lobby"
             android:exported="true" />
         <activity
-            android:name=".domain.game.Game1Description"
+            android:name=".domain.game.activity.Game1Description"
             android:exported="true" />
         <activity
-            android:name=".domain.game.Game2Description"
+            android:name=".domain.game.activity.Game2Description"
             android:exported="true" />
         <activity
-            android:name=".domain.game.Game2Activity"
+            android:name=".domain.game.activity.Game2Activity"
             android:exported="true" />
         <activity
-            android:name=".domain.game.Game1Activity"
+            android:name=".domain.game.activity.Game1Activity"
             android:exported="true" />
 
         <!--firebase -->

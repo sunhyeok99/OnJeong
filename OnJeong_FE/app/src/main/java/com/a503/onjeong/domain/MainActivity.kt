@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.a503.onjeong.domain.game.GameActivity
+import com.a503.onjeong.domain.game.activity.GameActivity
 import com.a503.onjeong.domain.news.activity.NewsActivity
 import com.a503.onjeong.domain.videocall.activity.VideoCallActivity
 import com.a503.onjeong.R
