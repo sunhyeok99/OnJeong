@@ -49,3 +49,6 @@ firebase:
   config: onjeong-firebase-admin-sdk.json
   project:
     id: ${FIREBASE_ID}
+
+weather:
+  API_KEY: ${WEATHER_API_KEY}
