@@ -4,14 +4,12 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF">
 
-
-
     <Button
         android:id="@+id/start"
         android:layout_width="100dp"
         android:layout_height="70dp"
-        android:background="@color/orange"
         android:layout_margin="150dp"
+        android:background="@color/orange"
         android:text="게임시작"
         android:textColor="@color/black"
         android:textSize="27dp" />

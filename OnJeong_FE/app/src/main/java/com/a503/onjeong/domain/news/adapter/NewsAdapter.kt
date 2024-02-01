@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.a503.onjeong.domain.news.dto.News
-import com.example.myapplication.R
+import com.a503.onjeong.R
 
 class NewsAdapter(context: Context, resource: Int, objects: List<News>) :
     ArrayAdapter<News>(context, resource, objects) {

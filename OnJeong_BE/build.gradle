@@ -40,7 +40,7 @@ dependencies {
 
     // Json 라이브러리
     implementation 'org.json:json:20220320'
-    implementation group: 'com.googlecode.json-simple', name:'json-simple', version:'1.1.1'
+    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
 
     // Spring Security
     implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -60,6 +60,14 @@ dependencies {
     // 전화번호 인증 라이브러리
     implementation 'net.nurigo:sdk:4.2.7'
 
+    // OpenVidu 라이브러리
+    implementation 'io.openvidu:openvidu-java-client:2.29.0'
+
+    // Firebase
+    implementation 'com.google.firebase:firebase-admin:9.1.1'
+
+    // S3 업로드 위한 aws 라이브러리
+    implementation 'com.amazonaws:aws-java-sdk-s3:1.12.281'
 }
 
 tasks.named('test') {

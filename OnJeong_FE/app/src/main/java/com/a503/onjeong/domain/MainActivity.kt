@@ -1,46 +1,52 @@
 package com.a503.onjeong.domain
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.a503.onjeong.domain.game.GameActivity
-import com.a503.onjeong.domain.mypage.activity.MyPageActivity
 import com.a503.onjeong.domain.news.activity.NewsActivity
-import com.example.myapplication.R
+import com.a503.onjeong.domain.videocall.activity.VideoCallActivity
+import com.a503.onjeong.R
+import com.google.android.gms.tasks.Task
+import com.google.firebase.messaging.FirebaseMessaging
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // 맨처음 시작은 activity_main창에서 시작한다.
         setContentView(R.layout.activity_main)
-
-        val sharedPreferences = getSharedPreferences("mySharedPreferences", Context.MODE_PRIVATE)
-
-        val userId = sharedPreferences.getLong("userId", 0L)
-         Log.d("userId","$userId")
-
-
         // 게임 설명 버튼을 누르면 게임 설명이 나오도록 버튼 설정
-        val button : RelativeLayout = findViewById(R.id.btnGame)
+        val button: RelativeLayout = findViewById(R.id.btnGame)
         button.setOnClickListener {
             val intent = Intent(this, GameActivity::class.java)
             startActivity(intent)
         }
         // 뉴스에 관한 설명이 뜨도록 버튼 설정
-        val news : RelativeLayout = findViewById(R.id.btnNews)
+        val news: RelativeLayout = findViewById(R.id.btnNews)
         news.setOnClickListener {
             val intent = Intent(this, NewsActivity::class.java)
             startActivity(intent)
         }
 
-        //마이페이지 접근
-        val mypage : RelativeLayout = findViewById(R.id.btnInfo)
-        mypage.setOnClickListener {
-            val intent = Intent(this, MyPageActivity::class.java)
+        // 영상통화 페이지 이동
+        val videoCall: RelativeLayout = findViewById(R.id.btnVideoCall)
+        videoCall.setOnClickListener {
+            val intent = Intent(this, VideoCallActivity::class.java)
             startActivity(intent)
         }
+
+        //firebase test
+        FirebaseMessaging.getInstance().token
+            .addOnCompleteListener { task: Task<String> ->
+                if (!task.isSuccessful) {
+                    Log.w("FCM Log", "Fetching FCM registration token failed", task.exception)
+                    return@addOnCompleteListener
+                }
+                val token = task.result
+                Log.d("FCM Log", "Current token: $token")
+            }
     }
 }

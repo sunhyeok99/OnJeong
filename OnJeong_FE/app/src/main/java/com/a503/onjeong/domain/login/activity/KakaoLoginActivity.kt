@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.a503.onjeong.domain.login.activity
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -11,8 +11,11 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
+import com.a503.onjeong.R
 import com.a503.onjeong.domain.login.dto.KakaoDto
-import com.example.myapplication.auth.RetrofitClient
+import com.a503.onjeong.global.network.RetrofitClient
+import com.a503.onjeong.domain.login.api.KakaoApiService
+
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

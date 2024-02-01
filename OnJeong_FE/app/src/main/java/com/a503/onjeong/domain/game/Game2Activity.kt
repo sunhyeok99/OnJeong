@@ -7,7 +7,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.R
+import com.a503.onjeong.R
 
 class Game2Activity : AppCompatActivity() {
     private lateinit var round1: Button
