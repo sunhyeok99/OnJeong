@@ -23,7 +23,7 @@ services:
     container_name: allfriend_backend
     restart: always
     build:
-      context: ./
+      context: ./S10P12A503/OnJeong_BE
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
