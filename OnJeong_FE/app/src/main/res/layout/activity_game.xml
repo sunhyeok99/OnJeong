@@ -12,7 +12,7 @@
         android:layout_width="200dp"
         android:layout_height="130dp"
         android:layout_marginLeft="100dp"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="80dp"
         android:background="@color/orange"
         android:text="애니팡"
         android:textSize="27dp"
@@ -23,9 +23,19 @@
         android:layout_width="200dp"
         android:layout_height="130dp"
         android:layout_marginLeft="100dp"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="70dp"
         android:background="@color/orange"
         android:text="기억력 게임"
+        android:textColor="@color/black"
+        android:textSize="27dp"/>
+    <Button
+        android:id="@+id/game_rank"
+        android:layout_width="200dp"
+        android:layout_height="130dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="70dp"
+        android:background="@color/orange"
+        android:text="순위 보기"
         android:textColor="@color/black"
         android:textSize="27dp"/>
 

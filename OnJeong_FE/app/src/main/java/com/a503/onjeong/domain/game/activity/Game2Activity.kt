@@ -1,28 +1,41 @@
 package com.a503.onjeong.domain.game.activity
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.a503.onjeong.R
+import com.a503.onjeong.domain.game.api.GameApiService
+import com.a503.onjeong.domain.game.dto.UserGameDto
+import com.a503.onjeong.domain.game.dto.UserGameResponseDto
+import com.a503.onjeong.global.network.RetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import kotlin.properties.Delegates
 
 class Game2Activity : AppCompatActivity() {
     private lateinit var round1: Button
     private lateinit var round2: Button
     private lateinit var round3: Button
-    private lateinit var exit : Button
-    private lateinit var rank : Button
+    private lateinit var exit: Button
+    private lateinit var rank: Button
     private lateinit var timeTextView: TextView
     private lateinit var scoreTextView: TextView
     private lateinit var gameMarkTextView: TextView
     private lateinit var imageViews: List<ImageView>
     private lateinit var countDownTimer: CountDownTimer
+
+
     private val gameImages = listOf(
         R.drawable.game_image1,
         R.drawable.game_image3,
@@ -33,11 +46,17 @@ class Game2Activity : AppCompatActivity() {
     )
     private var imageNum = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
 
-    private var score = 0
+    private lateinit var sharedPreferences: SharedPreferences
+    private var userId: Long = 0
+
+    private var score : Long = 0
     private var round = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // 유저이름 가져옴
+        sharedPreferences = getSharedPreferences("mySharedPreferences", Context.MODE_PRIVATE)
+        userId = sharedPreferences.getLong("userId", 0L)
         setContentView(R.layout.activity_game2_ready)
         changeLayoutForRound(round)
     }
@@ -54,9 +73,11 @@ class Game2Activity : AppCompatActivity() {
                     bindImagesToViews(8)
                 }
             }
+
             2 -> {
                 setContentView(R.layout.activity_game2_ready)
-                findViewById<TextView>(R.id.ready_text).text = "2라운드를 시작하시겠습니까? \n 종료를 누르시면 랭킹에 반영되지 않습니다."
+                findViewById<TextView>(R.id.ready_text).text =
+                    "2라운드를 시작하시겠습니까? \n 종료를 누르시면 랭킹에 반영되지 않습니다."
                 round2 = findViewById(R.id.start)
                 round2.setOnClickListener {
                     setContentView(R.layout.activity_game2_round2)
@@ -67,7 +88,8 @@ class Game2Activity : AppCompatActivity() {
             // 여러 라운드 추가 가능
             3 -> {
                 setContentView(R.layout.activity_game2_ready)
-                findViewById<TextView>(R.id.ready_text).text = "3라운드를 시작하시겠습니까? \n 종료를 누르시면 랭킹에 반영되지 않습니다."
+                findViewById<TextView>(R.id.ready_text).text =
+                    "3라운드를 시작하시겠습니까? \n 종료를 누르시면 랭킹에 반영되지 않습니다."
                 round3 = findViewById(R.id.start)
                 round3.setOnClickListener {
                     setContentView(R.layout.activity_game2_round3)
@@ -75,15 +97,16 @@ class Game2Activity : AppCompatActivity() {
                     bindImagesToViews(12)
                 }
             }
+
             else -> {
                 // 3라운드까지 끝나고 모두 완료했을 경우
                 // 이제 랭킹등록 가자
                 // 그 페이지로 이동할건지 게임메인창으로 나갈건지 선택
-                setContentView(R.layout.activity_game_result)
-                findViewById<TextView>(R.id.result_score).text = "$score 점"
                 // 랭킹에 등록 과정 ㄱㄱ (통신)
-                findViewById<TextView>(R.id.result_rank).text
-                findViewById<TextView>(R.id.result_name).text
+                setContentView(R.layout.activity_game_result)
+                findViewById<TextView>(R.id.result_score).text = "현재 점수 : $score 점"
+                sendScore(userId, 1, score)
+
                 exit = findViewById(R.id.game_exit)
                 rank = findViewById(R.id.game_rank)
                 exit.setOnClickListener {
@@ -91,7 +114,8 @@ class Game2Activity : AppCompatActivity() {
                     startActivity(intent)
                 }
                 rank.setOnClickListener {
-                    setContentView(R.layout.activity_game_rank)
+                    val intent = Intent(this, GameRankActivity::class.java)
+                    startActivity(intent)
                 }
             }
         }
@@ -146,9 +170,13 @@ class Game2Activity : AppCompatActivity() {
                 // 이미지를 클릭하면 첫번째 선택은 일단 리스트 추가
                 // 두번째 선택때 두개가 일치하면 점수 증가하고
                 // 두개의 색 그대로 , 틀리면 둘다 흰색 + 점수 감점
-                Handler(Looper.getMainLooper()).postDelayed({} ,300)
+                Handler(Looper.getMainLooper()).postDelayed({}, 300)
 
-                if (imageViews[i].drawable.constantState != ContextCompat.getDrawable(this, R.drawable.white)?.constantState) {
+                if (imageViews[i].drawable.constantState != ContextCompat.getDrawable(
+                        this,
+                        R.drawable.white
+                    )?.constantState
+                ) {
                     return@setOnClickListener
                 }
 
@@ -186,13 +214,14 @@ class Game2Activity : AppCompatActivity() {
             }
         }
     }
-    
+
     // 현재 블럭들을 모두 흰색으로 바꾸는 메서드
     private fun changeImageWhilte() {
         for (i in imageViews.indices) {
             imageViews[i].setImageResource(R.drawable.white)
         }
     }
+
     // 타이머 시작
     private fun startTimer(gameTime: Int) {
         countDownTimer = object : CountDownTimer(gameTime.toLong(), 1000) {
@@ -204,10 +233,52 @@ class Game2Activity : AppCompatActivity() {
             override fun onFinish() {
                 timeTextView.text = "끝"
                 // gameOver하면서 랭킹화면으로 넘어감
-                changeLayoutForRound(4)                
+                changeLayoutForRound(4)
             }
         }.start()
+
+
     }
 
-    
+
+    // 플레이 후 점수를 서버로 보내는 메서드
+    private fun sendScore(userId: Long, gameId: Long, score: Long) {
+        // NetRetrofit을 생성
+        val retrofit = RetrofitClient.getApiClient(this)
+        // NetRetrofit의 service를 통해 호출
+        val service = retrofit.create(GameApiService::class.java)
+        // UserGameDto 생성
+        val userGameDto = UserGameDto(userId, gameId, score)
+        var call = service.saveScore(userGameDto)
+
+        call.enqueue(object : Callback<UserGameResponseDto> {
+            override fun onResponse(
+                call: Call<UserGameResponseDto>,
+                response: Response<UserGameResponseDto>
+            )  {
+                if (response.isSuccessful) {
+                    println(response)
+                    // 성공적으로 서버에 전송된 경우
+                    // 추가적인 작업 수행
+                    val userGameInfo = response.body()
+                    if (userGameInfo != null) {
+                        // 순서대로 1. 내점수  2. 플레이어 이름  3. 플레이어 최고점수
+                        var tmpName : String = userGameInfo.userName
+                        var tmpScore : String = userGameInfo.userGameScore.toString()
+                        findViewById<TextView>(R.id.result_name).text = "유저 이름 : $tmpName "
+                        findViewById<TextView>(R.id.result_high_score).text = "최고 점수 : $tmpScore 점"
+
+                    }
+                } else {
+                    // 스프링에서 정보 불러오기 실패 시 호출
+                    Log.d("실패", "실패 : ${response.code()} ${response.message()}")
+                }
+            }
+            override fun onFailure(call: Call<UserGameResponseDto>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+
+        })
+    }
 }

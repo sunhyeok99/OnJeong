@@ -13,6 +13,7 @@ class GameActivity : AppCompatActivity() {
     private lateinit var backButton: Button
     private lateinit var game1: Button
     private lateinit var game2: Button
+    private lateinit var rank: Button
     private lateinit var mainTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,14 +34,22 @@ class GameActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+        // 게임 1 버튼
         game1 = findViewById(R.id.game1)
         game1.setOnClickListener {
             val intent = Intent(this, Game1Lobby::class.java)
             startActivity(intent)
         }
+        // 게임 2 버튼
         game2 = findViewById(R.id.game2)
         game2.setOnClickListener {
             val intent = Intent(this, Game2Lobby::class.java)
+            startActivity(intent)
+        }
+        // 랭킹 버튼
+        rank = findViewById(R.id.game_rank)
+        rank.setOnClickListener {
+            val intent = Intent(this, GameRankActivity::class.java)
             startActivity(intent)
         }
 

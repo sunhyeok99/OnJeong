@@ -46,7 +46,7 @@
 
         <!-- 랭킹 등수 텍스트 뷰 -->
         <TextView
-            android:id="@+id/result_rank"
+            android:id="@+id/result_high_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
