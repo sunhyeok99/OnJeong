@@ -9,6 +9,7 @@ import com.a503.onjeong.domain.game.activity.GameActivity
 import com.a503.onjeong.domain.news.activity.NewsActivity
 import com.a503.onjeong.domain.videocall.activity.VideoCallActivity
 import com.a503.onjeong.R
+import com.a503.onjeong.domain.mypage.activity.MyPageActivity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.messaging.FirebaseMessaging
 
@@ -48,5 +49,12 @@ class MainActivity : AppCompatActivity() {
                 val token = task.result
                 Log.d("FCM Log", "Current token: $token")
             }
+
+        //마이페이지 접근
+        val mypage : RelativeLayout = findViewById(R.id.btnInfo)
+        mypage.setOnClickListener {
+            val intent = Intent(this, MyPageActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

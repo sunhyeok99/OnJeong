@@ -1,7 +1,7 @@
 package com.a503.onjeong.domain.news.activity
 
 
-import com.a503.onjeong.domain.news.adaptor.NewsAdaptor
+import com.a503.onjeong.domain.news.adapter.NewsAdapter
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -23,7 +23,7 @@ import retrofit2.Response
 
 class NewsActivity : AppCompatActivity() {
     private lateinit var newsListView: ListView
-    private lateinit var adapter: NewsAdaptor
+    private lateinit var adapter: NewsAdapter
     private lateinit var selectedButton: Button
     private lateinit var mainTextView: TextView
     private lateinit var homeButton: Button
@@ -46,7 +46,7 @@ class NewsActivity : AppCompatActivity() {
                 // 성공 시 호출
                 if (response.isSuccessful) {
                     val newsList = response.body() ?: emptyList()
-                    adapter = NewsAdaptor(this@NewsActivity, R.layout.activity_news_list, newsList)
+                    adapter = NewsAdapter(this@NewsActivity, R.layout.activity_news_list, newsList)
                     newsListView.adapter = adapter
                     // 뉴스의 각각 카테고리 버튼을 선언
                     val button1: Button = findViewById(R.id.category1)
