@@ -67,7 +67,7 @@
         app:layout_constraintVertical_bias="1.0">
 
         <Button
-            android:id="@+id/start_finish_call"
+            android:id="@+id/finish_call"
             style="@android:style/Widget.Material.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="5dp"
             android:onClick="buttonPressed"
-            android:text="@string/start_button" />
+            android:text="finish" />
 
         <LinearLayout
             android:id="@+id/linearLayout"

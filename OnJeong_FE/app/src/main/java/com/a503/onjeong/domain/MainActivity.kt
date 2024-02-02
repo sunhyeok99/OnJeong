@@ -11,7 +11,7 @@ import com.a503.onjeong.domain.game.GameActivity
 import com.a503.onjeong.domain.news.activity.NewsActivity
 import com.a503.onjeong.domain.user.api.UserApiService
 import com.a503.onjeong.domain.user.dto.FcmTokenDto
-import com.a503.onjeong.domain.videocall.activity.VideoCallActivity
+import com.a503.onjeong.domain.videocall.activity.GroupSelectActivity
 import com.a503.onjeong.global.network.RetrofitClient
 import com.google.android.gms.tasks.Task
 import com.google.firebase.messaging.FirebaseMessaging
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         // 영상통화 페이지 이동
         val videoCall: RelativeLayout = findViewById(R.id.btnVideoCall)
         videoCall.setOnClickListener {
-            val intent = Intent(this, VideoCallActivity::class.java)
+            val intent = Intent(this, GroupSelectActivity::class.java)
             startActivity(intent)
         }
 
