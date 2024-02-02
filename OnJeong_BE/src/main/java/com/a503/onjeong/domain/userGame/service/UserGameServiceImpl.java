@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,8 +24,22 @@ public class UserGameServiceImpl implements UserGameService {
     // 랭킹 리스트 점수 top10개 반환
     @Override
     @Transactional
-    public List<UserGame> userGameList(Long gameId) {
-        return userGameRepository.findTop10ByGameIdOrderByUserGameScoreDesc(gameId);
+    // gameId에 해당하는 유저들의 score를 불러와서
+    // userGameDto로 전환후 return
+    public List<UserGameDto> userGameList(Long gameId) {
+        System.out.println(gameId+" !!!!!!!!!!!!!!!!!!");
+        List<UserGame> userGameList = userGameRepository.findTop10ByGameIdOrderByUserGameScoreDesc(gameId);
+        List<UserGameDto> userGameDtoList = userGameList.stream()
+                .map(userGame -> UserGameDto.builder()
+                        .id(userGame.getId())
+                        .userId(userGame.getUser().getId())
+                        .userName(userGame.getUser().getName())
+                        .gameId(userGame.getGame().getId())
+                        .userGameScore(userGame.getUserGameScore())
+                        .build())
+                .collect(Collectors.toList());
+
+        return userGameDtoList;
     }
     @Override
     @Transactional
@@ -50,8 +65,16 @@ public class UserGameServiceImpl implements UserGameService {
 
     @Override
     // userId와 gameId에 해당하는 유저 정보 반환
-    public UserGame userGameDetails(Long userId, Long gameId) {
-        return userGameRepository.findByUserIdAndGameId(userId, gameId);
+    public UserGameDto userGameDetails(Long userId, Long gameId) {
+        UserGame userGame = userGameRepository.findByUserIdAndGameId(userId, gameId);
+        UserGameDto userGameDto = UserGameDto.builder()
+                .id(userGame.getId())
+                .userId(userGame.getUser().getId())
+                .userName(userGame.getUser().getName())
+                .gameId(userGame.getGame().getId())
+                .userGameScore(userGame.getUserGameScore())
+                .build();
+        return userGameDto;
     }
 
 

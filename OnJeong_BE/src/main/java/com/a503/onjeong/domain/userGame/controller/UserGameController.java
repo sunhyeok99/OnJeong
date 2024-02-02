@@ -10,11 +10,11 @@ import java.util.List;
 
 @Controller
 public interface UserGameController {
-    public List<UserGame> topScoreList(@RequestParam Long gameId);
+     List<UserGameDto> topScoreList(@RequestParam Long gameId);
 
-    public UserGame scoreSave(@RequestBody UserGameDto userGameDto);
+     UserGameDto scoreSave(@RequestBody UserGameDto userGameDto);
 
-        public UserGame scoreDetails(@RequestParam Long userId, Long gameId);
+     UserGameDto scoreDetails(@RequestParam Long userId, Long gameId);
 
 
     }

@@ -13,6 +13,8 @@ public class UserGameDto {
     @NotNull
     private Long userId;
     @NotNull
+    private String userName;
+    @NotNull
     private Long gameId;
     @NotNull
     private Long userGameScore;
@@ -21,11 +23,13 @@ public class UserGameDto {
     public UserGameDto(
             Long id,
             Long userId,
+            String userName,
             Long gameId,
             Long userGameScore
     ) {
         this.id = id;
         this.userId = userId;
+        this.userName = userName;
         this.gameId = gameId;
         this.userGameScore = userGameScore;
     }

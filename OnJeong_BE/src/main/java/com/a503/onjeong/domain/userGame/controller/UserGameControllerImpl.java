@@ -11,29 +11,40 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/game")
+@RequestMapping("/userGame")
 public class UserGameControllerImpl implements UserGameController {
 
     private final UserGameService userGameService;
     private final UserGameRepository userGameRepository;
+
     @GetMapping("/lists")
     // 해당 게임에 해당하는 유저들의 리스트 반환(userId와 score쓸거임)
-    public List<UserGame> topScoreList(@RequestParam Long gameId) {
+    public List<UserGameDto> topScoreList(@RequestParam Long gameId) {
+        List<UserGameDto> tmp = userGameService.userGameList(gameId);
+        for(int i = 0;i<tmp.size();i++){
+            System.out.println(tmp.get(i).getUserName());
+            System.out.println(tmp.get(i).getGameId());
+        }
         return userGameService.userGameList(gameId);
     }
+
     @PostMapping("/save")
     // 해당 게임정보를 반환해서 있으면 update , 없으면 save 진행
-    public UserGame scoreSave(@RequestBody UserGameDto userGameDto) {
-        UserGame userGame = scoreDetails(userGameDto.getUserId(),userGameDto.getGameId());
-        if(userGame != null){
-            return userGameService.updateScore(userGameDto);
+    public UserGameDto scoreSave(@RequestBody UserGameDto userGameDto) {
+        UserGame userGame = userGameRepository.findByUserIdAndGameId(userGameDto.getUserId() , userGameDto.getGameId());
+        if (userGame != null) {
+            if(userGameDto.getUserGameScore() > userGame.getUserGameScore()){
+            userGameService.updateScore(userGameDto);
+            }
+        } else {
+            userGameService.save(userGameDto);
         }
-        return userGameService.save(userGameDto);
+        return userGameService.userGameDetails(userGameDto.getUserId(), userGameDto.getGameId());
     }
 
     @GetMapping("/details")
     // 해당 유저의 게임 정보를 반환
-    public UserGame scoreDetails(@RequestParam Long userId, Long gameId) {
+    public UserGameDto scoreDetails(@RequestParam Long userId, Long gameId) {
         return userGameService.userGameDetails(userId, gameId);
     }
 
