@@ -13,8 +13,6 @@ import com.a503.onjeong.domain.user.api.UserApiService
 import com.a503.onjeong.domain.user.dto.FcmTokenDto
 import com.a503.onjeong.domain.videocall.activity.GroupSelectActivity
 import com.a503.onjeong.global.network.RetrofitClient
-import com.a503.onjeong.domain.videocall.activity.VideoCallActivity
-import com.a503.onjeong.R
 import com.a503.onjeong.domain.mypage.activity.MyPageActivity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.messaging.FirebaseMessaging
