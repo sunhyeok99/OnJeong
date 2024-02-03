@@ -2,7 +2,7 @@
     <string name="app_name">OnJeong</string>
 
     <!--    <string name="application_server_url">https://demos.openvidu.io/</string>-->
-    <string name="application_server_url">http://172.20.10.7:8080/</string>
+    <string name="application_server_url">http://10.0.2.2:8080/</string>
     <string name="start_button">Join</string>
     <string name="session_name">Session Name</string>
     <string name="default_session_name">SessionA</string>
