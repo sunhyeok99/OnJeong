@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.a503.onjeong.R
 import com.a503.onjeong.domain.game.GameActivity
 import com.a503.onjeong.domain.news.activity.NewsActivity
+import com.a503.onjeong.domain.weather.activity.WeatherActivity
 import com.a503.onjeong.domain.user.api.UserApiService
 import com.a503.onjeong.domain.user.dto.FcmTokenDto
 import com.a503.onjeong.domain.videocall.activity.GroupSelectActivity
@@ -45,6 +46,16 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, GroupSelectActivity::class.java)
             startActivity(intent)
         }
+
+
+        // 날씨 페이지 이동
+        val weather: RelativeLayout = findViewById(R.id.btnWeather)
+        weather.setOnClickListener {
+            val intent = Intent(this, WeatherActivity::class.java)
+            startActivity(intent)
+        }
+
+        //firebase test
 
         getFcmToken()
     }

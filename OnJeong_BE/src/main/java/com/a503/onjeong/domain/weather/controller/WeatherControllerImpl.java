@@ -21,5 +21,6 @@ public class WeatherControllerImpl implements WeatherController {
     @PostMapping("/info")
     public List<WeatherResponseDto> getWeather(@RequestBody WeatherRequestDto requestDto) {
         return weatherService.getWeatherInfo(requestDto);
+
     }
 }
