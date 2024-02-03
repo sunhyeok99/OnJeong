@@ -53,7 +53,6 @@ public class WeatherServiceImpl implements WeatherService {
     private String API_KEY;
 
     public List<WeatherResponseDto> getWeatherInfo(WeatherRequestDto requestDto) {
-        System.out.println(requestDto);
 
         List<WeatherResponseDto> responseDto = new ArrayList<>();
 
@@ -141,7 +140,6 @@ public class WeatherServiceImpl implements WeatherService {
             if (data.getFcstDate().equals(oneDay)) {
                 // 1일 현재 기온
                 if (data.getFcstTime().equals(oneTime) && data.getCategory().equals("TMP")) {
-                    System.out.println("1일: " +Double.valueOf(data.getFcstValue()));
                     oneWeatherResponseDto.setTemperatures(Double.valueOf(data.getFcstValue()));
                 }
 

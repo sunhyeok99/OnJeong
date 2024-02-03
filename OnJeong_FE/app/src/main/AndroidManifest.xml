@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.a503.onjeong"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.a503.onjeong">
     <!-- url 사용을 위해 인터넷 접속 허가 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <!-- 영상통화 permission -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 영상통화 permission -->
     <uses-feature android:name="android.hardware.camera" />
+
+    <!-- 연락처 접근 권한 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -32,6 +33,9 @@
         android:theme="@style/Theme.OnJeong"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".domain.videocall.activity.GroupSelectActivity"
+            android:exported="false" />
         <activity
             android:name=".domain.videocall.activity.VideoCallActivity"
             android:exported="false" />
@@ -77,10 +81,24 @@
             android:name=".domain.weather.activity.WeatherActivity"
             android:exported="true" />
 
+        <activity
+            android:name=".domain.mypage.activity.MyPageActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".domain.mypage.activity.GroupListActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".domain.mypage.activity.GroupCreateActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".domain.mypage.activity.GroupDetailActivity"
+            android:exported="true"/>
+
         <!--firebase -->
         <service
             android:name=".global.firebase.FirebaseMessagingService"
-            android:exported="false">
+            android:exported="false"
+            tools:ignore="Instantiatable">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
