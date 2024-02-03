@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    android:background="#FFFFFF">
+
+    <include layout="@layout/activity_main_bar" />
+    <FrameLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="320dp">
+
+        <View
+            android:id="@+id/ViewColorYellow"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:background="#F6BD4E" />
+
+        <ImageButton
+            android:id="@+id/profileImgBtn"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="120dp"
+            android:layout_gravity="center"
+            android:src="@drawable/profile_img"
+            android:scaleType="fitCenter"
+            />
+
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="최정윤"
+        android:textColor="@color/black"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/newsAlarm"
+        android:layout_width="wrap_content"
+        android:layout_height="23dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="30dp"
+        android:text="뉴스 알림"
+        android:textColor="@color/black" />
+
+    <Button
+        android:id="@+id/groupSettingBtn"
+        android:layout_width="201dp"
+        android:layout_height="36dp"
+        android:layout_margin="20dp"
+        android:background="@color/white"
+        android:layout_gravity="center"
+        android:text="모임 설정"
+        android:textColor="@color/black" />
+    <Button
+        android:id="@+id/phoneBookBtn"
+        android:layout_width="201dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="50dp"
+        android:background="@color/white"
+        android:layout_gravity="center"
+        android:text="연락처 동기화"
+        android:textColor="@color/black" />
+
+    <Button
+        android:id="@+id/logoutBtn"
+        android:layout_width="302dp"
+        android:layout_height="42dp"
+        android:background="#FFC4C4"
+        android:layout_gravity="center"
+        android:text="로그아웃"
+        android:textColor="@color/black"
+        android:textStyle="bold"/>
+
+</LinearLayout>

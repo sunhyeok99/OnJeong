@@ -37,5 +37,8 @@ out/
 .vscode/
 
 ### yml ###
-*.yml
 onjeong-firebase-admin-sdk.json
+docker-compose.yml
+
+### env ###
+.env
