@@ -4,10 +4,13 @@ package com.a503.onjeong.global.firebase
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Intent
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.a503.onjeong.R
+import com.a503.onjeong.domain.videocall.activity.VideoCallActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import java.util.Random
@@ -30,11 +33,17 @@ class FirebaseMessagingService : FirebaseMessagingService() {
             val content = remoteMessage.data["title"]
             Log.d("FCM Log", "Notification Message content: $content")
 
-            showNotification(content)
+            val intent = Intent(this, VideoCallActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            intent.putExtra("sessionId", content)
+            val pendingIntent =
+                PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+            showNotification(content, pendingIntent)
         }
     }
 
-    private fun showNotification(content: String?) {
+    private fun showNotification(content: String?, pendingIntent: PendingIntent) {
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel(notificationManager)
@@ -48,6 +57,7 @@ class FirebaseMessagingService : FirebaseMessagingService() {
                 .setContentTitle("A new post you might be interested in.")
                 .setContentText(content)
                 .setContentInfo("Info")
+                .setContentIntent(pendingIntent)
         notificationManager.notify(Random().nextInt(), notificationBuilder.build())
     }
 
