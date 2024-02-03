@@ -22,6 +22,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -52,6 +53,7 @@ public class WeatherServiceImpl implements WeatherService {
     private String API_KEY;
 
     public List<WeatherResponseDto> getWeatherInfo(WeatherRequestDto requestDto) {
+        System.out.println(requestDto);
 
         List<WeatherResponseDto> responseDto = new ArrayList<>();
 
@@ -69,6 +71,13 @@ public class WeatherServiceImpl implements WeatherService {
         WeatherResponseDto sixWeatherResponseDto = new WeatherResponseDto();
         WeatherResponseDto sevenWeatherResponseDto = new WeatherResponseDto();
 
+        oneWeatherResponseDto.setDate(LocalDate.now());
+        twoWeatherResponseDto.setDate(LocalDate.now());
+        threeWeatherResponseDto.setDate(LocalDate.now());
+        fourWeatherResponseDto.setDate(LocalDate.now());
+        fiveWeatherResponseDto.setDate(LocalDate.now());
+        sixWeatherResponseDto.setDate(LocalDate.now());
+        sevenWeatherResponseDto.setDate(LocalDate.now());
 
         /* 1일~3일 날씨 조회 */
 
@@ -132,6 +141,7 @@ public class WeatherServiceImpl implements WeatherService {
             if (data.getFcstDate().equals(oneDay)) {
                 // 1일 현재 기온
                 if (data.getFcstTime().equals(oneTime) && data.getCategory().equals("TMP")) {
+                    System.out.println("1일: " +Double.valueOf(data.getFcstValue()));
                     oneWeatherResponseDto.setTemperatures(Double.valueOf(data.getFcstValue()));
                 }
 
@@ -229,7 +239,13 @@ public class WeatherServiceImpl implements WeatherService {
         mediumWeatherParam.add("numOfRows", "10");
         mediumWeatherParam.add("dataType", "JSON");
         mediumWeatherParam.add("regId", code);
-        mediumWeatherParam.add("tmFc", oneDay + "0600");
+        if (now.getHour() < 6) {
+            mediumWeatherParam.add("tmFc", now.minusDays(1).format(DateTimeFormatter.ofPattern("yyyyMMdd")) + "1800");
+        }
+        else{
+            mediumWeatherParam.add("tmFc", oneDay + "0600");
+        }
+
 
         TemperaturesDtoWrapper temperaturesDtoWrapper = webClient.get()
                 .uri(uriBuilder ->

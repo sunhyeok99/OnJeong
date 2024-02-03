@@ -9,6 +9,7 @@ import com.a503.onjeong.domain.game.GameActivity
 import com.a503.onjeong.domain.news.activity.NewsActivity
 import com.a503.onjeong.domain.videocall.activity.VideoCallActivity
 import com.a503.onjeong.R
+import com.a503.onjeong.domain.weather.activity.WeatherActivity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.messaging.FirebaseMessaging
 
@@ -35,6 +36,13 @@ class MainActivity : AppCompatActivity() {
         val videoCall: RelativeLayout = findViewById(R.id.btnVideoCall)
         videoCall.setOnClickListener {
             val intent = Intent(this, VideoCallActivity::class.java)
+            startActivity(intent)
+        }
+
+        // 날씨 페이지 이동
+        val weather: RelativeLayout = findViewById(R.id.btnWeather)
+        weather.setOnClickListener {
+            val intent = Intent(this, WeatherActivity::class.java)
             startActivity(intent)
         }
 
