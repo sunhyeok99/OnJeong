@@ -12,7 +12,7 @@ class Game1Description : AppCompatActivity() {
     private lateinit var homeButton: Button
     private lateinit var backButton: Button
     private lateinit var gameStart: Button
-    private lateinit var cancel: Button
+    private lateinit var gameCancel: Button
         private lateinit var mainTextView: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +28,17 @@ class Game1Description : AppCompatActivity() {
         // 뒤로가기 버튼 누르면 뒤로(메인)이동
         backButton = findViewById(R.id.btnBack)
         backButton.setOnClickListener {
+            val intent = Intent(this, Game1Lobby::class.java)
+            startActivity(intent)
+        }
+
+        gameStart = findViewById(R.id.gameStart)
+        gameStart.setOnClickListener {
+            val intent = Intent(this, Game1Activity::class.java)
+            startActivity(intent)
+        }
+        gameCancel = findViewById(R.id.cancel)
+        gameCancel.setOnClickListener {
             val intent = Intent(this, Game1Lobby::class.java)
             startActivity(intent)
         }

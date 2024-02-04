@@ -6,12 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
-<<<<<<< HEAD
 import com.a503.onjeong.domain.game.activity.GameActivity
-=======
 import com.a503.onjeong.R
-import com.a503.onjeong.domain.game.GameActivity
->>>>>>> bae6a2a9b4c6604d69cf6d0ccbdd84e1459a1e31
 import com.a503.onjeong.domain.news.activity.NewsActivity
 import com.a503.onjeong.domain.weather.activity.WeatherActivity
 import com.a503.onjeong.domain.user.api.UserApiService

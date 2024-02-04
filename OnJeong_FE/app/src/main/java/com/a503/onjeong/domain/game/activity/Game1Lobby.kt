@@ -32,5 +32,16 @@ class Game1Lobby : AppCompatActivity() {
             startActivity(intent)
         }
 
+        gameStart = findViewById(R.id.gameStart)
+        gameStart.setOnClickListener {
+            val intent = Intent(this, Game1Activity::class.java)
+            startActivity(intent)
+        }
+        gameDescription = findViewById(R.id.gameDescription)
+        gameDescription.setOnClickListener {
+            val intent = Intent(this, Game1Description::class.java)
+            startActivity(intent)
+        }
+
     }
 }

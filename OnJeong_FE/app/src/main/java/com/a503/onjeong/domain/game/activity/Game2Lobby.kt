@@ -38,6 +38,10 @@ class Game2Lobby : AppCompatActivity() {
             val intent = Intent(this, Game2Activity::class.java)
             startActivity(intent)
         }
-
+        gameDescription = findViewById(R.id.gameDescription)
+        gameDescription.setOnClickListener {
+            val intent = Intent(this, Game2Description::class.java)
+            startActivity(intent)
+        }
     }
 }

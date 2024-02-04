@@ -12,11 +12,11 @@ class Game2Description : AppCompatActivity() {
     private lateinit var homeButton: Button
     private lateinit var backButton: Button
     private lateinit var gameStart: Button
-    private lateinit var cancel: Button
+    private lateinit var gameCancel: Button
         private lateinit var mainTextView: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_game1)
+        setContentView(R.layout.activity_game2_description)
 
         mainTextView = findViewById(R.id.mainText)
         mainTextView.text = "게임 설명"
@@ -32,6 +32,16 @@ class Game2Description : AppCompatActivity() {
             startActivity(intent)
         }
 
+        gameStart = findViewById(R.id.gameStart)
+        gameStart.setOnClickListener {
+            val intent = Intent(this, Game2Activity::class.java)
+            startActivity(intent)
+        }
+        gameCancel = findViewById(R.id.cancel)
+        gameCancel.setOnClickListener {
+            val intent = Intent(this, Game2Lobby::class.java)
+            startActivity(intent)
+        }
 
 
     }

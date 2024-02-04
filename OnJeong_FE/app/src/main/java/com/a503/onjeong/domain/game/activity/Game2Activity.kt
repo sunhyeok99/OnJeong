@@ -32,8 +32,8 @@ class Game2Activity : AppCompatActivity() {
     private lateinit var timeTextView: TextView
     private lateinit var scoreTextView: TextView
     private lateinit var gameMarkTextView: TextView
-    private lateinit var imageViews: List<ImageView>
     private lateinit var countDownTimer: CountDownTimer
+    private lateinit var imageViews: List<ImageView>
 
 
     private val gameImages = listOf(
@@ -45,10 +45,8 @@ class Game2Activity : AppCompatActivity() {
         R.drawable.game_image11
     )
     private var imageNum = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
-
     private lateinit var sharedPreferences: SharedPreferences
     private var userId: Long = 0
-
     private var score : Long = 0
     private var round = 1
 
@@ -66,6 +64,11 @@ class Game2Activity : AppCompatActivity() {
             1 -> {
                 setContentView(R.layout.activity_game2_ready)
                 // 텍스트도 변경
+                exit = findViewById(R.id.end)
+                exit.setOnClickListener {
+                    val intent = Intent(this, Game2Lobby::class.java)
+                    startActivity(intent)
+                }
                 round1 = findViewById(R.id.start)
                 round1.setOnClickListener {
                     setContentView(R.layout.activity_game2_round1)
@@ -77,7 +80,7 @@ class Game2Activity : AppCompatActivity() {
             2 -> {
                 setContentView(R.layout.activity_game2_ready)
                 findViewById<TextView>(R.id.ready_text).text =
-                    "2라운드를 시작하시겠습니까? \n 종료를 누르시면 랭킹에 반영되지 않습니다."
+                    "2라운드를 시작하시겠습니까? \n 그만하기를 원하시면 종료버튼을 눌러주세요"
                 round2 = findViewById(R.id.start)
                 round2.setOnClickListener {
                     setContentView(R.layout.activity_game2_round2)
@@ -141,6 +144,8 @@ class Game2Activity : AppCompatActivity() {
     }
 
     private fun bindImagesToViews(size: Int) {
+        // 총 색이 6가지라 0~5까지만 가능한 숫자로 선언하고
+        // 랜덤으로 3개를 뽑아서 짝을 맞춰야 해서 x2해줌
         val availableIndices = listOf(0, 1, 2, 3, 4, 5)
         var count = 0 // 정답맞춘 블럭 개수
         val randomNum = availableIndices.shuffled().subList(0, size / 2)
@@ -236,8 +241,6 @@ class Game2Activity : AppCompatActivity() {
                 changeLayoutForRound(4)
             }
         }.start()
-
-
     }
 
 
