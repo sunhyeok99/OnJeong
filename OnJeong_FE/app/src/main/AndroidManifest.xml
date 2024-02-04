@@ -3,9 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.a503.onjeong">
     <!-- url 사용을 위해 인터넷 접속 허가 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <!-- 영상통화 permission -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 영상통화 permission -->
     <uses-feature android:name="android.hardware.camera" />
 
     <!-- 연락처 접근 권한 -->
@@ -15,6 +13,11 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!-- 필요에 의해 사용 -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+
     <uses-permission
         android:name="android.permission.POST_NOTIFICATIONS"
         android:minSdkVersion="33" />
@@ -30,6 +33,9 @@
         android:theme="@style/Theme.OnJeong"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".domain.videocall.activity.GroupSelectActivity"
+            android:exported="false" />
         <activity
             android:name=".domain.videocall.activity.VideoCallActivity"
             android:exported="false" />
@@ -47,6 +53,7 @@
         <activity android:name=".domain.login.activity.TelephoneActivity" />
         <activity android:name=".domain.login.activity.StartActivity" />
         <activity android:name=".domain.MainActivity" />
+<<<<<<< HEAD
         <activity android:name=".domain.news.activity.NewsActivity"/>
         <activity android:name=".domain.game.activity.GameActivity"/>
         <activity android:name=".domain.game.activity.Game1Lobby"/>
@@ -57,6 +64,35 @@
         <activity android:name=".domain.game.activity.Game1Activity"/>
         <activity android:name=".domain.game.activity.GameRankActivity"/>
 
+=======
+        <activity
+            android:name=".domain.news.activity.NewsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".domain.game.GameActivity"
+            android:exported="true" />
+        <activity
+            android:name=".domain.game.Game1Lobby"
+            android:exported="true" />
+        <activity
+            android:name=".domain.game.Game2Lobby"
+            android:exported="true" />
+        <activity
+            android:name=".domain.game.Game1Description"
+            android:exported="true" />
+        <activity
+            android:name=".domain.game.Game2Description"
+            android:exported="true" />
+        <activity
+            android:name=".domain.game.Game2Activity"
+            android:exported="true" />
+        <activity
+            android:name=".domain.game.Game1Activity"
+            android:exported="true" />
+        <activity
+            android:name=".domain.weather.activity.WeatherActivity"
+            android:exported="true" />
+>>>>>>> bae6a2a9b4c6604d69cf6d0ccbdd84e1459a1e31
 
         <activity
             android:name=".domain.mypage.activity.MyPageActivity"

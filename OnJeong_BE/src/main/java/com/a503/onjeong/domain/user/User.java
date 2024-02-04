@@ -1,14 +1,20 @@
 package com.a503.onjeong.domain.user;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Getter
+@DynamicUpdate
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
 
@@ -31,29 +37,37 @@ public class User {
     @Column(name = "refresh_token")
     private String refreshToken;
 
+    @Column(name = "fcm_token")
+    private String fcmToken;
+
     @Builder
     public User(
             Long kakaoId,
             String name,
             UserType type
-    ){
+    ) {
         this.kakaoId = kakaoId;
         this.name = name;
         this.type = type;
     }
 
+    // FCM 토큰 세팅
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
+    }
+
     // 리프레시 토큰 세팅
-    public void setRefreshToken(String refreshToken){
+    public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
     }
 
     // 카카오 리프레시 토큰 세팅
-    public void setKakaoRefreshToken(String kakaoRefreshToken){
+    public void setKakaoRefreshToken(String kakaoRefreshToken) {
         this.kakaoRefreshToken = kakaoRefreshToken;
     }
 
     // 핸드폰 번호 세틸
-    public void setPhoneNumber(String phoneNumber){
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 }

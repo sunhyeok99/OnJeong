@@ -1,17 +1,29 @@
 package com.a503.onjeong.domain
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
+<<<<<<< HEAD
 import com.a503.onjeong.domain.game.activity.GameActivity
-import com.a503.onjeong.domain.news.activity.NewsActivity
-import com.a503.onjeong.domain.videocall.activity.VideoCallActivity
+=======
 import com.a503.onjeong.R
+import com.a503.onjeong.domain.game.GameActivity
+>>>>>>> bae6a2a9b4c6604d69cf6d0ccbdd84e1459a1e31
+import com.a503.onjeong.domain.news.activity.NewsActivity
+import com.a503.onjeong.domain.weather.activity.WeatherActivity
+import com.a503.onjeong.domain.user.api.UserApiService
+import com.a503.onjeong.domain.user.dto.FcmTokenDto
+import com.a503.onjeong.domain.videocall.activity.GroupSelectActivity
+import com.a503.onjeong.global.network.RetrofitClient
 import com.a503.onjeong.domain.mypage.activity.MyPageActivity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.messaging.FirebaseMessaging
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class MainActivity : AppCompatActivity() {
@@ -35,19 +47,34 @@ class MainActivity : AppCompatActivity() {
         // 영상통화 페이지 이동
         val videoCall: RelativeLayout = findViewById(R.id.btnVideoCall)
         videoCall.setOnClickListener {
-            val intent = Intent(this, VideoCallActivity::class.java)
+            val intent = Intent(this, GroupSelectActivity::class.java)
+            startActivity(intent)
+        }
+
+
+        // 날씨 페이지 이동
+        val weather: RelativeLayout = findViewById(R.id.btnWeather)
+        weather.setOnClickListener {
+            val intent = Intent(this, WeatherActivity::class.java)
             startActivity(intent)
         }
 
         //firebase test
+
+        getFcmToken()
+    }
+
+    //FCM token 받아오기
+    private fun getFcmToken() {
         FirebaseMessaging.getInstance().token
             .addOnCompleteListener { task: Task<String> ->
                 if (!task.isSuccessful) {
                     Log.w("FCM Log", "Fetching FCM registration token failed", task.exception)
                     return@addOnCompleteListener
                 }
-                val token = task.result
-                Log.d("FCM Log", "Current token: $token")
+                val fcmToken = task.result
+                Log.d("FCM Log", "Current token: $fcmToken")
+                updateFcmToken(fcmToken)
             }
 
         //마이페이지 접근
@@ -56,5 +83,34 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, MyPageActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    //서버에 FCM token 저장
+    private fun updateFcmToken(fcmToken: String) {
+        val userId =
+            getSharedPreferences("mySharedPreferences", Context.MODE_PRIVATE).getLong("userId", 0L)
+        if (userId == 0L) {
+            Log.e("FCM Log", "유저 정보 없음")
+            return
+        }
+
+        val retrofit = RetrofitClient.getApiClient(this)
+
+        val service = retrofit.create(UserApiService::class.java)
+        val call = service.patchFcmToken(FcmTokenDto(userId, fcmToken))
+
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Log.d("FCM Log", "register token success")
+                } else {
+                    Log.e("FCM Log", "register token fail")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("FCM Log", "request register token fail")
+            }
+        })
     }
 }

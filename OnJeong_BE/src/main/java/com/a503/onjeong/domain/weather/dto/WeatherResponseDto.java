@@ -1,6 +1,5 @@
 package com.a503.onjeong.domain.weather.dto;
 
-import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -12,13 +11,13 @@ public class WeatherResponseDto {
     private LocalDate date;
 
     // 현재 기온
-    private double Temperatures;
+    private double temperatures;
 
     // 최저 기온
-    private double TemperaturesLow;
+    private double temperaturesLow;
 
     // 최고 기온
-    private double TemperaturesHigh;
+    private double temperaturesHigh;
 
     // 하늘 상태
     // 맑음(1), 구름많음(3), 흐림(4)

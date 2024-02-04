@@ -1,63 +1,68 @@
 package com.a503.onjeong.domain.videocall.controller;
 
-import io.openvidu.java.client.*;
-import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Value;
+import com.a503.onjeong.domain.videocall.dto.SessionIdRequestDto;
+import com.a503.onjeong.domain.videocall.service.VideoCallService;
+import io.openvidu.java.client.Connection;
+import io.openvidu.java.client.OpenViduHttpException;
+import io.openvidu.java.client.OpenViduJavaClientException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 @RestController
 @RequestMapping("/video-call")
+@RequiredArgsConstructor
 public class VideoCallControllerImpl implements VideoCallController {
-    @Value("${openvidu.url}")
-    private String OPENVIDU_URL;
 
-    @Value("${openvidu.secret}")
-    private String OPENVIDU_SECRET;
+    private final VideoCallService videoCallService;
 
-    private OpenVidu openvidu;
-
-    @PostConstruct
-    public void init() {
-        this.openvidu = new OpenVidu(OPENVIDU_URL, OPENVIDU_SECRET);
-    }
-
-    /**
-     * @param params The Session properties
-     * @return The Session ID
-     */
+//    @Value("${openvidu.url}")
+//    private String OPENVIDU_URL;
+//
+//    @Value("${openvidu.secret}")
+//    private String OPENVIDU_SECRET;
+//
+//    private OpenVidu openvidu;
+//
+//    @PostConstruct
+//    public void init() {
+//        this.openvidu = new OpenVidu(OPENVIDU_URL, OPENVIDU_SECRET);
+//    }
 
     @Override
     @PostMapping("/sessions")
-    public ResponseEntity<String> initializeSession(@RequestBody(required = false) Map<String, Object> params)
+    public ResponseEntity<String> initializeSession(@RequestBody SessionIdRequestDto sessionIdRequestDto)
             throws OpenViduJavaClientException, OpenViduHttpException {
-        SessionProperties properties = SessionProperties.fromJson(params).build();
-        Session session = openvidu.createSession(properties);
-
-        return new ResponseEntity<>(session.getSessionId(), HttpStatus.OK);
+        String sessionId = videoCallService.initializeSession(sessionIdRequestDto);
+        System.out.println("session id is " + sessionId);
+        return new ResponseEntity<>(sessionId, HttpStatus.OK);
     }
 
-    /**
-     * @param sessionId The Session in which to create the Connection
-     * @param params    The Connection properties
-     * @return The Token associated to the Connection
-     */
-
+    //    @Override
+//    @PostMapping("/sessions/{sessionId}")
+//    public ResponseEntity<String> createConnection(@PathVariable("sessionId") String sessionId,
+//                                                   @RequestBody(required = false) Map<String, Object> params)
+//            throws OpenViduJavaClientException, OpenViduHttpException {
+//        Session session = openvidu.getActiveSession(sessionId);
+//        if (session == null) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        ConnectionProperties properties = ConnectionProperties.fromJson(params).build();
+//        Connection connection = session.createConnection(properties);
+//
+//        return new ResponseEntity<>(connection.getToken(), HttpStatus.OK);
+//    }
     @Override
-    @PostMapping("/sessions/{sessionId}/connections")
-    public ResponseEntity<String> createConnection(@PathVariable("sessionId") String sessionId,
-                                                   @RequestBody(required = false) Map<String, Object> params)
-            throws OpenViduJavaClientException, OpenViduHttpException {
-        Session session = openvidu.getActiveSession(sessionId);
-        if (session == null) {
+    @GetMapping("sessions/{sessionId}")
+    public ResponseEntity<String> createConnection(@PathVariable("sessionId") String sessionId) throws OpenViduJavaClientException, OpenViduHttpException {
+
+        System.out.println("received session is " + sessionId);
+        Connection connection = videoCallService.createConnection(sessionId);
+        System.out.println("connection is " + connection);
+        if (connection == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        ConnectionProperties properties = ConnectionProperties.fromJson(params).build();
-        Connection connection = session.createConnection(properties);
-
         return new ResponseEntity<>(connection.getToken(), HttpStatus.OK);
     }
 }

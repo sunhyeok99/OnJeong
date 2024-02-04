@@ -8,11 +8,11 @@ import android.widget.Toast;
 
 import com.a503.onjeong.domain.videocall.activity.VideoCallActivity;
 import com.a503.onjeong.domain.videocall.constants.JsonConstants;
-import com.a503.onjeong.domain.videocall.observers.CustomSdpObserver;
 import com.a503.onjeong.domain.videocall.openvidu.LocalParticipant;
 import com.a503.onjeong.domain.videocall.openvidu.Participant;
 import com.a503.onjeong.domain.videocall.openvidu.RemoteParticipant;
 import com.a503.onjeong.domain.videocall.openvidu.Session;
+import com.a503.onjeong.domain.videocall.observers.CustomSdpObserver;
 import com.neovisionaries.ws.client.ThreadType;
 import com.neovisionaries.ws.client.WebSocket;
 import com.neovisionaries.ws.client.WebSocketException;
