@@ -175,7 +175,7 @@ class Game2Activity : AppCompatActivity() {
                 // 이미지를 클릭하면 첫번째 선택은 일단 리스트 추가
                 // 두번째 선택때 두개가 일치하면 점수 증가하고
                 // 두개의 색 그대로 , 틀리면 둘다 흰색 + 점수 감점
-                Handler(Looper.getMainLooper()).postDelayed({}, 300)
+                Handler(Looper.getMainLooper()).postDelayed({}, 100)
 
                 if (imageViews[i].drawable.constantState != ContextCompat.getDrawable(
                         this,

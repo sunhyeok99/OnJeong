@@ -57,7 +57,7 @@
         android:rowCount="7"
         android:layout_gravity="center">
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block1"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -65,7 +65,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block2"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -73,7 +73,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block3"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -81,7 +81,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block4"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -89,7 +89,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block5"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -97,7 +97,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block6"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -105,7 +105,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block7"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -113,7 +113,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block8"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -121,7 +121,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block9"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -129,7 +129,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block10"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -137,7 +137,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block11"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -145,7 +145,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block12"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -153,7 +153,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block13"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -161,7 +161,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block14"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -169,7 +169,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block15"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -177,7 +177,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block16"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -185,7 +185,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block17"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -193,7 +193,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block18"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -201,7 +201,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block19"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -209,7 +209,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block20"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -217,7 +217,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block21"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -225,7 +225,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block22"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -233,7 +233,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block23"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -241,7 +241,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block24"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -249,7 +249,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block25"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -257,7 +257,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block26"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -265,7 +265,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block27"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -273,7 +273,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block28"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -281,7 +281,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block29"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -289,7 +289,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block30"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -297,7 +297,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block31"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -305,7 +305,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block32"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -313,7 +313,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block33"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -321,7 +321,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block34"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -329,7 +329,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block35"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -337,7 +337,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block36"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -345,7 +345,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block37"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -353,7 +353,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block38"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -361,7 +361,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block39"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -369,7 +369,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block40"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -377,7 +377,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block41"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -385,7 +385,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block42"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -393,7 +393,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block43"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -401,7 +401,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block44"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -409,7 +409,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block45"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -417,7 +417,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block46"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -425,7 +425,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block47"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -433,7 +433,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block48"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -441,7 +441,7 @@
             android:layout_rowWeight="1"
              />
 
-        <Button
+        <ImageView
             android:id="@+id/game1_block49"
             android:layout_width="0dp"
             android:layout_height="0dp"

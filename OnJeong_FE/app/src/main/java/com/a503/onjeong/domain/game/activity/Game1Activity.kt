@@ -2,14 +2,18 @@ package com.a503.onjeong.domain.game.activity
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
+import android.os.Looper
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.a503.onjeong.domain.MainActivity
 import com.a503.onjeong.R
+import kotlin.concurrent.thread
 
 class Game1Activity : AppCompatActivity() {
     private lateinit var start: Button
@@ -30,7 +34,7 @@ class Game1Activity : AppCompatActivity() {
         R.drawable.game_image9,
         R.drawable.game_image11
     )
-    private var imageNum = (1..49).toMutableList() // 1~49까지
+    private var imageNum = (0..48).toMutableList() // 1~49까지
     private lateinit var sharedPreferences: SharedPreferences
     private var userId: Long = 0
     private var score : Long = 0
@@ -47,7 +51,7 @@ class Game1Activity : AppCompatActivity() {
         start.setOnClickListener {
             setContentView(R.layout.activity_game1_start)
             // 게임하는 창 열리고 이제 게임 시작
-            // 1. 타이머랑 점수창 세팅 (startTimer)
+            // 1. 게임 세팅 + 타이머랑 점수창 세팅 (startTimer)
             // 2. 게임 진행
             //  - 블럭 세팅 - 블럭체크 - 움직임따라 블럭 움직임 - 블럭 체크 후 터트림(x면 원상복귀)
             // 3. 백으로 점수를 보내는 메서드 (sendScore)
@@ -89,11 +93,84 @@ class Game1Activity : AppCompatActivity() {
             (imageViews as MutableList<ImageView>).add(imageView)
         }
 
-        // 총 색이 6가지라 0~5까지만 가능한 숫자로 선언하고
-        // 랜덤으로 3개를 뽑아서 짝을 맞춰야 해서 x2해줌
-        val availableIndices = listOf(0, 1, 2, 3, 4, 5)
-        val randomNum = availableIndices.shuffled().subList(0, size)
-        println(randomNum)
+//        val availableIndices = listOf(0, 1, 2, 3, 4, 5)
+//        // 한개의 숫자를 랜덤으로 뽑은걸 49개 연결함
+//        val randomNum = (1..49).flatMap {
+//            availableIndices.shuffled().subList(0, availableIndices.size)
+//        }
+//        println(randomNum)
+//        // 49개 숫자를 랜덤으로 뽑았으니
+//        // imageViews와 연결
+//        for (i in imageViews.indices) {
+//            imageViews[i].setImageResource(gameImages[randomNum[i]])
+//        }
+        setRandomColors()
+        blockCheck()
+        // 이제 세팅 완료했으니 시작
+        startTimer(100000)
+        // 타이머 시작
+        score = 0
+        scoreTextView.text = "$score 점"
 
+    }
+    private fun setRandomColors() {
+        for ((index, imageView) in imageViews.withIndex()) {
+            val randomImage = gameImages.random()
+            imageNum[index] = randomImage
+            imageView.setImageResource(randomImage)
+        }
+    }
+    private fun blockCheck() {
+        // 가로로 3개 이상인 블록 찾아서 색을 바꿈
+        for (i in 0 until 7) {
+            for (j in 0 until 5) {
+                for (k in 3..7) {
+                    if(j+k > 7) { continue }
+                    val horizontalBlocks = (0 until k).map { i * 7 + j + it }
+                    if (hasSameColor(horizontalBlocks)) {
+                        changeColor(horizontalBlocks)
+                        continue
+                    }
+                }
+            }
+        }
+        // 세로로 3개 이상인 블록 찾아서 색을 바꿈
+        for (i in 0 until 5) {
+            for (j in 0 until 7) {
+                for (k in 3..7) {
+                    if (i + k > 7) { continue }
+                    // 검사한 블럭들이 3~7개로 나눠서 배열에 넣고
+                    // 배열을 검사해서 모두 같은 색의 블럭이면
+                    // changeColor메서드 실행
+                    val verticalBlocks = (0 until k).map { (i + it) * 7 + j }
+                    if (hasSameColor(verticalBlocks)) {
+                        changeColor(verticalBlocks)
+                        continue
+                    }
+                }
+            }
+        }
+    }
+
+
+
+    private fun hasSameColor(blocks: List<Int>): Boolean {
+        val firstColor = imageNum[blocks[0]]
+        for (block in blocks) {
+            if (imageNum[block] != firstColor) {
+                return false
+            }
+        }
+        return true
+    }
+
+    private fun changeColor(blocks: List<Int>) {
+        score = score + (blocks.size*10)
+        for (index in blocks.indices) {
+        val randomImage = gameImages.random()
+            imageNum[blocks[index]] = randomImage
+            Handler(Looper.getMainLooper()).postDelayed({imageViews[blocks[index]].setImageResource(randomImage)
+            }, 100)
+        }
     }
 }
