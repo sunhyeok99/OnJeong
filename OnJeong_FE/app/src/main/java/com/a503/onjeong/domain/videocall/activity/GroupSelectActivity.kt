@@ -5,7 +5,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.a503.onjeong.R
 import com.a503.onjeong.databinding.ActivityGroupSelectBinding
+import com.a503.onjeong.domain.mypage.activity.GroupDetailActivity
+import com.a503.onjeong.domain.mypage.adapter.GroupListAdapter
+import com.a503.onjeong.domain.mypage.api.GroupApiService
+import com.a503.onjeong.domain.mypage.dto.GroupDTO
+import com.a503.onjeong.domain.videocall.adapter.GroupSelectAdapter
 import com.a503.onjeong.domain.videocall.api.VideoCallApiService
 import com.a503.onjeong.domain.videocall.dto.SessionIdRequestDto
 import com.a503.onjeong.global.network.RetrofitClient
@@ -17,20 +23,51 @@ import retrofit2.Response
 
 class GroupSelectActivity : AppCompatActivity() {
     private lateinit var binding: ActivityGroupSelectBinding
+    private lateinit var adapter: GroupSelectAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGroupSelectBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 클릭 시 openvidu 에서 세션 아이디 가져오기
-        // 성공하면 activity 넘어가서?
-        // 아니면 여기서 다 부르고 activity 넘어가?
+//        binding.button.setOnClickListener {
+//            getVideoCallToken()
+//        }
+        getGroupList()
+    }
 
-        // VideoCallActivity를 진짜 방에 들어온 사람들끼리 데이터 송수신해주는 용도로만 사용하면 될까?
-        // VideoCallActivity에 sessionId 가지고만 들어갈 수 있도록??~?~?~??~??
+    private fun getGroupList() {
+        val retrofit = RetrofitClient.getApiClient(this)
+        val service = retrofit.create(GroupApiService::class.java)
 
-        binding.button.setOnClickListener {
-            getVideoCallToken()
+        val sharedPreferences = getSharedPreferences("mySharedPreferences", Context.MODE_PRIVATE)
+        val userId = sharedPreferences.getLong("userId", 0L)
+        val res = service.groupList(userId)
+
+        res.enqueue(object : Callback<List<GroupDTO>> {
+            override fun onResponse(
+                call: Call<List<GroupDTO>>,
+                response: Response<List<GroupDTO>>
+            ) {
+                val groupList = response.body() ?: emptyList()
+                println(groupList.size)
+                adapter = GroupSelectAdapter(
+                    this@GroupSelectActivity,
+                    R.layout.activity_group_list_item,
+                    groupList
+                )
+                binding.groupListView.adapter = adapter
+            }
+
+            override fun onFailure(call: Call<List<GroupDTO>>, t: Throwable) {
+
+            }
+        })
+
+        binding.groupListView.setOnItemClickListener { parent, view, position, id ->
+            val selectedGroup = adapter.getItem(position)?.groupId?.toString()
+            val intent = Intent(this, ParticipantSelectActivity::class.java)
+            intent.putExtra("selectedGroup", selectedGroup)
+            startActivity(intent)
         }
     }
 
