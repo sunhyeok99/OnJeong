@@ -7,8 +7,6 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.a503.onjeong.R
 import com.a503.onjeong.databinding.ActivityGroupSelectBinding
-import com.a503.onjeong.domain.mypage.activity.GroupDetailActivity
-import com.a503.onjeong.domain.mypage.adapter.GroupListAdapter
 import com.a503.onjeong.domain.mypage.api.GroupApiService
 import com.a503.onjeong.domain.mypage.dto.GroupDTO
 import com.a503.onjeong.domain.videocall.adapter.GroupSelectAdapter
@@ -64,7 +62,7 @@ class GroupSelectActivity : AppCompatActivity() {
         })
 
         binding.groupListView.setOnItemClickListener { parent, view, position, id ->
-            val selectedGroup = adapter.getItem(position)?.groupId?.toString()
+            val selectedGroup = adapter.getItem(position)?.groupId
             val intent = Intent(this, ParticipantSelectActivity::class.java)
             intent.putExtra("selectedGroup", selectedGroup)
             startActivity(intent)
