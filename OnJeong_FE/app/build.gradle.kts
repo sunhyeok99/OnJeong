@@ -84,6 +84,7 @@ dependencies {
     implementation("com.google.firebase:firebase-messaging:23.4.0")
 
     implementation ("com.google.android.gms:play-services-location:21.0.1")
-
+    // JSoup
+    implementation("org.jsoup:jsoup:1.15.3")
 
 }

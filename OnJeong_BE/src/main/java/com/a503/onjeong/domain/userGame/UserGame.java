@@ -43,6 +43,7 @@ public class UserGame {
         this.game = game;
         this.userGameScore = userGameScore;
     }
+    // 유저의 최고기록을 갱신
     public void setUserGameScore(Long userGameScore){
         this.userGameScore = userGameScore;
     }

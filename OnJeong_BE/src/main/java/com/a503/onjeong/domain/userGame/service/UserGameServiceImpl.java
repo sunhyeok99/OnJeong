@@ -27,7 +27,6 @@ public class UserGameServiceImpl implements UserGameService {
     // gameId에 해당하는 유저들의 score를 불러와서
     // userGameDto로 전환후 return
     public List<UserGameDto> userGameList(Long gameId) {
-        System.out.println(gameId+" !!!!!!!!!!!!!!!!!!");
         List<UserGame> userGameList = userGameRepository.findTop10ByGameIdOrderByUserGameScoreDesc(gameId);
         List<UserGameDto> userGameDtoList = userGameList.stream()
                 .map(userGame -> UserGameDto.builder()

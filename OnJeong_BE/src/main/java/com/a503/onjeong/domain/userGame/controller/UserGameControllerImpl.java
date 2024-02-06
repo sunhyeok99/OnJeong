@@ -20,11 +20,6 @@ public class UserGameControllerImpl implements UserGameController {
     @GetMapping("/lists")
     // 해당 게임에 해당하는 유저들의 리스트 반환(userId와 score쓸거임)
     public List<UserGameDto> topScoreList(@RequestParam Long gameId) {
-        List<UserGameDto> tmp = userGameService.userGameList(gameId);
-        for(int i = 0;i<tmp.size();i++){
-            System.out.println(tmp.get(i).getUserName());
-            System.out.println(tmp.get(i).getGameId());
-        }
         return userGameService.userGameList(gameId);
     }
 

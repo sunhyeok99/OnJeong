@@ -53,6 +53,8 @@ public class NewsServiceImpl implements NewsService {
                             .image(image)
                             .build();
                     // newsList에 news 추가 (총 25개 생성)
+                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    System.out.println(news.getTitle());
                     newsList.add(news); // 리스트와 db에 추가
                     newsRepository.save(news);
                 }
