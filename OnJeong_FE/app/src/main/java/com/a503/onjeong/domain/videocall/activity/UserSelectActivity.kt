@@ -133,10 +133,6 @@ class UserSelectActivity : AppCompatActivity() {
 
                     sendCallRequest(sessionId)
 
-                    val intent = Intent(this@UserSelectActivity, VideoCallActivity::class.java)
-                    intent.putExtra("sessionId", sessionId)
-                    startActivity(intent)
-//                    finish()
                 }
             }
 
@@ -160,8 +156,12 @@ class UserSelectActivity : AppCompatActivity() {
 
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
-//                if (response.isSuccessful) {
-//                }
+                if (response.isSuccessful) {
+                    val intent = Intent(this@UserSelectActivity, VideoCallActivity::class.java)
+                    intent.putExtra("sessionId", sessionId)
+                    startActivity(intent)
+//                    finish()
+                }
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
