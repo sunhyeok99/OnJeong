@@ -84,6 +84,7 @@ dependencies {
     implementation("com.google.firebase:firebase-messaging:23.4.0")
 
     implementation ("com.google.android.gms:play-services-location:21.0.1")
-
+    // youtube
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0")
 
 }
