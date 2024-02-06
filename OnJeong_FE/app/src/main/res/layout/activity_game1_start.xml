@@ -39,11 +39,11 @@
             android:id="@+id/score_text"
             android:layout_width="100dp"
             android:layout_height="80dp"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="30dp"
             android:gravity="center"
             android:text="점수"
             android:textColor="@color/black"
-            android:textSize="35dp"
+            android:textSize="30dp"
             android:textStyle="bold" />
 
     </LinearLayout>

@@ -66,6 +66,7 @@ class GameRankActivity : AppCompatActivity() {
                 }
             }
             getScoreList(userId, tmp)
+            println(tmp)
         }
         mainTextView = findViewById(R.id.mainText)
         mainTextView.text = "순위"
@@ -109,6 +110,34 @@ class GameRankActivity : AppCompatActivity() {
                     for ((index, userGameResponseDto) in scoreList.withIndex()) {
                         if (userGameResponseDto.userId == userId) {
                             myRank = (index + 1).toString()
+                            // 리스트를 제대로 불러왔을 때 내 정보 가져옴
+                            callDetails.enqueue(object : Callback<UserGameResponseDto> {
+                                override fun onResponse(
+                                    call: Call<UserGameResponseDto>,
+                                    response: Response<UserGameResponseDto>
+                                ) { // 성공 시 호출
+                                    if (response.isSuccessful) {
+                                        var userGameInfo = response.body()
+                                        println(userGameInfo)
+                                        if (userGameInfo != null) {
+                                            // 순서대로 1. 내이름  2. 플레이어 최고점수
+                                            findViewById<TextView>(R.id.my_rank_name).text = userGameInfo.userName
+                                            findViewById<TextView>(R.id.my_rank_score).text = userGameInfo.userGameScore.toString()
+                                            findViewById<TextView>(R.id.my_rank_no).text = myRank
+
+                                        }
+                                    } else {
+                                        // 스프링에서 정보 불러오기 실패 시 호출
+                                        findViewById<TextView>(R.id.my_rank_name).text = "점수 없음"
+                                        findViewById<TextView>(R.id.my_rank_score).text = " - "
+                                        findViewById<TextView>(R.id.my_rank_no).text = " - "
+                                    }
+                                }
+                                override fun onFailure(call: Call<UserGameResponseDto>, t: Throwable) {
+                                    TODO("Not yet implemented")
+                                }
+                            })
+
                             break
                         }
                     }
@@ -133,32 +162,32 @@ class GameRankActivity : AppCompatActivity() {
             }
         })
         // 개인정보 불러옴
-        callDetails.enqueue(object : Callback<UserGameResponseDto> {
-            override fun onResponse(
-                call: Call<UserGameResponseDto>,
-                response: Response<UserGameResponseDto>
-            ) { // 성공 시 호출
-                if (response.isSuccessful) {
-                    var userGameInfo = response.body()
-                    println(userGameInfo)
-                    if (userGameInfo != null) {
-                        // 순서대로 1. 내이름  2. 플레이어 최고점수
-                        findViewById<TextView>(R.id.my_rank_name).text = userGameInfo.userName
-                        findViewById<TextView>(R.id.my_rank_score).text = userGameInfo.userGameScore.toString()
-                        findViewById<TextView>(R.id.my_rank_no).text = myRank
-
-                    }
-                } else {
-                    // 스프링에서 정보 불러오기 실패 시 호출
-                    findViewById<TextView>(R.id.my_rank_name).text = "점수 없음"
-                    findViewById<TextView>(R.id.my_rank_score).text = " - "
-                    findViewById<TextView>(R.id.my_rank_no).text = " - "
-                }
-            }
-            override fun onFailure(call: Call<UserGameResponseDto>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-        })
+//        callDetails.enqueue(object : Callback<UserGameResponseDto> {
+//            override fun onResponse(
+//                call: Call<UserGameResponseDto>,
+//                response: Response<UserGameResponseDto>
+//            ) { // 성공 시 호출
+//                if (response.isSuccessful) {
+//                    var userGameInfo = response.body()
+//                    println(userGameInfo)
+//                    if (userGameInfo != null) {
+//                        // 순서대로 1. 내이름  2. 플레이어 최고점수
+//                        findViewById<TextView>(R.id.my_rank_name).text = userGameInfo.userName
+//                        findViewById<TextView>(R.id.my_rank_score).text = userGameInfo.userGameScore.toString()
+//                        findViewById<TextView>(R.id.my_rank_no).text = myRank
+//
+//                    }
+//                } else {
+//                    // 스프링에서 정보 불러오기 실패 시 호출
+//                    findViewById<TextView>(R.id.my_rank_name).text = "점수 없음"
+//                    findViewById<TextView>(R.id.my_rank_score).text = " - "
+//                    findViewById<TextView>(R.id.my_rank_no).text = " - "
+//                }
+//            }
+//            override fun onFailure(call: Call<UserGameResponseDto>, t: Throwable) {
+//                TODO("Not yet implemented")
+//            }
+//        })
 
     }
 }

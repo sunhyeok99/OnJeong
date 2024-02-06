@@ -1,6 +1,5 @@
 package com.a503.onjeong.domain.userGame.dto;
 
-import com.a503.onjeong.domain.userGame.UserGame;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,22 +32,5 @@ public class UserGameDto {
         this.gameId = gameId;
         this.userGameScore = userGameScore;
     }
-//    public UserGame toEntity() {
-//        return UserGame.builder()
-//                .id(id)
-//                .userId(userId)
-//                .gameId(gameId)
-//                .userGameScore(userGameScore)
-//                .build();
-//    }
-//    public UserGameDto toDto(UserGame userGame){
-//        return UserGameDto.builder()
-//                .id(id)
-//                .userId(userId)
-//                .gameId(gameId)
-//                .userGameScore(userGameScore)
-//                .build();
-//    }
-
 
 }

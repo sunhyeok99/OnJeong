@@ -108,7 +108,7 @@ class Game2Activity : AppCompatActivity() {
                 // 랭킹에 등록 과정 ㄱㄱ (통신)
                 setContentView(R.layout.activity_game_result)
                 findViewById<TextView>(R.id.result_score).text = "현재 점수 : $score 점"
-                sendScore(userId, 1, score)
+                sendScore(userId, 2, score)
 
                 exit = findViewById(R.id.game_exit)
                 rank = findViewById(R.id.game_rank)
@@ -260,7 +260,6 @@ class Game2Activity : AppCompatActivity() {
                 response: Response<UserGameResponseDto>
             )  {
                 if (response.isSuccessful) {
-                    println(response)
                     // 성공적으로 서버에 전송된 경우
                     // 추가적인 작업 수행
                     val userGameInfo = response.body()

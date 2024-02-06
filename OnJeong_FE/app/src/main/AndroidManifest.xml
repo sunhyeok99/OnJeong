@@ -60,7 +60,7 @@
         <activity android:name=".domain.game.activity.Game1Description"/>
         <activity android:name=".domain.game.activity.Game2Description"/>
         <activity android:name=".domain.game.activity.Game2Activity"/>
-        <activity android:name=".domain.game.activity.Game1Activity"/>
+        <activity android:name=".domain.game.activity.Game1Activity" />
         <activity android:name=".domain.game.activity.GameRankActivity"/>
 
         <activity

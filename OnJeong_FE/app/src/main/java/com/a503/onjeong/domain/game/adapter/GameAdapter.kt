@@ -1,17 +1,12 @@
 package com.a503.onjeong.domain.game.adapter
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.ImageView
 import android.widget.TextView
-import com.bumptech.glide.Glide
-import com.a503.onjeong.domain.news.dto.News
 import com.a503.onjeong.R
-import com.a503.onjeong.domain.game.dto.UserGameDto
 import com.a503.onjeong.domain.game.dto.UserGameResponseDto
 
 class GameAdapter(context: Context, resource: Int, objects: List<UserGameResponseDto>) :

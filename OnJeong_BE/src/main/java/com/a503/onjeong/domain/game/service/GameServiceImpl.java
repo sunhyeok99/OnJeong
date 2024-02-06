@@ -10,13 +10,4 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class GameServiceImpl implements GameService{
-
-    private final GameRepository gameRepository;
-
-    // 랭킹 리스트 전체 반환
-//    @Override
-//    public List<Game> gameList() {
-//        return gameRepository.findAll();
-//    }
-
 }
