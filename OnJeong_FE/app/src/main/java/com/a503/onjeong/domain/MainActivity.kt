@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.a503.onjeong.R
+import com.a503.onjeong.domain.education.activity.EducationActivity
 import com.a503.onjeong.domain.game.GameActivity
 import com.a503.onjeong.domain.news.activity.NewsActivity
 import com.a503.onjeong.domain.weather.activity.WeatherActivity
@@ -52,6 +53,13 @@ class MainActivity : AppCompatActivity() {
         val weather: RelativeLayout = findViewById(R.id.btnWeather)
         weather.setOnClickListener {
             val intent = Intent(this, WeatherActivity::class.java)
+            startActivity(intent)
+        }
+
+        // 온라인교육 페이지 이동
+        val education: RelativeLayout = findViewById(R.id.btnEdu)
+        education.setOnClickListener {
+            val intent = Intent(this, EducationActivity::class.java)
             startActivity(intent)
         }
 

@@ -94,6 +94,8 @@
             android:name=".domain.mypage.activity.GroupDetailActivity"
             android:exported="true"/>
 
+        <activity android:name=".domain.education.activity.EducationActivity" />
+
         <!--firebase -->
         <service
             android:name=".global.firebase.FirebaseMessagingService"
