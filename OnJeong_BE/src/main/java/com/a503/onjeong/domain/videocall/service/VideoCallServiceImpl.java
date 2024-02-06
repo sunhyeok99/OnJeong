@@ -1,15 +1,21 @@
 package com.a503.onjeong.domain.videocall.service;
 
+import com.a503.onjeong.domain.user.repository.UserRepository;
+import com.a503.onjeong.domain.videocall.dto.CallRequestDto;
 import com.a503.onjeong.domain.videocall.dto.SessionIdRequestDto;
+import com.a503.onjeong.global.firebase.service.FirebaseService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.openvidu.java.client.*;
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class VideoCallServiceImpl implements VideoCallService {
     @Value("${openvidu.url}")
     private String OPENVIDU_URL;
@@ -18,6 +24,10 @@ public class VideoCallServiceImpl implements VideoCallService {
     private String OPENVIDU_SECRET;
 
     private OpenVidu openvidu;
+
+    private final UserRepository userRepository;
+
+    private final FirebaseService firebaseService;
 
     @PostConstruct
     public void init() {
@@ -44,5 +54,13 @@ public class VideoCallServiceImpl implements VideoCallService {
         }
         ConnectionProperties properties = ConnectionProperties.fromJson(null).build();
         return session.createConnection(properties);
+    }
+
+    @Override
+    public void sendAlert(CallRequestDto callRequestDto) {
+        ArrayList<Long> userIdList = callRequestDto.getUserIdList();
+        String sessionId = callRequestDto.getSessionId();
+
+        userRepository.findAllById(userIdList).forEach(user -> firebaseService.sendNotification(user.getFcmToken(), sessionId));
     }
 }
