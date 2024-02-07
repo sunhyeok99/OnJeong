@@ -10,7 +10,7 @@ import com.a503.onjeong.R
 import com.a503.onjeong.domain.game.GameActivity
 import com.a503.onjeong.domain.news.activity.NewsActivity
 import com.a503.onjeong.domain.user.api.UserApiService
-import com.a503.onjeong.domain.user.dto.FcmTokenDto
+import com.a503.onjeong.domain.user.dto.FcmTokenRequestDto
 import com.a503.onjeong.domain.videocall.activity.GroupSelectActivity
 import com.a503.onjeong.global.network.RetrofitClient
 import com.a503.onjeong.domain.mypage.activity.MyPageActivity
@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
         val retrofit = RetrofitClient.getApiClient(this)
 
         val service = retrofit.create(UserApiService::class.java)
-        val call = service.patchFcmToken(FcmTokenDto(userId, fcmToken))
+        val call = service.patchFcmToken(FcmTokenRequestDto(userId, fcmToken))
 
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
