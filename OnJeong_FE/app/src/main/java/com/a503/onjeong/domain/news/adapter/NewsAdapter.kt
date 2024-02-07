@@ -39,7 +39,6 @@ class NewsAdapter(context: Context, resource: Int, objects: List<NewsDto>) :
         Glide.with(context)
             // 이미지 로딩
             .load(imageUrl)
-//            .apply(RequestOptions().placeholder(R.drawable.placeholder_image)) // 이미지를 가져오는 동안 보여줄 placeholder 지정
             .into(image)
 
         return itemView
@@ -47,10 +46,8 @@ class NewsAdapter(context: Context, resource: Int, objects: List<NewsDto>) :
     fun filterNewsByCategory(category: Int) {
         // 선택된 카테고리에 해당하는 뉴스만 필터링
         val filteredNewsList = newsDtoList.filter {
-            println(it.category)
             it.category == category
         }
-
         // 어댑터에 필터링된 뉴스 목록 설정
         clear()
         // 필터링된 5개의 기사를 add
