@@ -12,7 +12,7 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="250dp"
         android:textStyle="bold"
-        android:text="제한시간내에 화면에 표시된 모든 블럭들의 짝을 맞춰주세요. \n 게임을 시작하시겠습니까?"/>
+        android:text="제한시간내에 화면에 보이는 블럭들을 최대한 많이 터트려주세요. \n 게임을 시작하시겠습니까?"/>
 
     <Button
         android:id="@+id/start"

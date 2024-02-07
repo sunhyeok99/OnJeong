@@ -17,9 +17,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="20dp"
+            android:textSize="19dp"
             android:textStyle="bold"
-            android:text="게임을 시작하면 맨처음 모든 블럭들의 색을 보여줍니다. \n제한시간 1분동안 모든 블럭들의 색을 맞추시면 다음 라운드로 갈 수 있습니다. \n 3라운드까지 플레이 할 수 있으며 블럭을 잘못 뒤집으면 점수가 감점됩니다. 추가적으로 라운드를 완료하게 되면 남은 시간만큼 점수가 플러스 됩니다 \n 준비가 완료되었으면 게임시작 버튼을 눌러 게임을 시작해주세요"/>
+            android:text="게임을 시작하면 7 X 7로 블럭들이 생성됩니다 \n 임의의 블럭 2개의 위치를 바꿔 같은 색이 블럭이 가로 또는 세로에 3개이상 존재하게 되면 새로운 블럭으로 바뀌게 되고 점수를 얻게 됩니다. \n 제한시간 100초 동안 최대한 많은 블럭을 터트려 최고 점수를 획득해 보세요 \n 준비가 완료되었으면 게임시작 버튼을 눌러 게임을 시작해주세요"/>
 
         <LinearLayout
             android:layout_width="match_parent"

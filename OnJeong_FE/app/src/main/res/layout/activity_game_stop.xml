@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:layout_height="250dp"
+    android:background="@color/orange">
+
+    <LinearLayout
+        android:layout_width="500dp"
+        android:layout_height="250dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/result_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="게임을 이어서 하시겠습니까?"
+            android:textColor="#000000"
+            android:textSize="28sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="70dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- 나가기 버튼 -->
+            <Button
+                android:id="@+id/gameExit"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="80dp"
+                android:layout_weight="1"
+                android:text="나가기" />
+
+            <!-- 랭킹보기 버튼 -->
+            <Button
+                android:id="@+id/gameResume"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="80dp"
+                android:layout_weight="1"
+                android:text="이어하기" />
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

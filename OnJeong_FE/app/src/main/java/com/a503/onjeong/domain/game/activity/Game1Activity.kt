@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -33,10 +34,15 @@ class Game1Activity : AppCompatActivity() {
     private lateinit var timeTextView: TextView
     private lateinit var scoreTextView: TextView
     private lateinit var gameMarkTextView: TextView
+    private var isTimerRunning = false
     private lateinit var countDownTimer: CountDownTimer
     private lateinit var imageViews: List<ImageView>
     private var selectedIndex = -1
 
+    private lateinit var frameLayout: FrameLayout
+    private lateinit var pauseButton: Button
+    private lateinit var resumeButton: Button
+    private lateinit var exitButton: Button
     private val gameImages = listOf(
         R.drawable.game_image1,
         R.drawable.game_image3,
@@ -46,13 +52,13 @@ class Game1Activity : AppCompatActivity() {
         R.drawable.game_image11
     )
     private var imageNum = (0..48).toMutableList()
-    private lateinit var sharedPreferences: SharedPreferences    
+    private lateinit var sharedPreferences: SharedPreferences
     private var userId: Long = 0
     private var score: Long = 0
+    private var remainTime : Int =0
 
     // 각 ImageView의 좌표 범위를 저장할 리스트
     private val imageViewCoordinates = mutableListOf<RectF>()
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,6 +78,24 @@ class Game1Activity : AppCompatActivity() {
         start.setOnClickListener {
             setContentView(R.layout.activity_game1_start)
             initializeViews(49)
+            // 정지 , 재게 , 종료버튼 선언 및 초기화
+            pauseButton = findViewById(R.id.pauseButton)
+            frameLayout = findViewById(R.id.frameLayout)
+
+            resumeButton = findViewById(R.id.gameResume)
+            exitButton = findViewById(R.id.gameExit)
+            pauseButton.setOnClickListener {
+                pauseTimer()
+                frameLayout.visibility = View.VISIBLE
+            }
+            resumeButton.setOnClickListener {
+                resumeTimer()
+                frameLayout.visibility = View.GONE
+            }
+            exitButton.setOnClickListener {
+                var intent = Intent(this , Game1Lobby::class.java)
+                startActivity(intent)
+            }
         }
     }
 
@@ -80,13 +104,14 @@ class Game1Activity : AppCompatActivity() {
             override fun onTick(millisUntilFinished: Long) {
                 val secondsLeft = millisUntilFinished / 1000
                 timeTextView.text = "$secondsLeft 초"
+                remainTime = millisUntilFinished.toInt()
             }
-
             override fun onFinish() {
                 timeTextView.text = "끝"
-               endGame()
+                endGame()
             }
         }.start()
+        isTimerRunning = true
     }
 
     private fun initializeViews(size: Int) {
@@ -224,21 +249,21 @@ class Game1Activity : AppCompatActivity() {
                     selectedIndex = index
                     // 클릭된 이미지뷰의 주변 이미지뷰를 
                     // aroundImageView에 넣음
-                    
-                    var tmp = index-1
-                    if(tmp>=0 && index % 7 != 0){
+
+                    var tmp = index - 1
+                    if (tmp >= 0 && index % 7 != 0) {
                         addAroundView(tmp)
                     }
-                    tmp = index+1
-                    if(tmp<=48 && tmp % 7 !=0) {
+                    tmp = index + 1
+                    if (tmp <= 48 && tmp % 7 != 0) {
                         addAroundView(tmp)
                     }
-                    tmp = index-7
-                    if(tmp>=0) {
+                    tmp = index - 7
+                    if (tmp >= 0) {
                         addAroundView(tmp)
                     }
-                    tmp = index+7
-                    if(tmp<=48) {
+                    tmp = index + 7
+                    if (tmp <= 48) {
                         addAroundView(tmp)
                     }
                     return true
@@ -269,11 +294,13 @@ class Game1Activity : AppCompatActivity() {
             }
             return false
         }
-        private fun addAroundView(index : Int) {
+
+        private fun addAroundView(index: Int) {
             println(index)
             aroundImageViewIndex.add(index)
             aroundImageView.add(imageViewCoordinates.get(index))
         }
+
         // 선택된 좌표와 가장 가까운 이미지뷰의 인덱스 찾기
         private fun findClosestImageView(x: Float, y: Float): Int {
             var closestDistance = Float.MAX_VALUE
@@ -310,15 +337,15 @@ class Game1Activity : AppCompatActivity() {
             override fun onResponse(
                 call: Call<UserGameResponseDto>,
                 response: Response<UserGameResponseDto>
-            )  {
+            ) {
                 if (response.isSuccessful) {
                     // 성공적으로 서버에 전송된 경우
                     // 추가적인 작업 수행
                     val userGameInfo = response.body()
                     if (userGameInfo != null) {
                         // 순서대로 1. 내점수  2. 플레이어 이름  3. 플레이어 최고점수
-                        var tmpName : String = userGameInfo.userName
-                        var tmpScore : String = userGameInfo.userGameScore.toString()
+                        var tmpName: String = userGameInfo.userName
+                        var tmpScore: String = userGameInfo.userGameScore.toString()
                         findViewById<TextView>(R.id.result_name).text = "유저 이름 : $tmpName "
                         findViewById<TextView>(R.id.result_high_score).text = "최고 점수 : $tmpScore 점"
 
@@ -328,6 +355,7 @@ class Game1Activity : AppCompatActivity() {
                     Log.d("실패", "실패 : ${response.code()} ${response.message()}")
                 }
             }
+
             override fun onFailure(call: Call<UserGameResponseDto>, t: Throwable) {
                 TODO("Not yet implemented")
             }
@@ -335,6 +363,7 @@ class Game1Activity : AppCompatActivity() {
 
         })
     }
+
     private fun endGame() {
         setContentView(R.layout.activity_game_result)
         findViewById<TextView>(R.id.result_score).text = "현재 점수 : $score 점"
@@ -349,6 +378,18 @@ class Game1Activity : AppCompatActivity() {
         rank.setOnClickListener {
             val intent = Intent(this, GameRankActivity::class.java)
             startActivity(intent)
+        }
+    }
+    private fun pauseTimer() {
+        if (isTimerRunning) {
+            countDownTimer.cancel()
+            isTimerRunning = false
+//            remainTime = (countDownTimer.timeRemaining / 1000)
+        }
+    }
+    private fun resumeTimer() {
+        if (!isTimerRunning) {
+            startTimer(remainTime) // 남은 시간을 받아와서 타이머 다시 시작
         }
     }
 }
