@@ -8,31 +8,63 @@ import android.os.Bundle
 import android.provider.ContactsContract
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageButton
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.a503.onjeong.R
 import com.a503.onjeong.domain.MainActivity
 import com.a503.onjeong.domain.mypage.api.PhonebookApiService
+import com.a503.onjeong.domain.mypage.api.ProfileApiService
 import com.a503.onjeong.domain.mypage.dto.PhonebookAllDTO
+import com.a503.onjeong.domain.mypage.dto.UserDTO
 import com.a503.onjeong.global.network.RetrofitClient
-
+import com.bumptech.glide.Glide
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class MyPageActivity : AppCompatActivity() {
     private lateinit var homeButton: Button
     private lateinit var backButton: Button
-    // NetRetrofit을 생성
-    val retrofit = RetrofitClient.getApiClient(this)
-    // NetRetrofit의 service를 통해 호출
-    val service = retrofit.create(PhonebookApiService::class.java)
+    private lateinit var profileImgBtn: ImageButton
 
+    val retrofit = RetrofitClient.getApiClient(this)
+    val phonebookApiService = retrofit.create(PhonebookApiService::class.java)
+    val profileApiService = retrofit.create(ProfileApiService::class.java)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mypage)
 
+        val sharedPreferences = getSharedPreferences("mySharedPreferences", Context.MODE_PRIVATE)
+        val userId = sharedPreferences.getLong("userId", 0L)
+
+
+        val call = profileApiService.getUserInfo(userId);
+        if (call != null) {
+            call.enqueue(object : Callback<UserDTO?> {
+                override fun onResponse(call: Call<UserDTO?>, response: Response<UserDTO?>) {
+                    var userDTO: UserDTO? = response.body();
+                    var name: TextView = findViewById(R.id.name)
+                    if (userDTO != null) {
+                        name.text = userDTO.name
+                    }
+                    var profileImgBtn: ImageButton = findViewById(R.id.profileImgBtn)
+                    // Glide로 이미지 표시하기
+                    val imageUrl =
+                        userDTO?.profileUrl
+                    Glide.with(this@MyPageActivity).load(imageUrl).into(profileImgBtn)
+
+
+                }
+
+                override fun onFailure(call: Call<UserDTO?>, t: Throwable) {
+                    Log.d("왜실패????", "$t")
+                }
+            })
+        }
         val groupSettingBtn: Button = findViewById(R.id.groupSettingBtn)
         groupSettingBtn.setOnClickListener {
             val intent = Intent(this@MyPageActivity, GroupListActivity::class.java)
@@ -59,6 +91,13 @@ class MyPageActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        //프로필사진 클릭시 갤러리 접근
+        //삭제 수정 나와야하나
+        profileImgBtn = findViewById(R.id.profileImgBtn)
+        profileImgBtn.setOnClickListener {
+            val intent = Intent(this, ProfileSettingActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     // 권한을 확인하고 연락처를 가져오는 함수
@@ -68,6 +107,7 @@ class MyPageActivity : AppCompatActivity() {
             ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS)
         Log.d("status", "$status")
         if (status == PackageManager.PERMISSION_GRANTED) {
+
             // 권한이 이미 허용되어 있을 때의 처리
             // 연락처를 가져와서 서버에 전송하는 함수 호출
             sendPhonebook()
@@ -130,32 +170,37 @@ class MyPageActivity : AppCompatActivity() {
         phonebookAllDTO.phonebook = phonebook;
         phonebookAllDTO.userId = userId;
         //객체 보내기
-        val call = service.phonebookSave(phonebookAllDTO)
+        val call = phonebookApiService.phonebookSave(phonebookAllDTO)
         if (call != null) {
             call.enqueue(object : Callback<Void?> {
                 override fun onResponse(call: Call<Void?>, response: Response<Void?>) {
                 }
+
                 override fun onFailure(call: Call<Void?>, t: Throwable) {
                 }
             })
         }
     }
 
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        // 요청 코드가 올바른지 확인하고, 권한 요청 결과를 처리
-        if (requestCode == 100 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            // 사용자가 권한을 부여한 경우
-            Log.d("test", "permission granted")
-            // 연락처를 가져와서 서버에 전송하는 함수 호출
-        } else {
-            // 사용자가 권한을 거부한 경우
-            Log.d("test", "permission denied")
-            // 권한을 거부한 상황에 대한 처리를 추가
+        super.onRequestPermissionsResult(requestCode, permissions!!, grantResults)
+        when (requestCode) {
+            100 -> {
+                if (requestCode == 100 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // 사용자가 권한을 부여한 경우
+                    Log.d("test", "permission granted")
+                    // 연락처를 가져와서 서버에 전송하는 함수 호출
+                } else {
+                    // 사용자가 권한을 거부한 경우
+                    Log.d("test", "permission denied")
+                    // 권한을 거부한 상황에 대한 처리를 추가
+                }
+            }
         }
     }
 

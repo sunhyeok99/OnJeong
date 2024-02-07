@@ -40,7 +40,9 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
 }
+
 
 dependencies {
 
@@ -84,6 +86,7 @@ dependencies {
     implementation("com.google.firebase:firebase-messaging:23.4.0")
 
     implementation ("com.google.android.gms:play-services-location:21.0.1")
-
-
+    //이미지 url을 보여주기
+    implementation ("com.github.bumptech.glide:glide:4.9.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.9.0")
 }
