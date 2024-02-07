@@ -103,9 +103,8 @@ class Game2Activity : AppCompatActivity() {
 
             else -> {
                 // 3라운드까지 끝나고 모두 완료했을 경우
-                // 이제 랭킹등록 가자
                 // 그 페이지로 이동할건지 게임메인창으로 나갈건지 선택
-                // 랭킹에 등록 과정 ㄱㄱ (통신)
+                // + 랭킹에 등록 과정
                 setContentView(R.layout.activity_game_result)
                 findViewById<TextView>(R.id.result_score).text = "현재 점수 : $score 점"
                 sendScore(userId, 2, score)

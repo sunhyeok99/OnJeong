@@ -14,7 +14,7 @@
         android:layout_marginLeft="100dp"
         android:layout_marginTop="80dp"
         android:background="@color/orange"
-        android:text="애니팡"
+        android:text="퍼즐 게임"
         android:textSize="27dp"
         android:textColor="@color/black"/>
 
@@ -25,7 +25,7 @@
         android:layout_marginLeft="100dp"
         android:layout_marginTop="70dp"
         android:background="@color/orange"
-        android:text="기억력 게임"
+        android:text="짝 맞추기"
         android:textColor="@color/black"
         android:textSize="27dp"/>
     <Button

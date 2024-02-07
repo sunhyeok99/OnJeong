@@ -21,7 +21,7 @@ class Game2Lobby : AppCompatActivity() {
 
 
         mainTextView = findViewById(R.id.mainText)
-        mainTextView.text = "게임-같은 그림 찾기"
+        mainTextView.text = "게임-짝 맞추기"
         homeButton = findViewById(R.id.btnHome)
         homeButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)

@@ -23,7 +23,7 @@ public class UserGameControllerImpl implements UserGameController {
         return userGameService.userGameList(gameId);
     }
 
-    @PostMapping("/save")
+    @PostMapping
     // 해당 게임정보를 반환해서 있으면 update , 없으면 save 진행
     public UserGameDto scoreSave(@RequestBody UserGameDto userGameDto) {
         UserGame userGame = userGameRepository.findByUserIdAndGameId(userGameDto.getUserId() , userGameDto.getGameId());

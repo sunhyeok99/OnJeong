@@ -19,7 +19,7 @@ class Game1Lobby : AppCompatActivity() {
         setContentView(R.layout.activity_game1)
 
         mainTextView = findViewById(R.id.mainText)
-        mainTextView.text = "게임-애니팡"
+        mainTextView.text = "게임-팡게임"
         homeButton = findViewById(R.id.btnHome)
         homeButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)

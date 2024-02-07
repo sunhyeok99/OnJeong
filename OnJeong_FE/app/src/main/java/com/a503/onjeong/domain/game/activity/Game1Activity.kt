@@ -13,9 +13,12 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
+import android.widget.GridLayout
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.a503.onjeong.R
 import com.a503.onjeong.domain.game.activity.Game1Lobby
 import com.a503.onjeong.domain.game.api.GameApiService
@@ -40,6 +43,7 @@ class Game1Activity : AppCompatActivity() {
     private var selectedIndex = -1
 
     private lateinit var frameLayout: FrameLayout
+    private lateinit var gridLayout: GridLayout
     private lateinit var pauseButton: Button
     private lateinit var resumeButton: Button
     private lateinit var exitButton: Button
@@ -81,16 +85,23 @@ class Game1Activity : AppCompatActivity() {
             // 정지 , 재게 , 종료버튼 선언 및 초기화
             pauseButton = findViewById(R.id.pauseButton)
             frameLayout = findViewById(R.id.frameLayout)
+            gridLayout = findViewById(R.id.gridLayout)
 
             resumeButton = findViewById(R.id.gameResume)
             exitButton = findViewById(R.id.gameExit)
             pauseButton.setOnClickListener {
                 pauseTimer()
-                frameLayout.visibility = View.VISIBLE
+                val layoutHeight = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 600)
+                frameLayout.layoutParams = layoutHeight
+                setColorsOrange()
+                gridLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.orange))
             }
             resumeButton.setOnClickListener {
                 resumeTimer()
-                frameLayout.visibility = View.GONE
+                val layoutHeight = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0)
+                frameLayout.layoutParams = layoutHeight
+                gridLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
+                setColors()
             }
             exitButton.setOnClickListener {
                 var intent = Intent(this , Game1Lobby::class.java)
@@ -151,7 +162,7 @@ class Game1Activity : AppCompatActivity() {
             imageViews[i].setOnTouchListener(MyTouchListener(i))
         }
         setRandomColors()
-        blockCheck()
+        while(blockCheck()){ }
         startTimer(100000)
         score = 0
         scoreTextView.text = "$score 점"
@@ -164,7 +175,16 @@ class Game1Activity : AppCompatActivity() {
             imageView.setImageResource(randomImage)
         }
     }
-
+    private fun setColors() {
+        for ((index, imageView) in imageViews.withIndex()) {
+            imageView.setImageResource(imageNum[index])
+        }
+    }
+    private fun setColorsOrange() {
+        for ((index, imageView) in imageViews.withIndex()) {
+            imageView.setImageResource(gameImages[1])
+        }
+    }
     private fun blockCheck(): Boolean {
         // 가로로 3개 이상인 블록 찾아서 색을 바꿈
         var flag: Boolean = false
@@ -283,6 +303,10 @@ class Game1Activity : AppCompatActivity() {
                                 // 왜 switch 안에 selectedIndex를 넣으면 -1로 초기화될까
                                 switch(tmp, closestIndex)
                             }, 100)
+                        }
+                            // blockCheck 가 false나올때까지 돌음
+                        else{
+                        while(blockCheck()){ }
                         }
                     }
                     selectedIndex = -1

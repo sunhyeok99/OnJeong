@@ -17,7 +17,7 @@ interface GameApiService {
     fun topScoreList(@Query("gameId") gameId: Long): Call<List<UserGameResponseDto>>
 
     @Headers("Content-Type: application/json")
-    @POST("/userGame/save")
+    @POST("/userGame")
     // 점수를 보내서 유저의 최고점수 , 이름까지 가져옴
     fun saveScore(
         @Body userGameDto: UserGameDto

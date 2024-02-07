@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
+            android:layout_marginTop="50dp"
             android:textSize="20dp"
             android:textStyle="bold"
             android:text="게임을 시작하면 맨처음 모든 블럭들의 색을 보여줍니다. \n제한시간 1분동안 모든 블럭들의 색을 맞추시면 다음 라운드로 갈 수 있습니다. \n 3라운드까지 플레이 할 수 있으며 블럭을 잘못 뒤집으면 점수가 감점됩니다. 추가적으로 라운드를 완료하게 되면 남은 시간만큼 점수가 플러스 됩니다 \n 준비가 완료되었으면 게임시작 버튼을 눌러 게임을 시작해주세요"/>
@@ -25,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="30dp">
 
             <Button
                 android:id="@+id/cancel"

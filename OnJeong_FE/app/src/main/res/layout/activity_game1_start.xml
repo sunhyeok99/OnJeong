@@ -22,16 +22,15 @@
             android:layout_weight="1"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"
-            android:text="1라운드"
+            android:text="팡게임"
             android:textColor="@color/white"
             android:textSize="24dp"
             android:textStyle="bold" />
 
         <Button
             android:id="@+id/pauseButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:background="@android:drawable/ic_media_pause"
             android:textColor="@color/white"
             android:padding="16dp"
@@ -66,7 +65,13 @@
             android:textSize="30dp"
             android:textStyle="bold" />
     </LinearLayout>
-
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="visible">
+        <include layout="@layout/activity_game_stop"/>
+    </FrameLayout>
     <GridLayout
         android:id="@+id/gridLayout"
         android:layout_width="match_parent"
@@ -425,12 +430,6 @@
 
 
     </GridLayout>
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
-        <include layout="@layout/activity_game_stop"/>
-    </FrameLayout>
+
 
 </LinearLayout>
