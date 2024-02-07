@@ -8,6 +8,7 @@ import com.a503.onjeong.domain.user.User;
 import com.a503.onjeong.domain.user.repository.UserRepository;
 import com.a503.onjeong.domain.usergroup.UserGroup;
 import com.a503.onjeong.domain.usergroup.repository.UserGroupRepository;
+import com.a503.onjeong.global.util.S3Util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,9 +23,11 @@ import java.util.Optional;
 @Service
 public class PhonebookServiceImpl implements PhonebookService {
 
+    private static final String IMG_PATH = "https://allfriend.s3.ap-northeast-2.amazonaws.com";
     private final UserRepository userRepository;
     private final UserGroupRepository userGroupRepository;
     private final PhonebookRepository phonebookRepository;
+    private final S3Util s3Util;
 
     @Override
     @Transactional
@@ -63,12 +66,15 @@ public class PhonebookServiceImpl implements PhonebookService {
                     isChecked = 1;
                 }
             }
+
+            String profileUrl = s3Util.getFile(userRepository.findById(phonebook.getPhonebookId().getFriendId()).orElseThrow().getProfileUrl());
             PhonebookDTO phonebookDTO = PhonebookDTO.builder()
                     .freindId(phonebook.getPhonebookId().getFriendId())
                     .userId(userId)
                     .phonebookNum(phonebook.getPhonebookNum())
                     .phonebookName(phonebook.getPhonebookName())
                     .isChecked(isChecked)
+                    .profileUrl(IMG_PATH + profileUrl)
                     .build();
             phonebookDTOList.add(phonebookDTO);
         }

@@ -2,7 +2,6 @@ package com.a503.onjeong.domain.phonebook.controller;
 
 import com.a503.onjeong.domain.phonebook.dto.PhonebookAllDTO;
 import com.a503.onjeong.domain.phonebook.dto.PhonebookDTO;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

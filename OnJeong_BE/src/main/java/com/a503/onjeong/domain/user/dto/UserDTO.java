@@ -8,7 +8,7 @@ public class UserDTO {
     private Long userId;
     private String name;
     private String phoneNumber;
-
+    private String profileUrl;
     @Builder
     public UserDTO(
             Long userId,
@@ -18,5 +18,9 @@ public class UserDTO {
         this.userId = userId;
         this.name = name;
         this.phoneNumber = phoneNumber;
+    }
+
+    public void setProfileUrl(String profileUrl) {
+        this.profileUrl = profileUrl;
     }
 }
