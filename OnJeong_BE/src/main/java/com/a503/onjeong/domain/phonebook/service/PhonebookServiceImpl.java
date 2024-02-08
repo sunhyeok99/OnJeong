@@ -57,7 +57,7 @@ public class PhonebookServiceImpl implements PhonebookService {
         List<PhonebookDTO> phonebookDTOList = new ArrayList<>();
 
         if (groupId != null) { //모임 생성 시
-            userList = userGroupRepository.findAllByGroupId(groupId).orElseThrow();
+            userList = userGroupRepository.findAllByGroupId(groupId);
         }
         for (Phonebook phonebook : phonebookList.orElseThrow()) {
             int isChecked = 0;
