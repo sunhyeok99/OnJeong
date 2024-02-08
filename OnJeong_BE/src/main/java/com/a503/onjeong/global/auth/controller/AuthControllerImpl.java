@@ -1,10 +1,11 @@
 package com.a503.onjeong.global.auth.controller;
 
 import com.a503.onjeong.global.auth.dto.KakaoDto;
-import com.a503.onjeong.global.auth.dto.LoginResponseDto;
+import com.a503.onjeong.global.auth.dto.LoginInfoResponseDto;
 import com.a503.onjeong.global.auth.service.AuthService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.UnknownHostException;
@@ -28,8 +29,8 @@ public class AuthControllerImpl implements AuthController {
 
     /* 자동 로그인 */
     @GetMapping("/login")
-    public Long login(@RequestHeader(value = "Kakao-Access-Token") String kakaoAccessToken,
-                      @RequestParam Long userId, HttpServletResponse response) throws UnknownHostException, IllegalAccessException {
+    public ResponseEntity<LoginInfoResponseDto> login(@RequestHeader(value = "Kakao-Access-Token") String kakaoAccessToken,
+                                                      @RequestParam Long userId, HttpServletResponse response) throws UnknownHostException, IllegalAccessException {
         return authService.login(kakaoAccessToken, userId, response);
     }
 
