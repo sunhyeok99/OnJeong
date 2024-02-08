@@ -4,9 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.a503.onjeong.R
 import com.a503.onjeong.domain.MainActivity
 import com.a503.onjeong.domain.login.api.LoginApiService
-import com.a503.onjeong.R
+import com.a503.onjeong.domain.login.dto.LoginInfoResponseDto
 import com.a503.onjeong.global.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -36,15 +37,24 @@ class AutoLoginActivity : AppCompatActivity() {
         val loginApiService = retrofit.create(LoginApiService::class.java)
 
         // 처음 회원 가입
-        if (kakaoAccessToken != "none"){
+        if (kakaoAccessToken != "none") {
             val call = loginApiService.login(
                 kakaoAccessToken, userId
             )
             println(kakaoAccessToken)
-            call.enqueue(object : Callback<Long> {
-                override fun onResponse(call: Call<Long>, response: Response<Long>) {
+            call.enqueue(object : Callback<LoginInfoResponseDto> {
+                override fun onResponse(
+                    call: Call<LoginInfoResponseDto>,
+                    response: Response<LoginInfoResponseDto>
+                ) {
                     if (response.isSuccessful) {
-                        val userId: Long? = response.body()
+
+                        val loginInfoResponseDto = response.body()
+
+                        val userId: Long? = loginInfoResponseDto?.id
+                        val name: String? = loginInfoResponseDto?.name
+                        val type: String? = loginInfoResponseDto?.type
+
                         val headers = response.headers()
                         val jwtAccessToken = headers.get("Authorization")
                         val jwtRefreshToken = headers.get("Refresh-Token")
@@ -52,6 +62,8 @@ class AutoLoginActivity : AppCompatActivity() {
 
                         if (userId != null) {
                             editor.putLong("userId", userId)
+                            editor.putString("name", name)
+                            editor.putString("type", type)
                         }
                         editor.putString("jwtAccessToken", jwtAccessToken)
                         editor.putString("jwtRefreshToken", jwtRefreshToken)
@@ -64,7 +76,7 @@ class AutoLoginActivity : AppCompatActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<Long>, t: Throwable) {
+                override fun onFailure(call: Call<LoginInfoResponseDto>, t: Throwable) {
                     // 로그인 페이지로
                     val intent = Intent(this@AutoLoginActivity, LoginActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -72,9 +84,7 @@ class AutoLoginActivity : AppCompatActivity() {
                     finish()
                 }
             })
-        }
-
-        else {
+        } else {
             // 로그인 페이지로
             val intent = Intent(this@AutoLoginActivity, LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
