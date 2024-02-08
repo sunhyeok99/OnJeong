@@ -48,9 +48,6 @@ dependencies {
     // JAVA JWT
     implementation("com.auth0:java-jwt:3.16.0")
 
-    // 크롤링하기 위한 jsoup
-    implementation 'org.jsoup:jsoup:1.15.3' // 크롤링하기위해 jsoup
-
     // Gson 변환기 라이브러리
     implementation 'com.squareup.retrofit2:converter-gson:2.6.4'
 

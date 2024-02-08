@@ -53,30 +53,16 @@
         <activity android:name=".domain.login.activity.TelephoneActivity" />
         <activity android:name=".domain.login.activity.StartActivity" />
         <activity android:name=".domain.MainActivity" />
-        <activity
-            android:name=".domain.news.activity.NewsActivity"
-            android:exported="true" />
-        <activity
-            android:name=".domain.game.GameActivity"
-            android:exported="true" />
-        <activity
-            android:name=".domain.game.Game1Lobby"
-            android:exported="true" />
-        <activity
-            android:name=".domain.game.Game2Lobby"
-            android:exported="true" />
-        <activity
-            android:name=".domain.game.Game1Description"
-            android:exported="true" />
-        <activity
-            android:name=".domain.game.Game2Description"
-            android:exported="true" />
-        <activity
-            android:name=".domain.game.Game2Activity"
-            android:exported="true" />
-        <activity
-            android:name=".domain.game.Game1Activity"
-            android:exported="true" />
+        <activity android:name=".domain.news.activity.NewsActivity"/>
+        <activity android:name=".domain.game.activity.GameActivity"/>
+        <activity android:name=".domain.game.activity.Game1Lobby"/>
+        <activity android:name=".domain.game.activity.Game2Lobby"/>
+        <activity android:name=".domain.game.activity.Game1Description"/>
+        <activity android:name=".domain.game.activity.Game2Description"/>
+        <activity android:name=".domain.game.activity.Game2Activity"/>
+        <activity android:name=".domain.game.activity.Game1Activity" />
+        <activity android:name=".domain.game.activity.GameRankActivity"/>
+
         <activity
             android:name=".domain.weather.activity.WeatherActivity"
             android:exported="true" />

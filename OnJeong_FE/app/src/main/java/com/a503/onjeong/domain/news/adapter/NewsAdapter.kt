@@ -8,15 +8,15 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.a503.onjeong.domain.news.dto.News
+import com.a503.onjeong.domain.news.dto.NewsDto
 import com.a503.onjeong.R
 
-class NewsAdapter(context: Context, resource: Int, objects: List<News>) :
-    ArrayAdapter<News>(context, resource, objects) {
+class NewsAdapter(context: Context, resource: Int, objects: List<NewsDto>) :
+    ArrayAdapter<NewsDto>(context, resource, objects) {
         // 카테고리에 따라 뉴스를 필터링하기 위해
         // adapter로 25개의 기사를 불러온 후에
         // object의 리스트를 newsList에 할당한다.
-    private val newsList: List<News> = objects.toList()
+    private val newsDtoList: List<NewsDto> = objects.toList()
 
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -39,18 +39,15 @@ class NewsAdapter(context: Context, resource: Int, objects: List<News>) :
         Glide.with(context)
             // 이미지 로딩
             .load(imageUrl)
-//            .apply(RequestOptions().placeholder(R.drawable.placeholder_image)) // 이미지를 가져오는 동안 보여줄 placeholder 지정
             .into(image)
 
         return itemView
     }
     fun filterNewsByCategory(category: Int) {
         // 선택된 카테고리에 해당하는 뉴스만 필터링
-        val filteredNewsList = newsList.filter {
-            println(it.category)
+        val filteredNewsList = newsDtoList.filter {
             it.category == category
         }
-
         // 어댑터에 필터링된 뉴스 목록 설정
         clear()
         // 필터링된 5개의 기사를 add
