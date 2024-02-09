@@ -2,7 +2,7 @@ package com.a503.onjeong.domain.weather.controller;
 
 import com.a503.onjeong.domain.weather.dto.WeatherRequestDto;
 import com.a503.onjeong.domain.weather.dto.WeatherResponseDto;
-import com.a503.onjeong.domain.weather.service.WeatherServiceImpl;
+import com.a503.onjeong.domain.weather.service.WeatherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WeatherControllerImpl implements WeatherController {
 
-    private final WeatherServiceImpl weatherService;
+    private final WeatherService weatherService;
 
     @PostMapping("/info")
     public List<WeatherResponseDto> getWeather(@RequestBody WeatherRequestDto requestDto) {
