@@ -1,11 +1,12 @@
 package com.a503.onjeong.domain.weather;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -18,4 +19,18 @@ public class MediumForecastLand {
 
     @Column(name = "code")
     private String code;
+
+    @Column(name = "base_time")
+    private String base;
+
+    @OneToMany(mappedBy = "mediumForecastLand")
+    List<SkyStatus> skyStatusList = new ArrayList<>();
+
+    public void updateSkyStatusList(List<SkyStatus> skyStatusList){
+        this.skyStatusList = skyStatusList;
+    }
+
+    public void updateBase(String base){
+        this.base = base;
+    }
 }
