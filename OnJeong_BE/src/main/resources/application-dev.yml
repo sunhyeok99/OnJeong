@@ -4,6 +4,9 @@ spring:
     url: ${SPRING_DATASOURCE_URL}
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
+    hikari:
+      maximum-pool-size: 180 #최대 pool 크기
+      minimum-idle: 10 #최소 pool 크기
 
   jpa:
     hibernate:
@@ -52,3 +55,12 @@ firebase:
 
 weather:
   API_KEY: ${WEATHER_API_KEY}
+
+logging:
+  level:
+    org:
+      hibernate:
+        sql: debug
+        type:
+          descriptor:
+            sql: trace
