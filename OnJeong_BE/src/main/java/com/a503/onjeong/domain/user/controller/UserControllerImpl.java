@@ -1,6 +1,6 @@
 package com.a503.onjeong.domain.user.controller;
 
-import com.a503.onjeong.domain.user.dto.FcmTokenDto;
+import com.a503.onjeong.domain.user.dto.FcmTokenRequestDto;
 import com.a503.onjeong.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,8 +19,8 @@ public class UserControllerImpl implements UserController {
 
     @Override
     @PatchMapping("/fcm-token")
-    public ResponseEntity<Void> updateFcmToken(@RequestBody FcmTokenDto fcmTokenDto) {
-        userService.updateFcmToken(fcmTokenDto);
+    public ResponseEntity<Void> updateFcmToken(@RequestBody FcmTokenRequestDto fcmTokenRequestDto) {
+        userService.updateFcmToken(fcmTokenRequestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

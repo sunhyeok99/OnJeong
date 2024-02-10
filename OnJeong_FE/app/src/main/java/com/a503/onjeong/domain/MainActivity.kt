@@ -1,17 +1,23 @@
 package com.a503.onjeong.domain
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.RelativeLayout
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.a503.onjeong.domain.game.activity.GameActivity
 import com.a503.onjeong.R
 import com.a503.onjeong.domain.news.activity.NewsActivity
 import com.a503.onjeong.domain.weather.activity.WeatherActivity
 import com.a503.onjeong.domain.user.api.UserApiService
-import com.a503.onjeong.domain.user.dto.FcmTokenDto
+import com.a503.onjeong.domain.user.dto.FcmTokenRequestDto
 import com.a503.onjeong.domain.videocall.activity.GroupSelectActivity
 import com.a503.onjeong.global.network.RetrofitClient
 import com.a503.onjeong.domain.mypage.activity.MyPageActivity
@@ -23,10 +29,15 @@ import retrofit2.Response
 
 
 class MainActivity : AppCompatActivity() {
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // 맨처음 시작은 activity_main창에서 시작한다.
         setContentView(R.layout.activity_main)
+
+        // 권한 요청
+        askForPermissions()
+
         // 게임 설명 버튼을 누르면 게임 설명이 나오도록 버튼 설정
         val button: RelativeLayout = findViewById(R.id.btnGame)
         button.setOnClickListener {
@@ -74,7 +85,7 @@ class MainActivity : AppCompatActivity() {
             }
 
         //마이페이지 접근
-        val mypage : RelativeLayout = findViewById(R.id.btnInfo)
+        val mypage: RelativeLayout = findViewById(R.id.btnInfo)
         mypage.setOnClickListener {
             val intent = Intent(this, MyPageActivity::class.java)
             startActivity(intent)
@@ -93,7 +104,7 @@ class MainActivity : AppCompatActivity() {
         val retrofit = RetrofitClient.getApiClient(this)
 
         val service = retrofit.create(UserApiService::class.java)
-        val call = service.patchFcmToken(FcmTokenDto(userId, fcmToken))
+        val call = service.patchFcmToken(FcmTokenRequestDto(userId, fcmToken))
 
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
@@ -109,4 +120,32 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
+
+
+    // 런타임 권한 요청
+    private fun checkLocationPermissions(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    private fun askForPermissions() {
+        if (!checkLocationPermissions()) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                ),
+                1
+            )
+        }
+    }
+
 }

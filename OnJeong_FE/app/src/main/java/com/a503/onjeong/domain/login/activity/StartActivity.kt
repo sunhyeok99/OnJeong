@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.a503.onjeong.R
 import com.a503.onjeong.domain.MainActivity
 import com.a503.onjeong.domain.login.api.LoginApiService
+import com.a503.onjeong.domain.login.dto.LoginInfoResponseDto
 import com.a503.onjeong.global.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,13 +31,21 @@ class StartActivity : AppCompatActivity() {
 
         startButton.setOnClickListener {
             val call = phoneApiService.login(
-                sharedPreferences.getString("jwtAccessToken",  null).toString(),
+                sharedPreferences.getString("jwtAccessToken", null).toString(),
                 sharedPreferences.getLong("userId", 0L)
             )
-            call.enqueue(object : Callback<Long> {
-                override fun onResponse(call: Call<Long>, response: Response<Long>) {
+            call.enqueue(object : Callback<LoginInfoResponseDto> {
+                override fun onResponse(
+                    call: Call<LoginInfoResponseDto>,
+                    response: Response<LoginInfoResponseDto>
+                ) {
                     if (response.isSuccessful) {
-                        val userId : Long? = response.body()
+
+                        val loginInfoResponseDto = response.body()
+
+                        val userId: Long? = loginInfoResponseDto?.id
+                        val name: String? = loginInfoResponseDto?.name
+                        val type: String? = loginInfoResponseDto?.type
                         val headers = response.headers()
                         val jwtAccessToken = headers.get("Authorization")
                         val jwtRefreshToken = headers.get("Refresh-Token")
@@ -44,6 +53,8 @@ class StartActivity : AppCompatActivity() {
 
                         if (userId != null) {
                             editor.putLong("userId", userId)
+                            editor.putString("name", name)
+                            editor.putString("type", type)
                         }
                         editor.putString("jwtAccessToken", jwtAccessToken)
                         editor.putString("jwtRefreshToken", jwtRefreshToken)
@@ -59,7 +70,7 @@ class StartActivity : AppCompatActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<Long>, t: Throwable) {
+                override fun onFailure(call: Call<LoginInfoResponseDto>, t: Throwable) {
                     TODO("Not yet implemented")
                 }
             })

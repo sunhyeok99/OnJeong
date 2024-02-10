@@ -14,6 +14,7 @@ import net.nurigo.sdk.message.model.Message;
 import net.nurigo.sdk.message.service.DefaultMessageService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -86,7 +87,7 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
     /* 로그인 (검증) */
     @Override
     @Transactional
-    public Long login(String kakaoAccessToken, Long userId, HttpServletResponse response) {
+    public ResponseEntity<LoginInfoResponseDto> login(String kakaoAccessToken, Long userId, HttpServletResponse response) {
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new InternalException("존재 하지 않은 유저 예외")
         );
@@ -108,7 +109,15 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
         user.setKakaoRefreshToken(responseDto.getKakaoRefreshToken());
         user.setRefreshToken(responseDto.getRefreshToken());
 
-        return user.getId();
+        LoginInfoResponseDto loginInfoResponseDto = LoginInfoResponseDto.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .phoneNumber(user.getPhoneNumber())
+                .type(user.getType())
+                .build();
+
+        return new ResponseEntity<>(loginInfoResponseDto, HttpStatus.OK);
+
     }
 
     /* 카카오 로그인 */
@@ -119,7 +128,7 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
 
     /* JWT 재발급 필터 호출하는 함수 */
     @Transactional
-    public void reissueToken(String refreshToken, HttpServletResponse response){
+    public void reissueToken(String refreshToken, HttpServletResponse response) {
         ReissueFilterResponseDto responseDto = webClient.post()
                 .uri("/reissue")
                 .header("Refresh-Token", refreshToken)
@@ -191,11 +200,11 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
         return randomNumber;
     }
 
-    private String getRandomNumber(){
+    private String getRandomNumber() {
         Random random = new Random(); // 랜덤 객체 생성
         StringBuilder sb = new StringBuilder();
 
-        for (int i=0; i<5; i++){
+        for (int i = 0; i < 5; i++) {
             sb.append(random.nextInt(10));
         }
         return sb.toString();
