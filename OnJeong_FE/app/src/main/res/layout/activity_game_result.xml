@@ -2,13 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/orange">
+    android:background="@drawable/game_result_background"
+    >
 
     <LinearLayout
-        android:layout_width="500dp"
-        android:layout_height="250dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:background="@color/orange"
         android:orientation="vertical">
 
         <TextView
@@ -20,16 +20,18 @@
             android:gravity="center"
             android:text="게임 종료"
             android:textColor="#000000"
-            android:textSize="28sp" />
+            android:textSize="36sp" />
         <!-- 게임 결과 텍스트 뷰 -->
         <TextView
             android:id="@+id/result_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
             android:gravity="center"
             android:text="게임 점수: 1000점"
             android:textColor="#000000"
+            android:textStyle="bold"
             android:textSize="20sp" />
 
         <!-- 유저 이름 텍스트 뷰 -->
@@ -38,6 +40,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+
             android:gravity="center"
             android:text="유저 이름: "
             android:textColor="#000000"
@@ -49,7 +54,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_gravity="center"
             android:gravity="center"
+            android:textStyle="bold"
             android:text="최고 점수 : 2000점"
             android:textColor="#000000"
             android:textSize="20sp" />
@@ -57,6 +64,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <!-- 나가기 버튼 -->
@@ -65,8 +73,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="16dp"
+                android:layout_margin="20dp"
                 android:layout_weight="1"
+                android:textSize="30dp"
+                android:textColor="@color/black"
+                android:background="@drawable/green_round"
                 android:text="나가기" />
 
             <!-- 랭킹보기 버튼 -->
@@ -75,8 +86,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
+                android:layout_margin="20dp"
+                android:textSize="30dp"
+                android:textColor="@color/black"
                 android:layout_weight="1"
+                android:background="@drawable/orange_round"
                 android:text="순위보기" />
 
         </LinearLayout>
