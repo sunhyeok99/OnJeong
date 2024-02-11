@@ -10,6 +10,8 @@ import com.a503.onjeong.domain.weather.dto.mediumforecast.TemperaturesDtoWrapper
 import com.a503.onjeong.domain.weather.repository.MediumForecastTemperaturesRepository;
 import com.a503.onjeong.domain.weather.repository.TemperaturesRepository;
 import com.a503.onjeong.domain.weather.service.WeatherInfoCacheResponse;
+import com.a503.onjeong.global.exception.ExceptionCodeSet;
+import com.a503.onjeong.global.exception.WeatherException;
 import com.sun.jdi.InternalException;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -69,7 +71,7 @@ public class WeatherMediumTemperaturesStrategy implements WeatherStrategy {
             if (mediumForecastTemperatures == null) {
                 mediumForecastTemperatures = mediumForecastTemperaturesRepository.findCodeByGugun(gugun);
                 if (mediumForecastTemperatures == null) {
-                    throw new InternalException("존재하지 않는 지역 예외");
+                    throw new WeatherException(ExceptionCodeSet.ADDRESS_NOT_FOUND);
                 }
             }
         }
@@ -114,7 +116,7 @@ public class WeatherMediumTemperaturesStrategy implements WeatherStrategy {
             if (mediumForecastTemperatures == null) {
                 mediumForecastTemperatures = mediumForecastTemperaturesRepository.findCodeByGugun(gugun);
                 if (mediumForecastTemperatures == null) {
-                    throw new InternalException("존재하지 않는 지역 예외");
+                    throw new WeatherException(ExceptionCodeSet.ADDRESS_NOT_FOUND);
                 }
             }
         }

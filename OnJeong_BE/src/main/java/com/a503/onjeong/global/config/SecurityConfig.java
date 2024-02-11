@@ -54,7 +54,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         LoginFilter loginFilter = new LoginFilter(authenticationManager(authenticationConfiguration), userRepository, kakaoService, authenticationEntryPoint);
-        JwtFilter checkFilter = new JwtFilter(authenticationManager(authenticationConfiguration), authenticationEntryPoint, authService);
+        JwtFilter checkFilter = new JwtFilter(authenticationManager(authenticationConfiguration), userRepository, authenticationEntryPoint, authService);
         JwtReissueFilter jwtReissueFilter = new JwtReissueFilter(authenticationManager(authenticationConfiguration), userRepository, authenticationEntryPoint);
 
         http

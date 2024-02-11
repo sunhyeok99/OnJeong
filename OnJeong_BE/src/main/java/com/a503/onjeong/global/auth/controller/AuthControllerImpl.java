@@ -21,23 +21,23 @@ public class AuthControllerImpl implements AuthController {
 
     /* 회원가입 */
     @GetMapping("/signup")
-    public Long signup(@RequestHeader("Kakao-Access-Token") String kakaoAccessToken,
+    public ResponseEntity<Long> signup(@RequestHeader("Kakao-Access-Token") String kakaoAccessToken,
                        @RequestHeader("Kakao-Refresh-Token") String kakaoRefreshToken,
                        @RequestParam String phoneNumber, HttpServletResponse response) {
-        return authService.signup(kakaoAccessToken, kakaoRefreshToken, phoneNumber, response);
+        return ResponseEntity.ok().body(authService.signup(kakaoAccessToken, kakaoRefreshToken, phoneNumber, response));
     }
 
     /* 자동 로그인 */
     @GetMapping("/login")
     public ResponseEntity<LoginInfoResponseDto> login(@RequestHeader(value = "Kakao-Access-Token") String kakaoAccessToken,
                                                       @RequestParam Long userId, HttpServletResponse response) throws UnknownHostException, IllegalAccessException {
-        return authService.login(kakaoAccessToken, userId, response);
+        return ResponseEntity.ok().body(authService.login(kakaoAccessToken, userId, response));
     }
 
     /* 인가 코드를 통해 토큰 발급 */
     @GetMapping("/kakao/token")
-    public KakaoDto.Token kakaoRedirect(@RequestParam("code") String code) {
-        return authService.kakaoLogin(code);
+    public ResponseEntity<KakaoDto.Token> kakaoRedirect(@RequestParam("code") String code) {
+        return ResponseEntity.ok().body(authService.kakaoLogin(code));
     }
 
     /* JWT 리프레시 토큰으로 재발급 */
@@ -49,8 +49,8 @@ public class AuthControllerImpl implements AuthController {
 
     /* 전화번호 인증 */
     @GetMapping("/phone")
-    public String phoneVerification(@RequestParam String phoneNumber) {
-        return authService.phoneVerification(phoneNumber);
+    public ResponseEntity<String> phoneVerification(@RequestParam String phoneNumber) {
+        return ResponseEntity.ok().body(authService.phoneVerification(phoneNumber));
     }
 
     /* 로그아웃 */

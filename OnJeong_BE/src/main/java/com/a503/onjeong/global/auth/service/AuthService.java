@@ -16,7 +16,7 @@ public interface AuthService {
     Long signup(String kakaoAccessToken, String kakaoRefreshToken,
                 String phoneNumber, HttpServletResponse response);
 
-    ResponseEntity<LoginInfoResponseDto> login(String kakaoAccessToken, Long userId, HttpServletResponse response) throws UnknownHostException, IllegalAccessException;
+    LoginInfoResponseDto login(String kakaoAccessToken, Long userId, HttpServletResponse response) throws UnknownHostException, IllegalAccessException;
 
     KakaoDto.Token kakaoLogin(String code);
 

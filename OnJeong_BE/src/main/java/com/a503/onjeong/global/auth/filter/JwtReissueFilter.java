@@ -2,9 +2,13 @@ package com.a503.onjeong.global.auth.filter;
 
 import com.a503.onjeong.domain.user.User;
 import com.a503.onjeong.domain.user.repository.UserRepository;
+import com.a503.onjeong.global.exception.ExceptionCodeSet;
+import com.a503.onjeong.global.exception.FilterException;
+import com.a503.onjeong.global.exception.UserException;
 import com.a503.onjeong.global.util.JwtUtil;
 import com.sun.jdi.InternalException;
 import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
@@ -12,11 +16,13 @@ import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.naming.AuthenticationException;
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.time.LocalDateTime;
 
 /* JWT 재발급 필터 */
@@ -50,12 +56,14 @@ public class JwtReissueFilter extends UsernamePasswordAuthenticationFilter {
         try {
             if (JwtUtil.verify(refreshToken)) {
                 userId = Long.valueOf(JwtUtil.getSubject(refreshToken));
+                if (!userRepository.existsById(Long.valueOf(userId)))
+                    unsuccessfulAuthentication(request, response, new FilterException(ExceptionCodeSet.REFRESH_TOKEN_INVALID));
                 user = userRepository.findById(userId).orElseThrow(
-                        () -> new InternalException("필터 예외 처리")
+                        () -> new UserException(ExceptionCodeSet.USER_NOT_FOUND)
                 );
             }
         } catch (Exception e) {
-            throw new InternalException("리프레시 토큰 만료");
+            unsuccessfulAuthentication(request, response, new FilterException(ExceptionCodeSet.REFRESH_TOKEN_EXPIRED));
         }
 
         String refreshTokenDb = user.getRefreshToken().substring(BEARER.length());
@@ -65,14 +73,16 @@ public class JwtReissueFilter extends UsernamePasswordAuthenticationFilter {
         try {
             if (JwtUtil.verify(refreshTokenDb)) {
                 userIdDb = Long.valueOf(JwtUtil.getSubject(refreshToken));
+                if (!userRepository.existsById(Long.valueOf(userIdDb)))
+                    unsuccessfulAuthentication(request, response, new FilterException(ExceptionCodeSet.REFRESH_TOKEN_INVALID));
             }
         } catch (Exception e) {
-            throw new InternalException("리프레시 토큰 만료");
+            unsuccessfulAuthentication(request, response, new FilterException(ExceptionCodeSet.REFRESH_TOKEN_EXPIRED));
         }
 
         // 받은 리프레시 토큰과 db에 있는 리프레시 토큰 체크 (검증)
         if (!userId.equals(userIdDb)) {
-            throw new InternalException("잘못된 토큰 예외");
+            unsuccessfulAuthentication(request, response, new FilterException(ExceptionCodeSet.REFRESH_TOKEN_INVALID));
         }
 
         // 시큐리티 검증
@@ -91,7 +101,7 @@ public class JwtReissueFilter extends UsernamePasswordAuthenticationFilter {
 
         String userId = authResult.getName();
         User user = userRepository.findById(Long.valueOf(userId)).orElseThrow(
-                () -> new InternalException("필터 예외")
+                () -> new FilterException(ExceptionCodeSet.CREDENTIAL_FAIL)
         );
 
         String accessToken = BEARER + JwtUtil.createAccessToken(userId, LocalDateTime.now());
@@ -106,6 +116,17 @@ public class JwtReissueFilter extends UsernamePasswordAuthenticationFilter {
         json.put("accessToken", accessToken);
         json.put("refreshToken", refreshToken);
         response.getWriter().write(String.valueOf(json));
+    }
+
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+                                              AuthenticationException failed) {
+        SecurityContextHolder.clearContext();
+        try {
+            authenticationEntryPoint.commence(request, response, failed);
+        } catch (ServletException | IOException e) {
+            throw new FilterException(ExceptionCodeSet.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }
