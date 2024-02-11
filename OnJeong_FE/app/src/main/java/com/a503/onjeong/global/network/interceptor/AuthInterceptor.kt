@@ -17,8 +17,7 @@ class AuthInterceptor(private val context: Context) : Interceptor {
         val originalRequest = chain.request()
         val response = chain.proceed(originalRequest)
 
-        // 나중에 401로 바꿀 예정
-        if (response.code() == 500) {
+        if (response.code() == 401) {
             // refreshToken을 사용하여 토큰 갱신
             val retrofit = RetrofitClient.getApiClient(this.context)
             val service = retrofit.create(LoginApiService::class.java)
