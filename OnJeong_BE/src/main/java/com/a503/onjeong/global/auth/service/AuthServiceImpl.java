@@ -4,6 +4,8 @@ import com.a503.onjeong.domain.user.User;
 import com.a503.onjeong.domain.user.UserType;
 import com.a503.onjeong.domain.user.repository.UserRepository;
 import com.a503.onjeong.global.auth.dto.*;
+import com.a503.onjeong.global.exception.ExceptionCodeSet;
+import com.a503.onjeong.global.exception.UserException;
 import com.sun.jdi.InternalException;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletResponse;
@@ -87,9 +89,9 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
     /* 로그인 (검증) */
     @Override
     @Transactional
-    public ResponseEntity<LoginInfoResponseDto> login(String kakaoAccessToken, Long userId, HttpServletResponse response) {
+    public LoginInfoResponseDto login(String kakaoAccessToken, Long userId, HttpServletResponse response) {
         User user = userRepository.findById(userId).orElseThrow(
-                () -> new InternalException("존재 하지 않은 유저 예외")
+                () -> new UserException(ExceptionCodeSet.USER_NOT_FOUND)
         );
 
         // 검증
@@ -97,7 +99,7 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
                 loginFilter(kakaoAccessToken, user.getKakaoRefreshToken(), user.getId()).getBody();
 
         user = userRepository.findById(responseDto.getUserId()).orElseThrow(
-                () -> new InternalException("존재 하지 않은 유저 예외")
+                () -> new UserException(ExceptionCodeSet.USER_NOT_FOUND)
         );
 
         // 카카오 액세스 토큰, JWT 액세스 토큰 발급
@@ -116,7 +118,7 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
                 .type(user.getType())
                 .build();
 
-        return new ResponseEntity<>(loginInfoResponseDto, HttpStatus.OK);
+        return loginInfoResponseDto;
 
     }
 
@@ -138,7 +140,7 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
                 .getBody();
 
         User user = userRepository.findById(responseDto.getUserId()).orElseThrow(
-                () -> new InternalException("존재 하지 않은 유저 예외")
+                () -> new UserException(ExceptionCodeSet.USER_NOT_FOUND)
         );
 
         response.setHeader("Refresh-Token", responseDto.getRefreshToken());
@@ -150,7 +152,7 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
     /* AuthenticationManager가 User를 검증하는 함수 */
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
         User user = userRepository.findById(Long.valueOf(id)).orElseThrow(
-                () -> new InternalException("필터 오류 예외")
+                () -> new UserException(ExceptionCodeSet.USER_NOT_FOUND)
         );
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();

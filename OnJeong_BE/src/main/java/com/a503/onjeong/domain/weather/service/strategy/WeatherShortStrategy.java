@@ -12,6 +12,8 @@ import com.a503.onjeong.domain.weather.repository.ShortForecastRepository;
 import com.a503.onjeong.domain.weather.repository.SkyStatusRepository;
 import com.a503.onjeong.domain.weather.repository.TemperaturesRepository;
 import com.a503.onjeong.domain.weather.service.WeatherInfoCacheResponse;
+import com.a503.onjeong.global.exception.ExceptionCodeSet;
+import com.a503.onjeong.global.exception.WeatherException;
 import com.sun.jdi.InternalException;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -70,7 +72,7 @@ public class WeatherShortStrategy implements WeatherStrategy {
             if (shortForecastList.isEmpty()) {
                 shortForecastList = shortForecastRepository.findCodeBySido(sido1);
                 if (shortForecastList.isEmpty()) {
-                    throw new InternalException("존재하지 않는 지역 예외");
+                    throw new WeatherException(ExceptionCodeSet.ADDRESS_NOT_FOUND);
                 }
             }
         }
@@ -137,7 +139,7 @@ public class WeatherShortStrategy implements WeatherStrategy {
             if (shortForecastList.isEmpty()) {
                 shortForecastList = shortForecastRepository.findCodeBySido(sido1);
                 if (shortForecastList.isEmpty()) {
-                    throw new InternalException("존재하지 않는 지역 예외");
+                    throw new WeatherException(ExceptionCodeSet.ADDRESS_NOT_FOUND);
                 }
             }
         }

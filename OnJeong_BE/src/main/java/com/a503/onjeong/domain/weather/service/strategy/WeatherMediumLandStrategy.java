@@ -10,6 +10,8 @@ import com.a503.onjeong.domain.weather.dto.mediumforecast.SkyDtoWrapper;
 import com.a503.onjeong.domain.weather.repository.MediumForecastLandRepository;
 import com.a503.onjeong.domain.weather.repository.SkyStatusRepository;
 import com.a503.onjeong.domain.weather.service.WeatherInfoCacheResponse;
+import com.a503.onjeong.global.exception.ExceptionCodeSet;
+import com.a503.onjeong.global.exception.WeatherException;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -60,8 +62,9 @@ public class WeatherMediumLandStrategy implements WeatherStrategy {
 
         // 2. 하늘/강수 상태/형태 API
 
-        // 코드 값 조회
-        MediumForecastLand mediumForecastLand = mediumForecastLandRepository.findCodeBySido(sido1);
+        MediumForecastLand mediumForecastLand = mediumForecastLandRepository.findCodeBySido(sido1).orElseThrow(
+                () -> new WeatherException(ExceptionCodeSet.ADDRESS_NOT_FOUND)
+        );
         List<SkyStatus> mediumSkyStatusList = mediumForecastLand.getSkyStatusList();
 
 
@@ -94,8 +97,9 @@ public class WeatherMediumLandStrategy implements WeatherStrategy {
 
         // 2. 하늘/강수 상태/형태 API
 
-        // 코드 값 조회
-        MediumForecastLand mediumForecastLand = mediumForecastLandRepository.findCodeBySido(sido1);
+        MediumForecastLand mediumForecastLand = mediumForecastLandRepository.findCodeBySido(sido1).orElseThrow(
+                () -> new WeatherException(ExceptionCodeSet.ADDRESS_NOT_FOUND)
+        );
         List<SkyStatus> mediumSkyStatusList = mediumForecastLand.getSkyStatusList();
 
 

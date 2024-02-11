@@ -1,6 +1,8 @@
 package com.a503.onjeong.global.auth.service;
 
 import com.a503.onjeong.global.auth.dto.KakaoDto;
+import com.a503.onjeong.global.exception.ExceptionCodeSet;
+import com.a503.onjeong.global.exception.KakaoException;
 import com.sun.jdi.InternalException;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -74,11 +76,10 @@ public class KakaoService {
                     .uri("https://kapi.kakao.com/v2/user/me")
                     .header("Authorization", BEARER + kakaoAccessToken)
                     .retrieve()
-                    // 원래는 커스텀 예외를 반환하여 클라가 다시 요청 해야 하지만 클라가 자신이 없음 ㅎ.. (추후 처리)
-                    //.onStatus(HttpStatusCode::is4xxClientError, error -> Mono.just(new InternalException("액세스 토큰 유효x")))
                     .bodyToMono(String.class)
                     .block();
         } catch (WebClientResponseException e) {
+            // 원래는 클라에 예외 보내주고 토큰 재발급을 해야하지만 서버에서 바로 재발급하도록 구현해버렸다 ㅎㅎ..
             // 토큰 재발급
             KakaoDto.Token token = reissueKakaoToken(kakaoRefreshToken);
             kakaoAccessToken = token.getAccess_token();
@@ -90,6 +91,8 @@ public class KakaoService {
                     .retrieve()
                     .bodyToMono(String.class)
                     .block();
+        } catch (Exception e){
+            throw new KakaoException(ExceptionCodeSet.KAKAO_FAILED);
         }
 
         JSONParser jsonParser = new JSONParser();
@@ -98,11 +101,11 @@ public class KakaoService {
         try {
             jsonObject = (JSONObject) jsonParser.parse(userInfo); //Cast: String -> Json Object
         } catch (ParseException e) {
-            throw new InternalException("카카오 오류 예외");
+            throw new KakaoException(ExceptionCodeSet.INTERNAL_SERVER_ERROR);
         }
 
         if (jsonObject == null) {
-            throw new InternalException("카카오 오류 예외");
+            throw new KakaoException(ExceptionCodeSet.INTERNAL_SERVER_ERROR);
         }
 
         long kakaoId = (long) jsonObject.get("id"); // 카카오 회원번호 추출
@@ -131,7 +134,7 @@ public class KakaoService {
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .body(BodyInserters.fromFormData(reissueTokenBody))
                 .retrieve()
-                .onStatus(HttpStatusCode::is4xxClientError, error -> Mono.just(new InternalException("리프레시 토큰 유효x"))) // 로그인 페이지로 (추후 예외 처리)
+                .onStatus(HttpStatusCode::is4xxClientError, error -> Mono.just(new KakaoException(ExceptionCodeSet.KAKAO_REFRESH_TOKEN_EXPIRED))) // 일단 리프레시 토큰 만료로 가정 (원래는 모든 예외 다 따져야함)
                 .bodyToMono(KakaoDto.ReissueToken.class)
                 .block();
 
