@@ -105,7 +105,6 @@ class ProfileSettingActivity : AppCompatActivity() {
                 //다이얼로그를 띄워 권한 팝업을 해야하는 이유 및 권한팝업을 허용하여야 접근 가능하다는 사실을 알려줌
                 showPermissionAlertDialog()
             }
-
             else -> {
                 //권한 요청
                 requestPermissions(
@@ -132,13 +131,10 @@ class ProfileSettingActivity : AppCompatActivity() {
             10000 -> {
                 data ?: return
                 val uri = data.data as Uri
-                Log.d("uri", "$uri")
-                Log.d( "절대경로라는디", "${getRealPathFromURI(this, uri)}"  );
                 val file = File(getRealPathFromURI(this, uri))
                 val requestFile = RequestBody.create(MediaType.parse("image/*"), file)
                 val body = MultipartBody.Part.createFormData("profile", file.name, requestFile)
 
-                Log.d("파일이름", file.name)
                 val sharedPreferences =
                     getSharedPreferences("mySharedPreferences", Context.MODE_PRIVATE)
                 val userId = sharedPreferences.getLong("userId", 0L)
@@ -152,7 +148,7 @@ class ProfileSettingActivity : AppCompatActivity() {
                         override fun onResponse(call: Call<Void?>, response: Response<Void?>) {
                         }
                         override fun onFailure(call: Call<Void?>, t: Throwable) {
-                            Log.d("왜실패????????????????????????????", "$t")
+                            Log.d("실패이유:", "$t")
                         }
                     })
                 }

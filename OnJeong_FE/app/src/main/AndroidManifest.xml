@@ -101,6 +101,9 @@
         <activity
             android:name=".domain.mypage.activity.ProfileSettingActivity"
             android:exported="true" />
+        <activity
+            android:name=".domain.mypage.activity.TelephoneEditActivity"
+            android:exported="true" />
         <!--firebase -->
         <service
             android:name=".global.firebase.FirebaseMessagingService"
