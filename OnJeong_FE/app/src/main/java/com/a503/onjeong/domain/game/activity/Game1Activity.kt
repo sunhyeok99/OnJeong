@@ -49,12 +49,13 @@ class Game1Activity : AppCompatActivity() {
     private lateinit var lenearFrame: LinearLayout
 
     private val gameImages = listOf(
-        R.drawable.game_white,
-        R.drawable.game_blue,
-        R.drawable.game_purple,
-        R.drawable.game_lily,
-        R.drawable.game_marigold,
-        R.drawable.game_mix
+        R.drawable.game_bread,
+        R.drawable.game_food1,
+        R.drawable.game_food2,
+        R.drawable.game_hamburger,
+        R.drawable.game_noodle,
+        R.drawable.game_pizza,
+        R.drawable.game_drink
     )
     private var imageNum = (0..48).toMutableList()
     private lateinit var sharedPreferences: SharedPreferences
