@@ -59,8 +59,8 @@ class GameRankActivity : AppCompatActivity() {
 
 // selectedCategoryButton.text에 따라 tmp에 값을 할당
             when (selectedGameCategoryButton.text) {
-                "애니팡" -> tmp = 1
-                "그림맞추기" -> tmp = 2
+                "퍼즐 게임" -> tmp = 1
+                "짝 맞추기" -> tmp = 2
                 else -> {
                     tmp = 3
                 }
