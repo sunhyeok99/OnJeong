@@ -22,4 +22,7 @@ public interface UserController {
 
     @GetMapping("info")
     ResponseEntity<UserDTO> getUserInfo(@RequestParam(name = "userId")Long userId);
+
+    @PutMapping("")
+    ResponseEntity<Void> updatePhoneNum(@RequestParam(name = "userId")Long userId,@RequestParam(name = "phoneNum")String phoneNum);
 }

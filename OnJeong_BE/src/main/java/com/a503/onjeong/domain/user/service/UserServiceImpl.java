@@ -62,4 +62,11 @@ public class UserServiceImpl implements UserService {
         userDTO.setProfileUrl(IMG_PATH+s3Util.getFile(user.getProfileUrl()));
         return userDTO;
     }
+
+    @Override
+    public void updatePhoneNum(Long userId, String phoneNum) {
+        User user = userRepository.findById(userId).orElseThrow();
+        user.setPhoneNumber(phoneNum);
+        userRepository.save(user);
+    }
 }

@@ -14,6 +14,7 @@ import com.a503.onjeong.domain.mypage.dialog.UserAlertDialog
 import com.a503.onjeong.domain.mypage.dto.PhonebookDTO
 import com.a503.onjeong.domain.mypage.listener.OnButtonClickListener
 import com.bumptech.glide.Glide
+import de.hdodenhof.circleimageview.CircleImageView
 
 
 class PhonebookListAdapter(
@@ -43,7 +44,7 @@ class PhonebookListAdapter(
             }
         }
 
-        var userProfile: ImageView = itemView.findViewById(R.id.userProfile)
+        var userProfile: CircleImageView = itemView.findViewById(R.id.userProfile)
         // Glide로 이미지 표시하기
         Glide.with(itemView).load(phonebookItem.profileUrl).into(userProfile)
 

@@ -21,6 +21,7 @@ import com.a503.onjeong.domain.mypage.dto.PhonebookAllDTO
 import com.a503.onjeong.domain.mypage.dto.UserDTO
 import com.a503.onjeong.global.network.RetrofitClient
 import com.bumptech.glide.Glide
+import de.hdodenhof.circleimageview.CircleImageView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,7 +30,7 @@ import retrofit2.Response
 class MyPageActivity : AppCompatActivity() {
     private lateinit var homeButton: Button
     private lateinit var backButton: Button
-    private lateinit var profileImgBtn: ImageButton
+    private lateinit var userProfile: CircleImageView
 
     val retrofit = RetrofitClient.getApiClient(this)
     val phonebookApiService = retrofit.create(PhonebookApiService::class.java)
@@ -51,11 +52,11 @@ class MyPageActivity : AppCompatActivity() {
                     if (userDTO != null) {
                         name.text = userDTO.name
                     }
-                    var profileImgBtn: ImageButton = findViewById(R.id.profileImgBtn)
+                    var userProfile: CircleImageView = findViewById(R.id.userProfile)
                     // Glide로 이미지 표시하기
                     val imageUrl =
                         userDTO?.profileUrl
-                    Glide.with(this@MyPageActivity).load(imageUrl).into(profileImgBtn)
+                    Glide.with(this@MyPageActivity).load(imageUrl).into(userProfile)
 
 
                 }
@@ -77,7 +78,13 @@ class MyPageActivity : AppCompatActivity() {
             //퍼미션 허용했는지 확인 후 데이터 전송
             checkPermission()
         }
-
+        //전화번호 수정
+        val phoneNumEditBtn: Button = findViewById(R.id.phoneNumEditBtn)
+        phoneNumEditBtn.setOnClickListener {
+            val intent = Intent(this@MyPageActivity, TelephoneEditActivity::class.java)
+            startActivity(intent)
+        }
+        
         // 홈버튼 누르면 홈으로 이동하게
         homeButton = findViewById(R.id.btnHome)
         homeButton.setOnClickListener {
@@ -93,8 +100,8 @@ class MyPageActivity : AppCompatActivity() {
 
         //프로필사진 클릭시 갤러리 접근
         //삭제 수정 나와야하나
-        profileImgBtn = findViewById(R.id.profileImgBtn)
-        profileImgBtn.setOnClickListener {
+        userProfile = findViewById(R.id.userProfile)
+        userProfile.setOnClickListener {
             val intent = Intent(this, ProfileSettingActivity::class.java)
             startActivity(intent)
         }

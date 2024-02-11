@@ -49,5 +49,12 @@ public class UserControllerImpl implements UserController {
         return new ResponseEntity<>(userDTO,HttpStatus.OK);
     }
 
+    @Override
+    @PutMapping("")
+    public ResponseEntity<Void> updatePhoneNum(Long userId, String phoneNum) {
+        userService.updatePhoneNum(userId,phoneNum);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
 }

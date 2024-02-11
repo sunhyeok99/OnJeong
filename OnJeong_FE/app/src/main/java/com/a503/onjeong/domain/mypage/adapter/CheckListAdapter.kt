@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.a503.onjeong.R
 import com.a503.onjeong.domain.mypage.dto.PhonebookDTO
 import com.bumptech.glide.Glide
+import de.hdodenhof.circleimageview.CircleImageView
 
 class CheckListAdapter(context: Context, resource: Int, objects: List<PhonebookDTO>) :
     ArrayAdapter<PhonebookDTO>(context, resource, objects) {
@@ -22,7 +23,8 @@ class CheckListAdapter(context: Context, resource: Int, objects: List<PhonebookD
         if (checkItem != null) {
             name.text = checkItem.phonebookName
         }
-        var profileImg: ImageView = itemView.findViewById(R.id.profileImg)
+
+        var profileImg: CircleImageView = itemView.findViewById(R.id.profileImg)
         // Glide로 이미지 표시하기
         if (checkItem != null) {
             Glide.with(itemView).load(checkItem.profileUrl).into(profileImg)

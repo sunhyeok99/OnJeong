@@ -89,4 +89,6 @@ dependencies {
     //이미지 url을 보여주기
     implementation ("com.github.bumptech.glide:glide:4.9.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.9.0")
+    //이미지 둥글게
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
 }

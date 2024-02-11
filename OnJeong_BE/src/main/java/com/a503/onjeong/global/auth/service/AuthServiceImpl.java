@@ -1,5 +1,7 @@
 package com.a503.onjeong.global.auth.service;
 
+import com.a503.onjeong.domain.group.Group;
+import com.a503.onjeong.domain.group.repository.GroupRepository;
 import com.a503.onjeong.domain.user.User;
 import com.a503.onjeong.domain.user.UserType;
 import com.a503.onjeong.domain.user.repository.UserRepository;
@@ -35,6 +37,7 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
     WebClient webClient;
     private final UserRepository userRepository;
     private final KakaoService kakaoService;
+    private final GroupRepository groupRepository;
 
     @Value("${phone.API_KEY}")
     private String API_KEY;
@@ -73,6 +76,14 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
                     .build();
 
             user = userRepository.save(userOpt);
+            
+            
+            //그룹 생성
+            Group group= Group.builder()
+                        .name("가족")
+                        .ownerId(userOpt.getId())
+                        .build();
+            groupRepository.save(group);
         }
 
         // 전화번호 세팅

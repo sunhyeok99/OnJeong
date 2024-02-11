@@ -13,7 +13,7 @@
     <FrameLayout
 
         android:layout_width="wrap_content"
-        android:layout_height="320dp">
+        android:layout_height="340dp">
 
         <View
             android:id="@+id/ViewColorYellow"
@@ -21,16 +21,17 @@
             android:layout_height="300dp"
             android:background="#F6BD4E" />
 
-        <ImageButton
-            android:id="@+id/profileImgBtn"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/userProfile"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="120dp"
             android:layout_gravity="center"
+            android:layout_marginTop="120dp"
             android:src="@drawable/profile_img"
-            android:scaleType="fitCenter"
+            app:civ_border_color="@color/black"
+            app:civ_border_overlay="true"
+            app:civ_border_width="2dp"
             />
-
 
     </FrameLayout>
 
@@ -39,6 +40,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:text="누구세요"
         android:textColor="@color/black"
         android:textSize="25dp"

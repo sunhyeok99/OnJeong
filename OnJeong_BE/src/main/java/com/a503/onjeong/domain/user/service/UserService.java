@@ -16,4 +16,6 @@ public interface UserService {
     void updateProfileImg(Long userId, MultipartFile file) throws IOException;
 
     UserDTO getUserInfo(Long userId);
+
+    void updatePhoneNum(Long userId, String phoneNum);
 }
