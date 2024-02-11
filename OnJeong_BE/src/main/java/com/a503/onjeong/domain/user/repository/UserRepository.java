@@ -14,6 +14,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findById(Long userId);
 
+    boolean existsById(Long userId);
+
     Optional<User> findByKakaoId(Long kakaoId);
 
     @Query(value = "SELECT user FROM User as user WHERE user.phoneNumber IN (:numbers)")

@@ -1,5 +1,6 @@
 package com.a503.onjeong.domain.login.api
 
+import com.a503.onjeong.domain.login.dto.LoginInfoResponseDto
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -18,7 +19,7 @@ interface LoginApiService {
     fun login(
         @Header("Kakao-Access-Token") accessToken: String,
         @Query("userId") userId : Long
-    ): Call<Long>
+    ): Call<LoginInfoResponseDto>
 
     @GET("auth/phone")
     fun phone(

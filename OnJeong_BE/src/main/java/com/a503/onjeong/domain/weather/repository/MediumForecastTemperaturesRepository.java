@@ -6,13 +6,16 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface MediumForecastTemperaturesRepository extends JpaRepository<MediumForecastTemperatures, String> {
 
-    // 시도로 code 찾기 (광역시)
-    @Query("select f.code from MediumForecastTemperatures f where f.sido like %:sido%")
-    String findCodeBySido(String sido);
+    // 시도1으로 code 찾기 (광역시)
+    @Query("select f from MediumForecastTemperatures f where f.sido = :sido1")
+    MediumForecastTemperatures findCodeBySidoOne(String sido1);
 
+    // 시도2로 code 찾기
+    @Query("select f from MediumForecastTemperatures f where f.sido = :sido2")
+    MediumForecastTemperatures findCodeBySidoTwo(String sido2);
 
     // 구군으로 code 찾기
-    @Query("select f.code from MediumForecastTemperatures f where f.sido like %:gugun%")
-    String findCodeByGugun(String gugun);
+    @Query("select f from MediumForecastTemperatures f where f.sido = :gugun")
+    MediumForecastTemperatures findCodeByGugun(String gugun);
 
 }

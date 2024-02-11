@@ -2,32 +2,66 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@drawable/game_lobby_background"
     android:orientation="vertical">
 
     <include layout="@layout/activity_main_bar" />
 
-    <Button
-        android:id="@+id/game1"
-        android:layout_width="200dp"
-        android:layout_height="130dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="130dp"
-        android:background="@color/orange"
-        android:text="애니팡"
-        android:textSize="27dp"
-        android:textColor="@color/black"/>
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:columnCount="1"
+        android:rowCount="3"
+        android:alignmentMode="alignMargins"
+        android:columnOrderPreserved="false">
 
-    <Button
-        android:id="@+id/game2"
-        android:layout_width="200dp"
-        android:layout_height="130dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="130dp"
-        android:background="@color/orange"
-        android:text="기억력 게임"
-        android:textColor="@color/black"
-        android:textSize="27dp"/>
+        <Button
+            android:id="@+id/game1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/orange_round"
+            android:text="퍼즐 게임"
+            android:textSize="27dp"
+            android:layout_margin="60dp"
+            android:layout_marginTop="80dp"
+            android:textColor="@color/black"
+            android:layout_row="0"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_column="0"/>
+
+        <Button
+            android:id="@+id/game2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/orange_round"
+            android:text="짝 맞추기"
+            android:textColor="@color/black"
+            android:layout_margin="60dp"
+            android:textSize="27dp"
+            android:layout_row="1"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_column="0"/>
+
+        <Button
+            android:id="@+id/game_rank"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/green_round"
+            android:text="순위 보기"
+            android:layout_margin="60dp"
+            android:layout_marginBottom="80dp"
+            android:textColor="@color/black"
+            android:textSize="27dp"
+            android:layout_row="2"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_column="0" />
+
+    </GridLayout>
+
 
 
 </LinearLayout>
