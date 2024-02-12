@@ -92,4 +92,7 @@ dependencies {
     implementation("org.jsoup:jsoup:1.15.3")
     //이미지 둥글게
     implementation ("de.hdodenhof:circleimageview:3.1.0")
+
+    //cardView
+    implementation("androidx.cardview:cardview:1.0.0")
 }
