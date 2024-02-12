@@ -8,8 +8,12 @@ import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.View
 import android.widget.Button
+import android.widget.FrameLayout
+import android.widget.GridLayout
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -21,7 +25,6 @@ import com.a503.onjeong.global.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.properties.Delegates
 
 class Game2Activity : AppCompatActivity() {
     private lateinit var round1: Button
@@ -38,18 +41,29 @@ class Game2Activity : AppCompatActivity() {
 
     private val gameImages = listOf(
         R.drawable.game_image1,
+        R.drawable.game_image2,
         R.drawable.game_image3,
+        R.drawable.game_image4,
         R.drawable.game_image5,
-        R.drawable.game_image7,
-        R.drawable.game_image9,
-        R.drawable.game_image11
+        R.drawable.game_image6
     )
     private var imageNum = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
     private lateinit var sharedPreferences: SharedPreferences
     private var userId: Long = 0
     private var score : Long = 0
     private var round = 1
+    private var isTimerRunning = false
+    private var remainTime : Int =0
 
+    private lateinit var frameLayout: FrameLayout
+    private lateinit var gridLayout: GridLayout
+    private lateinit var mainLayout: LinearLayout
+    private lateinit var pauseButton: Button
+    private lateinit var resumeButton: Button
+    private lateinit var exitButton: Button
+    private lateinit var mainBar: LinearLayout
+    private lateinit var scoreBar: LinearLayout
+    private lateinit var lenearFrame: LinearLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // 유저이름 가져옴
@@ -58,9 +72,45 @@ class Game2Activity : AppCompatActivity() {
         setContentView(R.layout.activity_game2_ready)
         changeLayoutForRound(round)
     }
+    private fun setting() {
+        pauseButton = findViewById(R.id.pauseButton)
+        frameLayout = findViewById(R.id.frameLayout)
+        gridLayout = findViewById(R.id.gridLayout)
+        mainLayout = findViewById(R.id.game2_mainbar)
 
-    private fun changeLayoutForRound(roundNumber: Int) {
-        when (roundNumber) {
+        resumeButton = findViewById(R.id.gameResume)
+        exitButton = findViewById(R.id.gameExit)
+        mainBar = findViewById(R.id.game2_mainbar)
+        scoreBar = findViewById(R.id.game2_scoreBar)
+        lenearFrame = findViewById(R.id.frameLinear)
+        pauseButton.setOnClickListener {
+            pauseTimer()
+            val layoutHeight = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 700)
+            frameLayout.layoutParams = layoutHeight
+            gridLayout.visibility = View.GONE
+            mainBar.visibility = View.GONE
+            scoreBar.visibility = View.GONE
+            lenearFrame.visibility = View.VISIBLE
+        }
+
+        resumeButton.setOnClickListener {
+            resumeTimer()
+            val layoutHeight = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0)
+            frameLayout.layoutParams = layoutHeight
+            gridLayout.visibility = View.VISIBLE
+            mainBar.visibility = View.VISIBLE
+            scoreBar.visibility = View.VISIBLE
+            lenearFrame.visibility = View.GONE
+        }
+
+        exitButton.setOnClickListener {
+            var intent = Intent(this , Game1Lobby::class.java)
+            startActivity(intent)
+        }
+
+    }
+    private fun changeLayoutForRound(roundNumber: Int) {// 정지 , 재게 , 종료버튼 선언 및 초기화
+               when (roundNumber) {
             1 -> {
                 setContentView(R.layout.activity_game2_ready)
                 // 텍스트도 변경
@@ -72,6 +122,7 @@ class Game2Activity : AppCompatActivity() {
                 round1 = findViewById(R.id.start)
                 round1.setOnClickListener {
                     setContentView(R.layout.activity_game2_round1)
+                    setting()
                     initializeViews(8)
                     bindImagesToViews(8)
                 }
@@ -84,6 +135,7 @@ class Game2Activity : AppCompatActivity() {
                 round2 = findViewById(R.id.start)
                 round2.setOnClickListener {
                     setContentView(R.layout.activity_game2_round2)
+                    setting()
                     initializeViews(10)
                     bindImagesToViews(10)
                 }
@@ -96,6 +148,7 @@ class Game2Activity : AppCompatActivity() {
                 round3 = findViewById(R.id.start)
                 round3.setOnClickListener {
                     setContentView(R.layout.activity_game2_round3)
+                    setting()
                     initializeViews(12)
                     bindImagesToViews(12)
                 }
@@ -148,12 +201,10 @@ class Game2Activity : AppCompatActivity() {
         val availableIndices = listOf(0, 1, 2, 3, 4, 5)
         var count = 0 // 정답맞춘 블럭 개수
         val randomNum = availableIndices.shuffled().subList(0, size / 2)
-        println(randomNum)
         val chooseNum = mutableListOf<Int>().apply {
             addAll(randomNum)
             addAll(randomNum)
         }.shuffled()
-        println(chooseNum)
         // 랜덤으로 이제 섞음
         for (i in imageViews.indices) {
             imageViews[i].setImageResource(gameImages[chooseNum[i]])
@@ -174,7 +225,6 @@ class Game2Activity : AppCompatActivity() {
                 // 이미지를 클릭하면 첫번째 선택은 일단 리스트 추가
                 // 두번째 선택때 두개가 일치하면 점수 증가하고
                 // 두개의 색 그대로 , 틀리면 둘다 흰색 + 점수 감점
-                Handler(Looper.getMainLooper()).postDelayed({}, 100)
 
                 if (imageViews[i].drawable.constantState != ContextCompat.getDrawable(
                         this,
@@ -212,7 +262,7 @@ class Game2Activity : AppCompatActivity() {
                             score -= 5
                             score = Math.max(0, score)
                             scoreTextView.text = "$score 점"
-                        }, 300)
+                        }, 100)
                     }
                 }
             }
@@ -232,14 +282,14 @@ class Game2Activity : AppCompatActivity() {
             override fun onTick(millisUntilFinished: Long) {
                 val secondsLeft = millisUntilFinished / 1000
                 timeTextView.text = "$secondsLeft 초"
+                remainTime = millisUntilFinished.toInt()
             }
-
             override fun onFinish() {
                 timeTextView.text = "끝"
-                // gameOver하면서 랭킹화면으로 넘어감
                 changeLayoutForRound(4)
             }
         }.start()
+        isTimerRunning = true
     }
 
 
@@ -281,5 +331,17 @@ class Game2Activity : AppCompatActivity() {
 
 
         })
+    }
+    private fun pauseTimer() {
+        if (isTimerRunning) {
+            countDownTimer.cancel()
+            isTimerRunning = false
+//            remainTime = (countDownTimer.timeRemaining / 1000)
+        }
+    }
+    private fun resumeTimer() {
+        if (!isTimerRunning) {
+            startTimer(remainTime) // 남은 시간을 받아와서 타이머 다시 시작
+        }
     }
 }

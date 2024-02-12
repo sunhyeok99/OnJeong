@@ -16,13 +16,13 @@ public interface GroupController {
     @GetMapping("/detail")
     ResponseEntity<GroupDTO> groupDetail(@RequestParam(value = "groupId") Long groupId);
 
-    @PostMapping("/create")
+    @PostMapping("")
     ResponseEntity<Void> groupCreate(@RequestBody GroupUserListDTO groupUserListDTO);
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("")
     ResponseEntity<Void> groupDelete(@RequestParam(value = "groupId") Long groupId);
 
-    @PutMapping("/update")
+    @PutMapping("")
     ResponseEntity<Void> groupUpdate(@RequestBody GroupUserListDTO groupUserListDTO);
 
 

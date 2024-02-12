@@ -7,11 +7,14 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import com.a503.onjeong.R
 import com.a503.onjeong.domain.mypage.dialog.UserAlertDialog
 import com.a503.onjeong.domain.mypage.dto.PhonebookDTO
 import com.a503.onjeong.domain.mypage.listener.OnButtonClickListener
+import com.bumptech.glide.Glide
+import de.hdodenhof.circleimageview.CircleImageView
 
 
 class PhonebookListAdapter(
@@ -40,6 +43,10 @@ class PhonebookListAdapter(
                 checkBtn.setBackgroundResource(R.color.check_gray)
             }
         }
+
+        var userProfile: CircleImageView = itemView.findViewById(R.id.userProfile)
+        // Glide로 이미지 표시하기
+        Glide.with(itemView).load(phonebookItem.profileUrl).into(userProfile)
 
 
         // 어댑터에서 버튼에 대한 클릭 이벤트 핸들러 정의

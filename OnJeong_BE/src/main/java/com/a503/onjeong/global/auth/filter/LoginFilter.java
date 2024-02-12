@@ -5,10 +5,14 @@ import com.a503.onjeong.domain.user.repository.UserRepository;
 import com.a503.onjeong.global.auth.dto.KakaoDto;
 import com.a503.onjeong.global.auth.dto.LoginFilterRequestDto;
 import com.a503.onjeong.global.auth.service.KakaoService;
+import com.a503.onjeong.global.exception.ExceptionCodeSet;
+import com.a503.onjeong.global.exception.FilterException;
+import com.a503.onjeong.global.exception.UserException;
 import com.a503.onjeong.global.util.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jdi.InternalException;
 import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
@@ -16,6 +20,8 @@ import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -48,16 +54,16 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
 
-        LoginFilterRequestDto userDto;
+        LoginFilterRequestDto userDto = null;
         try {
             userDto = objectMapper.readValue(request.getInputStream(), LoginFilterRequestDto.class);
         } catch (IOException e) {
-            throw new InternalException("필터 오류 예외");
+            unsuccessfulAuthentication(request, response, new FilterException(ExceptionCodeSet.INTERNAL_SERVER_ERROR));
         }
 
         userInfo = kakaoService.getUserInfo(userDto.getKakaoAccessToken(), userDto.getKakaoRefreshToken());
         User userOpt = userRepository.findByKakaoId(userInfo.getKakaoId()).orElseThrow(
-                () -> new InternalException("잘못된 토큰 예외")
+                () -> new UserException(ExceptionCodeSet.USER_NOT_FOUND)
         );
 
         // 검증 (카카오 액세스 토큰을 통해 추출된 유저의 id = 클라이언트에게 받은 유저의 id)
@@ -67,9 +73,9 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
                     user.getId(), user.getId()
             );
             return getAuthenticationManager().authenticate(authenticationToken);
-        } else {
-            throw new InternalException("필터 오류 예외");
         }
+        unsuccessfulAuthentication(request, response, new FilterException(ExceptionCodeSet.CREDENTIAL_FAIL));
+        return null;
     }
 
     @Override
@@ -93,5 +99,16 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         json.put("kakaoAccessToken", userInfo.getKakaoAccessToken());
         json.put("kakaoRefreshToken", userInfo.getKakaoRefreshToken());
         response.getWriter().write(String.valueOf(json));
+    }
+
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+                                              AuthenticationException failed) {
+        SecurityContextHolder.clearContext();
+        try {
+            authenticationEntryPoint.commence(request, response, failed);
+        } catch (ServletException | IOException e) {
+            throw new FilterException(ExceptionCodeSet.INTERNAL_SERVER_ERROR);
+        }
     }
 }

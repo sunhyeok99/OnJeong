@@ -24,7 +24,7 @@ public class MediumForecastLand {
     private String base;
 
     @OneToMany(mappedBy = "mediumForecastLand")
-    List<SkyStatus> skyStatusList = new ArrayList<>();
+    private List<SkyStatus> skyStatusList = new ArrayList<>();
 
     public void updateSkyStatusList(List<SkyStatus> skyStatusList){
         this.skyStatusList = skyStatusList;

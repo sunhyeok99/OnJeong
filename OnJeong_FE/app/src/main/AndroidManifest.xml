@@ -10,11 +10,16 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <!-- 필요에 의해 사용 -->
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 필요에 의해 사용 -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!--   앨범 접근 권한   -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
     <uses-permission
         android:name="android.permission.POST_NOTIFICATIONS"
         android:minSdkVersion="33" />
@@ -32,6 +37,11 @@
         android:theme="@style/Theme.OnJeong"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".domain.welfare.activity.WelfareActivity"
+            android:exported="false"
+            android:label="@string/title_activity_welfare"
+            android:theme="@style/Theme.OnJeong" />
         <activity
             android:name=".domain.videocall.activity.UserSelectActivity"
             android:exported="false" />
@@ -81,7 +91,10 @@
             android:exported="true" />
         <activity
             android:name=".domain.mypage.activity.GroupDetailActivity"
-            android:exported="true" /> <!-- firebase -->
+            android:exported="true" />
+        <activity android:name=".domain.education.activity.EducationActivity" /> <!-- firebase -->
+        <activity android:name=".domain.mypage.activity.ProfileSettingActivity" android:exported="true"/>
+        <activity android:name=".domain.mypage.activity.TelephoneEditActivity" android:exported="true"/>
         <service
             android:name=".global.firebase.FirebaseMessagingService"
             android:exported="false"

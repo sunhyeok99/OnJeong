@@ -88,7 +88,7 @@ class GroupListActivity : AppCompatActivity() {
         // 뒤로가기 버튼 누르면 뒤로(메인)이동
         backButton = findViewById(R.id.btnBack)
         backButton.setOnClickListener {
-            val intent = Intent(this, GroupListActivity::class.java)
+            val intent = Intent(this, MyPageActivity::class.java)
             startActivity(intent)
         }
 

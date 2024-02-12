@@ -1,6 +1,8 @@
 package com.a503.onjeong.global.util;
 
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -20,11 +22,15 @@ public class S3Util {
     private final AmazonS3 amazonS3;
 
     public String uploadFile(MultipartFile file) throws IOException {
-
         String S3FileName = UUID.randomUUID() + "-" + file.getOriginalFilename();
 
-        amazonS3.putObject(bucket, S3FileName, file.getInputStream(), null);
+        // ObjectMetadata를 생성하여 content-type 설정
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentType(file.getContentType());
 
+        // PutObjectRequest 생성 및 content-type 설정
+        PutObjectRequest request = new PutObjectRequest(bucket, S3FileName, file.getInputStream(), metadata);
+        amazonS3.putObject(request);
         return S3FileName;
     }
 

@@ -84,7 +84,12 @@ dependencies {
     implementation("com.google.firebase:firebase-messaging:23.4.0")
 
     implementation ("com.google.android.gms:play-services-location:21.0.1")
+
+    // youtube
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0")
+
     // JSoup
     implementation("org.jsoup:jsoup:1.15.3")
-
+    //이미지 둥글게
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
 }
