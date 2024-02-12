@@ -1,6 +1,7 @@
 package com.a503.onjeong.domain.videocall.activity
 
 import android.Manifest
+import android.app.NotificationManager
 import android.content.Context
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
@@ -48,6 +49,8 @@ class VideoCallActivity : AppCompatActivity() {
         //        ButterKnife.bind(this);
         checkPermission()
 
+        removeNotification()
+
         binding.finishCall.setOnClickListener {
             leaveSession()
             finish()
@@ -57,6 +60,14 @@ class VideoCallActivity : AppCompatActivity() {
 //        val random = Random()
 //        val randomIndex = random.nextInt(100)
 //        binding.participantName.text = binding.participantName.text.append(randomIndex.toString())
+    }
+
+    private fun removeNotification() {
+        val notificationId = intent.getIntExtra("notificationId", 0)
+        // Cancel the notification
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.cancel(notificationId)
     }
 
     private fun getConnection(sessionId: String) {

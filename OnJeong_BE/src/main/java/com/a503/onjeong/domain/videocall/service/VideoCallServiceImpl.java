@@ -5,6 +5,8 @@ import com.a503.onjeong.domain.videocall.dto.CallRequestDto;
 import com.a503.onjeong.domain.videocall.dto.SessionIdRequestDto;
 import com.a503.onjeong.global.firebase.service.FirebaseService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.Message;
 import io.openvidu.java.client.*;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -60,7 +62,8 @@ public class VideoCallServiceImpl implements VideoCallService {
     public void sendAlert(CallRequestDto callRequestDto) {
         ArrayList<Long> userIdList = callRequestDto.getUserIdList();
         String sessionId = callRequestDto.getSessionId();
+        String callerName = callRequestDto.getCallerName();
 
-        userRepository.findAllById(userIdList).forEach(user -> firebaseService.sendNotification(user.getFcmToken(), sessionId));
+        userRepository.findAllById(userIdList).forEach(user -> firebaseService.sendVideoCallNotification(user.getFcmToken(), sessionId, callerName));
     }
 }
