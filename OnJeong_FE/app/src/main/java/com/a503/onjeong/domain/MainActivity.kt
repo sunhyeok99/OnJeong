@@ -9,23 +9,22 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.RelativeLayout
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
-import com.a503.onjeong.domain.game.activity.GameActivity
 import com.a503.onjeong.R
 import com.a503.onjeong.domain.education.activity.EducationActivity
+import com.a503.onjeong.domain.game.activity.GameActivity
+import com.a503.onjeong.domain.mypage.activity.MyPageActivity
 import com.a503.onjeong.domain.news.activity.NewsActivity
-import com.a503.onjeong.domain.weather.activity.WeatherActivity
 import com.a503.onjeong.domain.user.api.UserApiService
 import com.a503.onjeong.domain.user.dto.FcmTokenRequestDto
 import com.a503.onjeong.domain.videocall.activity.GroupSelectActivity
-import com.a503.onjeong.global.network.RetrofitClient
-import com.a503.onjeong.domain.mypage.activity.MyPageActivity
+import com.a503.onjeong.domain.weather.activity.WeatherActivity
 import com.a503.onjeong.domain.welfare.activity.WelfareActivity
+import com.a503.onjeong.global.network.RetrofitClient
 import com.google.android.gms.tasks.Task
 import com.google.firebase.messaging.FirebaseMessaging
 import retrofit2.Call
@@ -44,20 +43,20 @@ class MainActivity : AppCompatActivity() {
         askForPermissions()
 
         // 게임 설명 버튼을 누르면 게임 설명이 나오도록 버튼 설정
-        val button: RelativeLayout = findViewById(R.id.btnGame)
+        val button: CardView = findViewById(R.id.btnGame)
         button.setOnClickListener {
             val intent = Intent(this, GameActivity::class.java)
             startActivity(intent)
         }
         // 뉴스에 관한 설명이 뜨도록 버튼 설정
-        val news: RelativeLayout = findViewById(R.id.btnNews)
+        val news: CardView = findViewById(R.id.btnNews)
         news.setOnClickListener {
             val intent = Intent(this, NewsActivity::class.java)
             startActivity(intent)
         }
 
         // 영상통화 페이지 이동
-        val videoCall: RelativeLayout = findViewById(R.id.btnVideoCall)
+        val videoCall: CardView = findViewById(R.id.btnVideoCall)
         videoCall.setOnClickListener {
             val intent = Intent(this, GroupSelectActivity::class.java)
             startActivity(intent)
@@ -65,27 +64,31 @@ class MainActivity : AppCompatActivity() {
 
 
         // 날씨 페이지 이동
-        val weather: RelativeLayout = findViewById(R.id.btnWeather)
+        val weather: CardView = findViewById(R.id.btnWeather)
         weather.setOnClickListener {
             val intent = Intent(this, WeatherActivity::class.java)
             startActivity(intent)
         }
 
         // 온라인교육 페이지 이동
-        val education: RelativeLayout = findViewById(R.id.btnEdu)
+        val education: CardView = findViewById(R.id.btnEdu)
         education.setOnClickListener {
             val intent = Intent(this, EducationActivity::class.java)
             startActivity(intent)
         }
 
         // 복지 서비스 페이지 이동
-        val welfare: RelativeLayout = findViewById(R.id.btnWelfare)
+        val welfare: CardView = findViewById(R.id.btnWelfare)
         welfare.setOnClickListener {
             val intent = Intent(this, WelfareActivity::class.java)
             startActivity(intent)
         }
-
-        //firebase test
+        //마이페이지 접근
+        val mypage: CardView = findViewById(R.id.btnInfo)
+        mypage.setOnClickListener {
+            val intent = Intent(this, MyPageActivity::class.java)
+            startActivity(intent)
+        }
 
         getFcmToken()
 
@@ -108,12 +111,6 @@ class MainActivity : AppCompatActivity() {
                 updateFcmToken(fcmToken)
             }
 
-        //마이페이지 접근
-        val mypage: RelativeLayout = findViewById(R.id.btnInfo)
-        mypage.setOnClickListener {
-            val intent = Intent(this, MyPageActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     //서버에 FCM token 저장
