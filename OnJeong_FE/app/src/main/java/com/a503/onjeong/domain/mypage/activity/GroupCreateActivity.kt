@@ -3,9 +3,11 @@ package com.a503.onjeong.domain.mypage.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.a503.onjeong.R
 import com.a503.onjeong.domain.MainActivity
@@ -53,7 +55,7 @@ class GroupCreateActivity : AppCompatActivity() {
         val service = retrofit.create(PhonebookApiService::class.java)
 
         //연락처 리스트 뽑기
-        val res = service.phonebookList(userId,null)
+        val res = service.phonebookList(userId, null)
         if (res != null) {
             res.enqueue(object : Callback<List<PhonebookDTO>> {
                 override fun onResponse(
@@ -61,12 +63,20 @@ class GroupCreateActivity : AppCompatActivity() {
                     response: Response<List<PhonebookDTO>>
                 ) {
                     val phonebookList = response.body() ?: emptyList()
+                    if (phonebookList.size == 0) {
+                        val groupUserLabel: TextView = findViewById(R.id.groupUserLabel)
+                        groupUserLabel.text = "마이페이지에서 연락처를 동기화하세요."
+                        groupCreateBtn = findViewById(R.id.groupCreateBtn)
+                        groupCreateBtn.setBackgroundResource(R.color.check_gray)
+                        groupCreateBtn.setEnabled(false)
+
+                    }
                     phonebookListAdapter = PhonebookListAdapter( //연락처에 있는 사람들 어댑터
                         this@GroupCreateActivity,
                         R.layout.activity_phonebook_list_item,
                         phonebookList, object : OnButtonClickListener {
                             override fun onButtonClick(data: PhonebookDTO) {
-                                if (data.isChecked==1) {
+                                if (data.isChecked == 1) {
                                     checkList.add(data)
                                 } else {
                                     checkList.remove(data)
@@ -78,9 +88,10 @@ class GroupCreateActivity : AppCompatActivity() {
                     phonebookListView.adapter = phonebookListAdapter
 
                     for (phonebookDTO: PhonebookDTO in phonebookList) {
-                        if (phonebookDTO.isChecked==1) checkList.add(phonebookDTO)
+                        if (phonebookDTO.isChecked == 1) checkList.add(phonebookDTO)
                     }
                 }
+
                 override fun onFailure(call: Call<List<PhonebookDTO>>, t: Throwable) {
                 }
             })
@@ -104,6 +115,7 @@ class GroupCreateActivity : AppCompatActivity() {
         val groupApiservice = retrofit.create(GroupApiService::class.java)
         // 그룹 생성 버튼
         groupCreateBtn = findViewById(R.id.groupCreateBtn)
+
         groupCreateBtn.setOnClickListener {
             var groupName: EditText = findViewById(R.id.groupName)
             //friendId만 담은 리스트
@@ -112,7 +124,7 @@ class GroupCreateActivity : AppCompatActivity() {
                 userList.add(phonebookDTO.freindId)
             }
             val groupUserListDTO =
-                GroupUserListDTO(0,userId, groupName.text.toString(),userList)
+                GroupUserListDTO(0, userId, groupName.text.toString(), userList)
             val res = groupApiservice.groupCreate(groupUserListDTO)
             // response가 null이 아니면 enqueue 호출
             if (res != null) {
@@ -122,6 +134,7 @@ class GroupCreateActivity : AppCompatActivity() {
                         response: Response<Void>
                     ) {
                     }
+
                     override fun onFailure(call: Call<Void>, t: Throwable) {
                     }
                 })
