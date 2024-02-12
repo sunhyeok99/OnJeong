@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.a503.onjeong.R
 import com.a503.onjeong.domain.MainActivity
@@ -86,9 +87,15 @@ class GroupDetailActivity : AppCompatActivity() {
                     response: Response<List<PhonebookDTO>>
                 ) {
                     val phonebookList = response.body() ?: emptyList()
-                    for (phonebookDTO :PhonebookDTO in phonebookList){
-                        Log.d("activity속 ischeck","${phonebookDTO.phonebookName}")
-                        Log.d("activity속 ischeck","${phonebookDTO.isChecked}")
+                    if (phonebookList.size == 0) {
+                        val groupUserLabel: TextView = findViewById(R.id.groupUserLabel)
+                        groupUserLabel.text = "마이페이지에서 연락처를 동기화하세요."
+                        groupDeleteBtn = findViewById(R.id.groupDeleteBtn)
+                        groupDeleteBtn.setBackgroundResource(R.color.check_gray)
+                        groupDeleteBtn.setEnabled(false)
+                        groupUpdateBtn = findViewById(R.id.groupUpdateBtn)
+                        groupUpdateBtn.setBackgroundResource(R.color.check_gray)
+                        groupUpdateBtn.setEnabled(false)
                     }
                     phonebookListAdapter = PhonebookListAdapter(
                         this@GroupDetailActivity,
