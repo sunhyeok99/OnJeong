@@ -93,6 +93,8 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
         user.setPhoneNumber(phoneNumber);
         // 카카오 리프레시 토큰 갱신
         user.setKakaoRefreshToken(userInfo.getKakaoRefreshToken());
+        // 프로필 url 세팅
+        user.setProfileUrl(userInfo.getProfileImageUrl());
 
         return user.getId();
     }
