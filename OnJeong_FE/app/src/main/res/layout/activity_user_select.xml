@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".domain.videocall.activity.UserSelectActivity">
+    tools:context=".domain.videocall.activity.UserSelectActivity"
+    android:background="@color/white">
 
     <include
         android:id="@+id/include"
