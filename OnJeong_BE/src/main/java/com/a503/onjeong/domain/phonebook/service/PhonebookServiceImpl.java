@@ -23,11 +23,9 @@ import java.util.Optional;
 @Service
 public class PhonebookServiceImpl implements PhonebookService {
 
-    private static final String IMG_PATH = "https://allfriend.s3.ap-northeast-2.amazonaws.com";
     private final UserRepository userRepository;
     private final UserGroupRepository userGroupRepository;
     private final PhonebookRepository phonebookRepository;
-    private final S3Util s3Util;
 
     @Override
     @Transactional
@@ -67,14 +65,14 @@ public class PhonebookServiceImpl implements PhonebookService {
                 }
             }
 
-            String profileUrl = s3Util.getFile(userRepository.findById(phonebook.getPhonebookId().getFriendId()).orElseThrow().getProfileUrl());
+            String profileUrl =userRepository.findById(phonebook.getPhonebookId().getFriendId()).orElseThrow().getProfileUrl();
             PhonebookDTO phonebookDTO = PhonebookDTO.builder()
                     .freindId(phonebook.getPhonebookId().getFriendId())
                     .userId(userId)
                     .phonebookNum(phonebook.getPhonebookNum())
                     .phonebookName(phonebook.getPhonebookName())
                     .isChecked(isChecked)
-                    .profileUrl(IMG_PATH + profileUrl)
+                    .profileUrl(profileUrl)
                     .build();
             phonebookDTOList.add(phonebookDTO);
         }
