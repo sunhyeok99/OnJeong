@@ -15,4 +15,5 @@
     <string name="accept_permissions_dialog">GIVE PERMISSIONS!</string>
     <string name="cancel_dialog">CANCEL</string>
     <string name="no_internet_connection">NO INTERNET CONNECTION, PLEASE CHECK YOUR CONNECTION</string>
+    <string name="title_activity_welfare">Welfare Activity</string>
 </resources>
