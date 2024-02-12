@@ -32,28 +32,24 @@
                 <!-- Left Half -->
                 <Button
                     android:id="@+id/game1_rank"
+                    style="@style/semi_large"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:background="@drawable/button_selector"
-                    android:text="퍼즐 게임"
-                    android:textColor="@color/black"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+                    android:text="퍼즐 게임" />
 
                 <!-- Right Half -->
                 <Button
                     android:id="@+id/game2_rank"
+                    style="@style/semi_large"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:background="@drawable/button_selector"
-                    android:text="짝 맞추기"
-                    android:textColor="@color/black"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+                    android:text="짝 맞추기" />
             </LinearLayout>
         </LinearLayout>
 
@@ -70,9 +66,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="순위"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                style="@style/semi_large" />
             <!--좌측에는 이미지를 배치한 상태에서 우측에 이름과 설명을 배치하기 위해 하나로 묶음-->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -86,9 +80,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:text="이름"
-                    android:textColor="#000000"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    style="@style/semi_large" />
 
 
                 <TextView
@@ -98,9 +90,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:text="점수"
-                    android:textColor="#000000"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    style="@style/semi_large" />
 
             </LinearLayout>
         </LinearLayout>
@@ -133,10 +123,8 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="순위"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-            <!--좌측에는 이미지를 배치한 상태에서 우측에 이름과 설명을 배치하기 위해 하나로 묶음-->
+                style="@style/semi_large" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -149,9 +137,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:text="이름"
-                    android:textColor="#000000"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    style="@style/semi_large" />
 
 
                 <TextView
@@ -161,9 +147,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:text="점수"
-                    android:textColor="#000000"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    style="@style/semi_large" />
 
             </LinearLayout>
         </LinearLayout>

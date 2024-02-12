@@ -129,7 +129,6 @@ class NewsActivity : AppCompatActivity() {
             if (selectedNewsItem != null) {
                 // 클릭된 아이템의 url을 일단 가져옴
                 val url = selectedNewsItem.url
-                println(url)
                 // 가져온 url을 통해 클릭하면 기사로 연결되게 설정
                 openUrl(url.toString())
             }

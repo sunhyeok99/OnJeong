@@ -16,6 +16,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.a503.onjeong.R
 import com.a503.onjeong.domain.game.api.GameApiService
@@ -57,11 +58,11 @@ class Game2Activity : AppCompatActivity() {
 
     private lateinit var frameLayout: FrameLayout
     private lateinit var gridLayout: GridLayout
-    private lateinit var mainLayout: LinearLayout
+    private lateinit var mainLayout: ConstraintLayout
     private lateinit var pauseButton: Button
     private lateinit var resumeButton: Button
     private lateinit var exitButton: Button
-    private lateinit var mainBar: LinearLayout
+    private lateinit var mainBar: ConstraintLayout
     private lateinit var scoreBar: LinearLayout
     private lateinit var lenearFrame: LinearLayout
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -248,7 +249,6 @@ class Game2Activity : AppCompatActivity() {
                         count += 1
                         if (count == size / 2) {
                             round += 1
-                            println(round)
                             score += timeTextView.text.toString().split(" ")[0].toInt()
                             countDownTimer.cancel() // 타이머 종료
                             changeLayoutForRound(round)

@@ -53,8 +53,7 @@
             android:layout_column="0"
             android:layout_columnWeight="1"
             android:layout_gravity="fill_horizontal"
-            android:layout_margin="13dp"
-            >
+            android:layout_margin="13dp">
 
             <ImageView
                 android:id="@+id/btnImage1"
@@ -65,13 +64,12 @@
                 android:src="@drawable/main_weather" />
 
             <TextView
+                style="@style/regular"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_alignParentBottom="true"
                 android:gravity="center"
-                android:text="날씨"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:text="날씨" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -96,13 +94,12 @@
                 android:src="@drawable/main_news" />
 
             <TextView
+                style="@style/regular"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_alignParentBottom="true"
                 android:gravity="center"
-                android:text="뉴스"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:text="뉴스" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -127,13 +124,12 @@
                 android:src="@drawable/main_videocall" />
 
             <TextView
+                style="@style/regular"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_alignParentBottom="true"
                 android:gravity="center"
-                android:text="영상통화"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:text="영상통화" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -158,13 +154,12 @@
                 android:src="@drawable/main_countseller" />
 
             <TextView
+                style="@style/regular"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_alignParentBottom="true"
                 android:gravity="center"
-                android:text="상담원 연결"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:text="상담원 연결" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -189,13 +184,12 @@
                 android:src="@drawable/main_welfare" />
 
             <TextView
+                style="@style/bold"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_alignParentBottom="true"
                 android:gravity="center"
-                android:text="복지 서비스"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:text="복지 서비스" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -220,13 +214,12 @@
                 android:src="@drawable/main_edu" />
 
             <TextView
+                style="@style/bold"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_alignParentBottom="true"
                 android:gravity="center"
-                android:text="온라인 교육"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:text="온라인 교육" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -251,13 +244,12 @@
                 android:src="@drawable/main_game" />
 
             <TextView
+                style="@style/regular"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_alignParentBottom="true"
                 android:gravity="center"
-                android:text="게임"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:text="게임" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -282,13 +274,12 @@
                 android:src="@drawable/main_info" />
 
             <TextView
+                style="@style/regular"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_alignParentBottom="true"
                 android:gravity="center"
-                android:text="마이페이지"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:text="마이페이지" />
         </RelativeLayout>
 
 

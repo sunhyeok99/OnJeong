@@ -7,7 +7,7 @@
     android:background="@drawable/game_background1"
     android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/game2_mainbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,21 +20,23 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:layout_marginStart="8dp"
-            android:layout_marginBottom="8dp"
             android:text="1라운드"
-            android:textColor="@color/white"
-            android:textSize="24dp"
-            android:textStyle="bold" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            style="@style/semi_large" />
         <TextView
             android:id="@+id/time_text"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="시간"
-            android:textColor="@color/white"
-            android:textSize="35dp"
-            android:textStyle="bold" />
-
+            android:layout_weight="1"
+            style="@style/very_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
         <Button
             android:id="@+id/pauseButton"
             android:layout_width="50dp"
@@ -43,9 +45,12 @@
             android:textColor="@color/white"
             android:padding="16dp"
             android:textSize="24sp"
-            android:layout_weight="0" />
+            android:layout_weight="0"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/game2_scoreBar"
@@ -60,9 +65,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="점수"
-            android:textColor="@color/white"
-            android:textSize="30dp"
-            android:textStyle="bold" />
+           style="@style/large" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/frameLinear"
