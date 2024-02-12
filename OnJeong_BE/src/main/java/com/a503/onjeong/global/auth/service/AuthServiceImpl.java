@@ -41,7 +41,7 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
     private final UserRepository userRepository;
     private final KakaoService kakaoService;
     private final GroupRepository groupRepository;
-
+    private static final String DefaultProfileImg = "https://allfriend.s3.ap-northeast-2.amazonaws.com/profile_img.png";
     @Value("${phone.API_KEY}")
     private String API_KEY;
 
@@ -79,13 +79,13 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
                     .build();
 
             user = userRepository.save(userOpt);
-            
-            
+
+
             //그룹 생성
-            Group group= Group.builder()
-                        .name("가족")
-                        .ownerId(userOpt.getId())
-                        .build();
+            Group group = Group.builder()
+                    .name("가족")
+                    .ownerId(userOpt.getId())
+                    .build();
             groupRepository.save(group);
         }
 
@@ -96,6 +96,12 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
         // 프로필 url 세팅
         user.setProfileUrl(userInfo.getProfileImageUrl());
 
+        // 프로필 url 세팅
+        if (userInfo.getProfileImageUrl() == null) {
+            user.setProfileUrl(DefaultProfileImg);
+        } else {
+            user.setProfileUrl(userInfo.getProfileImageUrl());
+        }
         return user.getId();
     }
 

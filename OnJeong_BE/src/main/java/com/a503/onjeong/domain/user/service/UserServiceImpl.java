@@ -18,6 +18,7 @@ import java.io.IOException;
 public class UserServiceImpl implements UserService {
 
     private static final String IMG_PATH="https://allfriend.s3.ap-northeast-2.amazonaws.com";
+    private static final String DefaultProfileImg="https://allfriend.s3.ap-northeast-2.amazonaws.com/profile_img.png";
     private final UserRepository userRepository;
     private final S3Util s3Util;
 
@@ -39,7 +40,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void deleteProfileImg(Long userId) {
         User user = userRepository.findById(userId).orElseThrow();
-        if (!user.getProfileUrl().equals("profile_img.png"))
+        if (!user.getProfileUrl().equals(DefaultProfileImg))
             s3Util.deleteFile(user.getProfileUrl());
         user.setProfileUrl("profile_img.png");
         userRepository.save(user);
@@ -50,10 +51,10 @@ public class UserServiceImpl implements UserService {
     public void updateProfileImg(Long userId, MultipartFile file) throws IOException {
         //user의 url 바꾸기
         User user = userRepository.findById(userId).orElseThrow();
-        if (!user.getProfileUrl().equals("profile_img.png"))
+        if (!user.getProfileUrl().equals(DefaultProfileImg))
             s3Util.deleteFile(user.getProfileUrl());
         String path = s3Util.uploadFile(file);
-        user.setProfileUrl(path);
+        user.setProfileUrl(IMG_PATH+s3Util.getFile(path));
         userRepository.save(user);
     }
 
@@ -64,7 +65,7 @@ public class UserServiceImpl implements UserService {
                 .name(user.getName())
                 .phoneNumber(user.getPhoneNumber())
                 .build();
-        userDTO.setProfileUrl(IMG_PATH+s3Util.getFile(user.getProfileUrl()));
+        userDTO.setProfileUrl(user.getProfileUrl());
         return userDTO;
     }
 
