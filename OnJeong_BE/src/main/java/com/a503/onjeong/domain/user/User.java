@@ -40,6 +40,9 @@ public class User {
     @Column(name = "fcm_token")
     private String fcmToken;
 
+    @Column(name = "profile_url")
+    private String profileUrl;
+
     @Builder
     public User(
             Long kakaoId,
@@ -69,5 +72,9 @@ public class User {
     // 핸드폰 번호 세틸
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public void setProfileUrl(String profileUrl) {
+        this.profileUrl = profileUrl;
     }
 }

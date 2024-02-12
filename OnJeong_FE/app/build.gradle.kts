@@ -86,5 +86,6 @@ dependencies {
     implementation ("com.google.android.gms:play-services-location:21.0.1")
     // JSoup
     implementation("org.jsoup:jsoup:1.15.3")
-
+    //이미지 둥글게
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
 }
