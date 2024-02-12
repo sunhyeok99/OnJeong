@@ -66,7 +66,6 @@ class GameRankActivity : AppCompatActivity() {
                 }
             }
             getScoreList(userId, tmp)
-            println(tmp)
         }
         mainTextView = findViewById(R.id.mainText)
         mainTextView.text = "순위"
@@ -118,7 +117,6 @@ class GameRankActivity : AppCompatActivity() {
                                 ) { // 성공 시 호출
                                     if (response.isSuccessful) {
                                         var userGameInfo = response.body()
-                                        println(userGameInfo)
                                         if (userGameInfo != null) {
                                             // 순서대로 1. 내이름  2. 플레이어 최고점수
                                             findViewById<TextView>(R.id.my_rank_name).text = userGameInfo.userName
@@ -161,33 +159,7 @@ class GameRankActivity : AppCompatActivity() {
                 TODO("Not yet implemented")
             }
         })
-        // 개인정보 불러옴
-//        callDetails.enqueue(object : Callback<UserGameResponseDto> {
-//            override fun onResponse(
-//                call: Call<UserGameResponseDto>,
-//                response: Response<UserGameResponseDto>
-//            ) { // 성공 시 호출
-//                if (response.isSuccessful) {
-//                    var userGameInfo = response.body()
-//                    println(userGameInfo)
-//                    if (userGameInfo != null) {
-//                        // 순서대로 1. 내이름  2. 플레이어 최고점수
-//                        findViewById<TextView>(R.id.my_rank_name).text = userGameInfo.userName
-//                        findViewById<TextView>(R.id.my_rank_score).text = userGameInfo.userGameScore.toString()
-//                        findViewById<TextView>(R.id.my_rank_no).text = myRank
-//
-//                    }
-//                } else {
-//                    // 스프링에서 정보 불러오기 실패 시 호출
-//                    findViewById<TextView>(R.id.my_rank_name).text = "점수 없음"
-//                    findViewById<TextView>(R.id.my_rank_score).text = " - "
-//                    findViewById<TextView>(R.id.my_rank_no).text = " - "
-//                }
-//            }
-//            override fun onFailure(call: Call<UserGameResponseDto>, t: Throwable) {
-//                TODO("Not yet implemented")
-//            }
-//        })
+
 
     }
 }
