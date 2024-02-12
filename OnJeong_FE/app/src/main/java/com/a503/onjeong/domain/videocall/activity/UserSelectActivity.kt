@@ -144,9 +144,11 @@ class UserSelectActivity : AppCompatActivity() {
     }
 
     private fun sendCallRequest(sessionId: String) {
-
+        val name =
+            getSharedPreferences("mySharedPreferences", Context.MODE_PRIVATE).getString("name", "")
+                .toString()
         val userIdList: List<Long> = selectedUserList.map { it.getUserId() }
-        val callRequestDto = CallRequestDto(userIdList, sessionId)
+        val callRequestDto = CallRequestDto(userIdList, sessionId, name)
 
 
         val retrofit = RetrofitClient.getApiClient(this)

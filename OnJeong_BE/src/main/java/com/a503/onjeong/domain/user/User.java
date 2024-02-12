@@ -69,7 +69,7 @@ public class User {
         this.kakaoRefreshToken = kakaoRefreshToken;
     }
 
-    // 핸드폰 번호 세틸
+    // 핸드폰 번호 세팅
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
