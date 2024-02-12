@@ -10,12 +10,12 @@ import retrofit2.http.Query
 
 interface PhonebookApiService {
 
-    @POST("/phonebook/save")
+    @POST("/phonebook")
     fun phonebookSave(
         @Body phonebookAllDTO: PhonebookAllDTO
     ): Call<Void?>?
 
-    @GET("/phonebook/list")
+    @GET("/phonebook")
     fun phonebookList(
         @Query("userId") userId: Long, @Query("groupId") groupId: Long?
     ): Call<List<PhonebookDTO>>

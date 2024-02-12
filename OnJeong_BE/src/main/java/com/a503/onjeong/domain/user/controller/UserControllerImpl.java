@@ -45,7 +45,6 @@ public class UserControllerImpl implements UserController {
     @GetMapping("info")
     public ResponseEntity<UserDTO> getUserInfo(@RequestParam("userId") Long userId) {
         UserDTO userDTO=userService.getUserInfo(userId);
-        System.out.println(userDTO.getProfileUrl()+"sdafda");
         return new ResponseEntity<>(userDTO,HttpStatus.OK);
     }
 

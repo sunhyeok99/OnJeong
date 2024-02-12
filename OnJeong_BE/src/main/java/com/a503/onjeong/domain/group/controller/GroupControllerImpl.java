@@ -34,21 +34,21 @@ public class GroupControllerImpl implements GroupController {
     }
 
     @Override
-    @PostMapping("/create")               //그룹 생성
+    @PostMapping("")               //그룹 생성
     public ResponseEntity<Void> groupCreate(@RequestBody GroupUserListDTO groupUserListDTO) {
         groupService.groupCreate(groupUserListDTO);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
     @Override
-    @DeleteMapping("/delete")              //그룹 삭제
+    @DeleteMapping("")              //그룹 삭제
     public ResponseEntity<Void> groupDelete(@RequestParam(value = "groupId") Long groupId) {
         groupService.groupDelete(groupId);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     @Override
-    @PutMapping("/update")                 //그룹 정보,구성원 수정
+    @PutMapping("")                 //그룹 정보,구성원 수정
     public ResponseEntity<Void> groupUpdate(@RequestBody GroupUserListDTO groupUserListDTO) {
         groupService.groupUpdate(groupUserListDTO);
         return new ResponseEntity<>(HttpStatus.OK);

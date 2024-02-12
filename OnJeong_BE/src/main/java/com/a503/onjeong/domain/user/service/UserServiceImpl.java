@@ -7,11 +7,13 @@ import com.a503.onjeong.domain.user.repository.UserRepository;
 import com.a503.onjeong.global.util.S3Util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
@@ -20,6 +22,7 @@ public class UserServiceImpl implements UserService {
     private final S3Util s3Util;
 
     @Override
+    @Transactional
     public void updateFcmToken(FcmTokenRequestDto fcmTokenRequestDto) {
         Long userId = fcmTokenRequestDto.getUserId();
         String fcmToken = fcmTokenRequestDto.getFcmToken();
@@ -33,6 +36,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void deleteProfileImg(Long userId) {
         User user = userRepository.findById(userId).orElseThrow();
         if (!user.getProfileUrl().equals("profile_img.png"))
@@ -42,6 +46,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void updateProfileImg(Long userId, MultipartFile file) throws IOException {
         //user의 url 바꾸기
         User user = userRepository.findById(userId).orElseThrow();
@@ -64,6 +69,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void updatePhoneNum(Long userId, String phoneNum) {
         User user = userRepository.findById(userId).orElseThrow();
         user.setPhoneNumber(phoneNum);

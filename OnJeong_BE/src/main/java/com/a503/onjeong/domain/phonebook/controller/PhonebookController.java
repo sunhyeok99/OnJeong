@@ -9,10 +9,10 @@ import java.util.List;
 
 @RestController
 public interface PhonebookController {
-    @PostMapping("/save")
+    @PostMapping("")
     ResponseEntity<Void> phonebookSave(@RequestBody PhonebookAllDTO phonebookAllDTO);
 
-    @GetMapping("/list")
+    @GetMapping("")
     ResponseEntity<List<PhonebookDTO>> phonebookList(
             Long userId, @RequestParam(required = false) Long groupId);
 }
