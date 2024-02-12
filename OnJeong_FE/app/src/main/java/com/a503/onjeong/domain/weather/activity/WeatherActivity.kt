@@ -90,6 +90,7 @@ class WeatherActivity : AppCompatActivity() {
                 var idx = 0
                 var cnt = 0;
                 var l = ""
+                println(address)
                 for (a in address) {
                     var add = a.getAddressLine(0).split(" ")
                     if (add.get(add.size - 1).last().equals('동') ||
@@ -105,7 +106,7 @@ class WeatherActivity : AppCompatActivity() {
                 }
 
                 var splitAddr = address.get(idx).getAddressLine(0).split(" ")
-
+                println(splitAddr)
                 if (splitAddr.size == 4) {
                     call = service.getWeatherInfo(
                         WeatherRequestDto(
@@ -115,6 +116,7 @@ class WeatherActivity : AppCompatActivity() {
                             splitAddr[3]
                         )
                     )
+                    currentAddress.text = splitAddr[1] + " " + splitAddr[2] + " " + splitAddr[3]
                 } else {
                     call = service.getWeatherInfo(
                         WeatherRequestDto(
@@ -124,6 +126,7 @@ class WeatherActivity : AppCompatActivity() {
                             splitAddr[4]
                         )
                     )
+                    currentAddress.text = splitAddr[1] + " " + splitAddr[2] + " " + splitAddr[3] + " " + splitAddr[4]
                 }
 
 
