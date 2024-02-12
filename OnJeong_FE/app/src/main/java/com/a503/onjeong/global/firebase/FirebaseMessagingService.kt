@@ -10,6 +10,7 @@ import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.a503.onjeong.R
+import com.a503.onjeong.domain.videocall.activity.RejectCallActivity
 import com.a503.onjeong.domain.videocall.activity.VideoCallActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -17,8 +18,8 @@ import java.util.Random
 
 
 class FirebaseMessagingService : FirebaseMessagingService() {
-    private val NOTIFICATION_CHANNEL_ID = "sample.noti.app"
-    private val NOTIFICATION_CHANNEL_NAME = "Notification"
+    private val NOTIFICATION_CHANNEL_ID = "notification.videocall"
+    private val NOTIFICATION_CHANNEL_NAME = "VideoCall"
     private val NOTIFICATION_CHANNEL_DESCRIPTION = "notification channel"
 
     override fun onNewToken(token: String) {
@@ -30,12 +31,15 @@ class FirebaseMessagingService : FirebaseMessagingService() {
         Log.d("FCM Log", "Notification Message Received: $remoteMessage")
 
         if (remoteMessage.data.isNotEmpty()) {
-            val content = remoteMessage.data["title"]
-            Log.d("FCM Log", "Notification Message content: $content")
+            val notificationId = 147147
+            val sessionId = remoteMessage.data["sessionId"]
+            val callerName = remoteMessage.data["callerName"]
+            Log.d("FCM Log", "Notification Message content: $sessionId")
 
             val intent = Intent(this, VideoCallActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-            intent.putExtra("sessionId", content)
+            intent.putExtra("sessionId", sessionId)
+            intent.putExtra("notificationId", notificationId)
             val pendingIntent =
                 PendingIntent.getActivity(
                     this,
@@ -43,12 +47,25 @@ class FirebaseMessagingService : FirebaseMessagingService() {
                     intent,
                     PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
                 )
+            val rejectIntent = Intent(this, RejectCallActivity::class.java)
+            rejectIntent.putExtra("notificationId", notificationId)
+            val rejectPendingIntent = PendingIntent.getActivity(
+                this,
+                1,
+                rejectIntent,
+                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+            )
 
-            showNotification(content, pendingIntent)
+            showNotification(callerName, pendingIntent, rejectPendingIntent, notificationId)
         }
     }
 
-    private fun showNotification(content: String?, pendingIntent: PendingIntent) {
+    private fun showNotification(
+        callerName: String?,
+        pendingIntent: PendingIntent,
+        rejectPendingIntent: PendingIntent,
+        notificationId: Int
+    ) {
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel(notificationManager)
@@ -56,14 +73,32 @@ class FirebaseMessagingService : FirebaseMessagingService() {
         val notificationBuilder: NotificationCompat.Builder =
             NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
                 .setAutoCancel(true)
-                .setDefaults(Notification.DEFAULT_ALL)
+//                .setDefaults(Notification.DEFAULT_ALL)
                 .setWhen(System.currentTimeMillis())
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentTitle("A new post you might be interested in.")
-                .setContentText(content)
+                .setContentTitle("${callerName}님으로부터 영상통화가 왔습니다!")
+                .setContentText("\n\n\n")
                 .setContentInfo("Info")
-                .setContentIntent(pendingIntent)
-        notificationManager.notify(Random().nextInt(), notificationBuilder.build())
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+//                .setCategory(NotificationCompat.CATEGORY_CALL)
+//                .setDefaults(NotificationCompat.DEFAULT_SOUND or NotificationCompat.DEFAULT_VIBRATE)
+                .setFullScreenIntent(pendingIntent, true)
+//                .setContentIntent(pendingIntent)
+                .addAction(
+                    NotificationCompat.Action.Builder(
+                        android.R.drawable.sym_action_call,
+                        "전화 받기",
+                        pendingIntent
+                    ).build()
+                )
+                .addAction(
+                    NotificationCompat.Action.Builder(
+                        android.R.drawable.stat_notify_missed_call,
+                        "전화 거절",
+                        rejectPendingIntent
+                    ).build()
+                )
+        notificationManager.notify(notificationId, notificationBuilder.build())
     }
 
     private fun createNotificationChannel(manager: NotificationManager) {
@@ -72,14 +107,11 @@ class FirebaseMessagingService : FirebaseMessagingService() {
             notificationChannel = NotificationChannel(
                 NOTIFICATION_CHANNEL_ID,
                 NOTIFICATION_CHANNEL_NAME,
-                NotificationManager.IMPORTANCE_DEFAULT
+                NotificationManager.IMPORTANCE_HIGH
             )
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationChannel!!.description = NOTIFICATION_CHANNEL_DESCRIPTION
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            manager.createNotificationChannel(notificationChannel!!)
+            notificationChannel.description = NOTIFICATION_CHANNEL_DESCRIPTION
+            notificationChannel.setShowBadge(true)
+            manager.createNotificationChannel(notificationChannel)
         }
     }
 }

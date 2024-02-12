@@ -10,14 +10,16 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- 필요에 의해 사용 -->
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <uses-permission
         android:name="android.permission.POST_NOTIFICATIONS"
         android:minSdkVersion="33" />
+
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
 
     <application
         android:allowBackup="true"
@@ -39,6 +41,8 @@
         <activity
             android:name=".domain.videocall.activity.VideoCallActivity"
             android:exported="false" />
+        <activity android:name=".domain.videocall.activity.RejectCallActivity" />
+
         <activity
             android:name=".domain.login.activity.AutoLoginActivity"
             android:exported="true">
@@ -53,15 +57,15 @@
         <activity android:name=".domain.login.activity.TelephoneActivity" />
         <activity android:name=".domain.login.activity.StartActivity" />
         <activity android:name=".domain.MainActivity" />
-        <activity android:name=".domain.news.activity.NewsActivity"/>
-        <activity android:name=".domain.game.activity.GameActivity"/>
-        <activity android:name=".domain.game.activity.Game1Lobby"/>
-        <activity android:name=".domain.game.activity.Game2Lobby"/>
-        <activity android:name=".domain.game.activity.Game1Description"/>
-        <activity android:name=".domain.game.activity.Game2Description"/>
-        <activity android:name=".domain.game.activity.Game2Activity"/>
+        <activity android:name=".domain.news.activity.NewsActivity" />
+        <activity android:name=".domain.game.activity.GameActivity" />
+        <activity android:name=".domain.game.activity.Game1Lobby" />
+        <activity android:name=".domain.game.activity.Game2Lobby" />
+        <activity android:name=".domain.game.activity.Game1Description" />
+        <activity android:name=".domain.game.activity.Game2Description" />
+        <activity android:name=".domain.game.activity.Game2Activity" />
         <activity android:name=".domain.game.activity.Game1Activity" />
-        <activity android:name=".domain.game.activity.GameRankActivity"/>
+        <activity android:name=".domain.game.activity.GameRankActivity" />
 
         <activity
             android:name=".domain.weather.activity.WeatherActivity"
