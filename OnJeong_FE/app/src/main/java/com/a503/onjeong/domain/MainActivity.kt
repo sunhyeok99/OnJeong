@@ -7,11 +7,14 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Button
 import android.widget.RelativeLayout
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.a503.onjeong.domain.game.activity.GameActivity
 import com.a503.onjeong.R
 import com.a503.onjeong.domain.education.activity.EducationActivity
@@ -85,6 +88,11 @@ class MainActivity : AppCompatActivity() {
         //firebase test
 
         getFcmToken()
+
+        val btnBack: Button = findViewById(R.id.btnBack)
+        btnBack.visibility = View.INVISIBLE
+        val btnHome: Button = findViewById(R.id.btnHome)
+        btnHome.visibility = View.GONE
     }
 
     //FCM token 받아오기

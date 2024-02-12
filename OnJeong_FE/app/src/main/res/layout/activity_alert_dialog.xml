@@ -23,14 +23,16 @@
             android:layout_marginBottom="50dp"
             android:background="#E1DDDD" />
 
-        <ImageView
+
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profileImg"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/profile_img"
-            android:scaleType="fitXY"
-            />
+            app:civ_border_color="@color/black"
+            app:civ_border_overlay="true"
+            app:civ_border_width="2dp" />
 
         <LinearLayout
             android:layout_width="200dp"

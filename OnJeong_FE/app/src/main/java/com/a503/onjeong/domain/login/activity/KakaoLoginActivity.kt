@@ -38,7 +38,7 @@ class KakaoLoginActivity : AppCompatActivity() {
             @SuppressLint("NewApi")
             override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
                 val uri = request?.url
-                if (uri != null && uri.toString().startsWith("http://10.0.2.2:8080/auth/kakao/redirect")) {
+                if (uri != null && uri.toString().startsWith("http://i10a503.p.ssafy.io:8080/auth/kakao/redirect")) {
                     // 여기서 URI 파싱 등을 통해 인가 코드 추출
                     val authorizationCode = extractAuthorizationCode(uri)
 
@@ -80,10 +80,9 @@ class KakaoLoginActivity : AppCompatActivity() {
 
                     val accessToken = response.body()?.accessToken
                     val refreshToken = response.body()?.refreshToken
-
                     // SharedPreferences에 토큰 저장
-                    editor.putString("jwtAccessToken", accessToken)
-                    editor.putString("jwtRefreshToken", refreshToken)
+                    editor.putString("kakaoAccessToken", accessToken)
+                    editor.putString("kakaoRefreshToken", refreshToken)
                     editor.apply()
 
                     // 다음 액티비티로 이동

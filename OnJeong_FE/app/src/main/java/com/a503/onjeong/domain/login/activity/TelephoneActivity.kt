@@ -57,8 +57,8 @@ class TelephoneActivity : AppCompatActivity() {
 
             val phoneCall = loginService.phone(phoneNumber)
             val signupCall = loginService.signup(
-                sharedPreferences.getString("jwtAccessToken", "none").toString(),
-                sharedPreferences.getString("jwtRefreshToken", "none").toString(), phoneNumber
+                sharedPreferences.getString("kakaoAccessToken", "none").toString(),
+                sharedPreferences.getString("kakaoRefreshToken", "none").toString(), phoneNumber
             )
 
             phoneCall.enqueue(object : Callback<String> {

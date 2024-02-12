@@ -23,17 +23,18 @@ class StartActivity : AppCompatActivity() {
 
         val startButton = findViewById<Button>(R.id.buttonStart)
         val retrofit = RetrofitClient.getAuthApiClient()
-        val phoneApiService = retrofit.create(LoginApiService::class.java)
+        val loginApiService = retrofit.create(LoginApiService::class.java)
 
         val sharedPreferences = getSharedPreferences("mySharedPreferences", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
 
 
         startButton.setOnClickListener {
-            val call = phoneApiService.login(
-                sharedPreferences.getString("jwtAccessToken", null).toString(),
+            val call = loginApiService.login(
+                sharedPreferences.getString("kakaoAccessToken", "none").toString(),
                 sharedPreferences.getLong("userId", 0L)
             )
+
             call.enqueue(object : Callback<LoginInfoResponseDto> {
                 override fun onResponse(
                     call: Call<LoginInfoResponseDto>,
@@ -70,8 +71,9 @@ class StartActivity : AppCompatActivity() {
                     }
                 }
 
+
                 override fun onFailure(call: Call<LoginInfoResponseDto>, t: Throwable) {
-                    TODO("Not yet implemented")
+                    println(t.message.toString())
                 }
             })
         }
