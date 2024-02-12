@@ -16,6 +16,7 @@ import com.a503.onjeong.domain.user.dto.FcmTokenDto
 import com.a503.onjeong.domain.videocall.activity.GroupSelectActivity
 import com.a503.onjeong.global.network.RetrofitClient
 import com.a503.onjeong.domain.mypage.activity.MyPageActivity
+import com.a503.onjeong.domain.welfare.activity.WelfareActivity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.messaging.FirebaseMessaging
 import retrofit2.Call
@@ -60,6 +61,13 @@ class MainActivity : AppCompatActivity() {
         val education: RelativeLayout = findViewById(R.id.btnEdu)
         education.setOnClickListener {
             val intent = Intent(this, EducationActivity::class.java)
+            startActivity(intent)
+        }
+
+        // 복지 서비스 페이지 이동
+        val welfare: RelativeLayout = findViewById(R.id.btnWelfare)
+        welfare.setOnClickListener {
+            val intent = Intent(this, WelfareActivity::class.java)
             startActivity(intent)
         }
 

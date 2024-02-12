@@ -33,7 +33,7 @@ class EducationActivity : AppCompatActivity() {
         mainTextView.text = "온라인 교육"
 
 
-        var youtubeList = listOf("ngmjy5DFu8E", "OL2f3vzgE7M", "ygGRC_zOUyI", "0_4aPCkl1BU")
+        var youtubeList = listOf("tCSjC9imDhI")
 
         youtubeListView = findViewById(R.id.youtube_list_view)
         educationAdapter = EducationAdapter(youtubeList)
@@ -43,23 +43,9 @@ class EducationActivity : AppCompatActivity() {
         category2 = findViewById(R.id.category2)
 
         category2.setOnClickListener{
-            youtubeList = listOf("ygGRC_zOUyI")
+            youtubeList = listOf("tCSjC9imDhI")
             educationAdapter.notifyDataSetChanged()
         }
-
-//        val youTubePlayerView = findViewById<YouTubePlayerView>(R.id.youtube_player_view)
-//        lifecycle.addObserver(youTubePlayerView)
-//
-//
-//        youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
-//            override fun onReady(@NonNull youTubePlayer: YouTubePlayer) {
-//                val videoId = "lWelo_8_EtY" //재생을 원하는 YouTube 비디오의 videoID
-//                youTubePlayer.loadVideo(videoId, 0f)
-//            }
-//        })
-
-
-
 
         // 홈버튼 누르면 홈으로 이동하게
         homeButton = findViewById(R.id.btnHome)
