@@ -50,7 +50,7 @@ class MyPageActivity : AppCompatActivity() {
                     var userDTO: UserDTO? = response.body();
                     var name: TextView = findViewById(R.id.name)
                     if (userDTO != null) {
-                        name.text = userDTO.name
+                        name.text = userDTO.getName()
                     }
                     var userProfile: CircleImageView = findViewById(R.id.userProfile)
                     // Glide로 이미지 표시하기
