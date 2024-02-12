@@ -1,8 +1,6 @@
 package com.a503.onjeong.domain.weather.activity
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
@@ -14,8 +12,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.a503.onjeong.R
 import com.a503.onjeong.domain.weather.api.WeatherApiService
 import com.a503.onjeong.domain.weather.dto.WeatherRequestDto
@@ -32,15 +28,9 @@ import java.util.Locale
 
 class WeatherActivity : AppCompatActivity() {
 
-    private var addr = "";
-
-    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_weather)
-
-
-        askForPermissions()
 
         val retrofit = RetrofitClient.getApiClient(this)
         val service = retrofit.create(WeatherApiService::class.java)
@@ -91,19 +81,54 @@ class WeatherActivity : AppCompatActivity() {
                 sevenTemperature
             )
 
+
         getLocation(object : LocationCallback {
-            override fun onLocationReceived(location: Location) {
+            override fun onLocationReceived(address: List<Address>) {
                 // 위치를 받은 후 API 요청 수행
-                val splitAddr = addr.split(" ").subList(1, 4)
-                val call = service.getWeatherInfo(
-                    WeatherRequestDto(
-                        splitAddr[0],
-                        splitAddr[1],
-                        splitAddr[2]
+                var call: Call<List<WeatherResponseDto>>? = null
+
+                var idx = 0
+                var cnt = 0;
+                var l = ""
+                for (a in address) {
+                    var add = a.getAddressLine(0).split(" ")
+                    if (add.get(add.size - 1).last().equals('동') ||
+                        add.get(add.size - 1).last().equals('읍') ||
+                        add.get(add.size - 1).last().equals('면')
+                    ) {
+                        if (l.length < add.get(add.size - 1).length) {
+                            idx = cnt
+                            l = add.get(add.size - 1)
+                        }
+                    }
+                    cnt += 1
+                }
+
+                var splitAddr = address.get(idx).getAddressLine(0).split(" ")
+
+                if (splitAddr.size == 4) {
+                    call = service.getWeatherInfo(
+                        WeatherRequestDto(
+                            splitAddr[1],
+                            "",
+                            splitAddr[2],
+                            splitAddr[3]
+                        )
                     )
-                )
+                } else {
+                    call = service.getWeatherInfo(
+                        WeatherRequestDto(
+                            splitAddr[1],
+                            splitAddr[2],
+                            splitAddr[3],
+                            splitAddr[4]
+                        )
+                    )
+                }
+
 
                 call.enqueue(object : Callback<List<WeatherResponseDto>> {
+                    @RequiresApi(Build.VERSION_CODES.O)
                     override fun onResponse(
                         call: Call<List<WeatherResponseDto>>,
                         response: Response<List<WeatherResponseDto>>
@@ -112,7 +137,6 @@ class WeatherActivity : AppCompatActivity() {
                         if (response.isSuccessful) {
                             val weatherResponseDto: List<WeatherResponseDto>? = response.body()
                             var now = LocalDate.now()
-                            println(now)
 
                             if (weatherResponseDto != null) {
                                 for (index in weatherResponseDto.indices) {
@@ -165,19 +189,16 @@ class WeatherActivity : AppCompatActivity() {
         fusedLocationProviderClient.lastLocation
             .addOnSuccessListener { success: Location? ->
                 success?.let { location ->
-                    val address = getAddress(location.latitude, location.longitude)?.get(0)
-                    address?.let { a ->
-                        addr = a.getAddressLine(0).toString()
-                        println(addr)
-                        // 위치를 받은 후 콜백 호출
-                        locationCallback.onLocationReceived(location)
+                    val address: List<Address>? = getAddress(location.latitude, location.longitude)
+                    if (address != null) {
+                        locationCallback.onLocationReceived(address)
                     }
                 }
             }
     }
 
     interface LocationCallback {
-        fun onLocationReceived(location: Location)
+        fun onLocationReceived(address: List<Address>)
     }
 
     private fun getAddress(lat: Double, lng: Double): List<Address>? {
@@ -185,36 +206,11 @@ class WeatherActivity : AppCompatActivity() {
 
         return try {
             val geocoder = Geocoder(this, Locale.KOREA)
-            address = geocoder.getFromLocation(lat, lng, 1) as List<Address>
+            address = geocoder.getFromLocation(lat, lng, 10) as List<Address>
             address
         } catch (e: IOException) {
             Toast.makeText(this, "주소를 가져 올 수 없습니다", Toast.LENGTH_SHORT).show()
             null
-        }
-    }
-
-    private fun checkLocationPermissions(): Boolean {
-        return ContextCompat.checkSelfPermission(
-            this,
-            Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
-    }
-
-    @RequiresApi(Build.VERSION_CODES.Q)
-    private fun askForPermissions() {
-        if (!checkLocationPermissions()) {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-                ),
-                1
-            )
         }
     }
 

@@ -1,8 +1,9 @@
 package com.a503.onjeong.global.auth.service;
 
 import com.a503.onjeong.global.auth.dto.KakaoDto;
-import com.a503.onjeong.global.auth.dto.LoginResponseDto;
+import com.a503.onjeong.global.auth.dto.LoginInfoResponseDto;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public interface AuthService {
     Long signup(String kakaoAccessToken, String kakaoRefreshToken,
                 String phoneNumber, HttpServletResponse response);
 
-    Long login(String kakaoAccessToken, Long userId, HttpServletResponse response) throws UnknownHostException, IllegalAccessException;
+    LoginInfoResponseDto login(String kakaoAccessToken, Long userId, HttpServletResponse response) throws UnknownHostException, IllegalAccessException;
 
     KakaoDto.Token kakaoLogin(String code);
 

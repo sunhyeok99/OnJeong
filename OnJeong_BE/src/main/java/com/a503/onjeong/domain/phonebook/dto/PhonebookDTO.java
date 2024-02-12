@@ -10,7 +10,7 @@ public class PhonebookDTO {
     private String phonebookNum;
     private String phonebookName;
     private int isChecked=0;
-
+    private String profileUrl;
 
     @Builder
     public PhonebookDTO(
@@ -18,7 +18,8 @@ public class PhonebookDTO {
             Long freindId,
             String phonebookNum,
             String phonebookName,
-            int isChecked
+            int isChecked,
+            String profileUrl
 
     ) {
         this.userId = userId;
@@ -26,5 +27,6 @@ public class PhonebookDTO {
         this.phonebookNum = phonebookNum;
         this.phonebookName = phonebookName;
         this.isChecked=isChecked;
+        this.profileUrl=profileUrl;
     }
 }

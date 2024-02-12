@@ -48,6 +48,11 @@ class VideoCallActivity : AppCompatActivity() {
         //        ButterKnife.bind(this);
         checkPermission()
 
+        binding.finishCall.setOnClickListener {
+            leaveSession()
+            finish()
+        }
+
 
 //        val random = Random()
 //        val randomIndex = random.nextInt(100)
@@ -242,8 +247,8 @@ class VideoCallActivity : AppCompatActivity() {
         runOnUiThread {
 
             // Update local participant view
-            binding.mainParticipant.text = binding.participantName.text.toString()
-            binding.mainParticipant.setPadding(20, 3, 20, 3)
+//            binding.mainParticipant.text = binding.participantName.text.toString()
+//            binding.mainParticipant.setPadding(20, 3, 20, 3)
         }
 
         // Initialize and connect the websocket to OpenVidu Server
@@ -280,12 +285,12 @@ class VideoCallActivity : AppCompatActivity() {
 //            binding.startFinishCall.text = resources.getString(R.string.start_button)
 //            binding.startFinishCall.isEnabled = true
             binding.finishCall.isEnabled = true
-            binding.applicationServerUrl.isEnabled = true
-            binding.applicationServerUrl.isFocusableInTouchMode = true
-            binding.sessionName.isEnabled = true
-            binding.sessionName.isFocusableInTouchMode = true
-            binding.participantName.isEnabled = true
-            binding.participantName.isFocusableInTouchMode = true
+//            binding.applicationServerUrl.isEnabled = true
+//            binding.applicationServerUrl.isFocusableInTouchMode = true
+//            binding.sessionName.isEnabled = true
+//            binding.sessionName.isFocusableInTouchMode = true
+//            binding.participantName.isEnabled = true
+//            binding.participantName.isFocusableInTouchMode = true
             binding.mainParticipant.setText(null);
             binding.mainParticipant.setPadding(0, 0, 0, 0)
         }
@@ -294,12 +299,12 @@ class VideoCallActivity : AppCompatActivity() {
     fun viewToConnectingState() {
         runOnUiThread {
 //            binding.startFinishCall.isEnabled = false
-            binding.applicationServerUrl.isEnabled = false
-            binding.applicationServerUrl.isFocusable = false
-            binding.sessionName.isEnabled = false
-            binding.sessionName.isFocusable = false
-            binding.participantName.isEnabled = false
-            binding.participantName.isFocusable = false
+//            binding.applicationServerUrl.isEnabled = false
+//            binding.applicationServerUrl.isFocusable = false
+//            binding.sessionName.isEnabled = false
+//            binding.sessionName.isFocusable = false
+//            binding.participantName.isEnabled = false
+//            binding.participantName.isFocusable = false
         }
     }
 
