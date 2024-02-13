@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-        tools:context=".domain.videocall.activity.GroupSelectActivity"
-    android:background="@color/white">
+    android:background="@color/white"
+    tools:context=".domain.videocall.activity.GroupSelectActivity">
 
     <include
         android:id="@+id/include"
@@ -13,19 +13,18 @@
 
     <TextView
         android:id="@+id/textView"
+        style="@style/semi_large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text="모임을 선택하세요!"
-        android:textColor="#E8000000"
-        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include" />
 
     <ListView
         android:id="@+id/groupListView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
@@ -38,13 +37,4 @@
     </ListView>
 
 
-    <!--    <Button-->
-    <!--        android:id="@+id/button"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="Button"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>

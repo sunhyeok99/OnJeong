@@ -8,6 +8,8 @@ import android.widget.EditText
 import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.a503.onjeong.R
 import com.a503.onjeong.domain.MainActivity
 import com.a503.onjeong.domain.mypage.adapter.CheckListAdapter
@@ -27,7 +29,9 @@ class GroupCreateActivity : AppCompatActivity() {
     private lateinit var backButton: Button
     private lateinit var groupCreateBtn: Button
     private lateinit var phonebookListView: ListView
-    private lateinit var checkListView: ListView
+
+    //    private lateinit var checkListView: ListView
+    private lateinit var checkListView: RecyclerView
     private lateinit var phonebookListAdapter: PhonebookListAdapter
     private lateinit var checkListAdapter: CheckListAdapter
 
@@ -38,11 +42,15 @@ class GroupCreateActivity : AppCompatActivity() {
         var checkList: ArrayList<PhonebookDTO>
         checkList = ArrayList()
         checkListView = findViewById(R.id.checkListView)
-        checkListAdapter = CheckListAdapter( //선택한 사람들 구성원 리스트에 넣어주는 어댑터
-            this@GroupCreateActivity,
-            R.layout.activity_check_list_item,
-            checkList
-        )
+//        checkListAdapter = CheckListAdapter( //선택한 사람들 구성원 리스트에 넣어주는 어댑터
+//            this@GroupCreateActivity,
+//            R.layout.activity_check_list_item,
+//            checkList
+//        )
+//        checkListView.adapter = checkListAdapter
+
+        checkListAdapter = CheckListAdapter(this, checkList)
+        checkListView.layoutManager = LinearLayoutManager(this)
         checkListView.adapter = checkListAdapter
 
 

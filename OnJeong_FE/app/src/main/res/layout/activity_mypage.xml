@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="#FFFFFF"
 
-    android:background="#FFFFFF">
+    android:orientation="vertical">
 
     <include layout="@layout/activity_main_bar" />
+
     <FrameLayout
 
         android:layout_width="wrap_content"
-        android:layout_height="340dp">
+        android:layout_height="280dp">
 
         <View
             android:id="@+id/ViewColorYellow"
             android:layout_width="wrap_content"
-            android:layout_height="300dp"
+            android:layout_height="230dp"
             android:background="#F6BD4E" />
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -26,65 +26,77 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:layout_marginTop="120dp"
-            android:src="@drawable/profile_img"
-            app:civ_border_color="@color/black"
-            app:civ_border_overlay="true"
-            app:civ_border_width="2dp"
-            />
+            android:layout_marginTop="80dp"
+            android:src="@drawable/white" />
 
     </FrameLayout>
 
     <TextView
         android:id="@+id/name"
+        style="@style/large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
-        android:text="누구세요"
-        android:textColor="@color/black"
-        android:textSize="25dp"
-        android:textStyle="bold" />
+        android:text="" />
 
 
     <Button
         android:id="@+id/phoneNumEditBtn"
-        android:layout_width="201dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/white"
+        style="@style/regular"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="80dp"
+        android:background="@drawable/rect_round_main_color_button"
+        android:backgroundTint="@color/white"
         android:text="번호 수정"
         android:textColor="@color/black" />
 
     <Button
         android:id="@+id/groupSettingBtn"
-        android:layout_width="201dp"
-        android:layout_height="36dp"
-        android:layout_margin="20dp"
-        android:background="@color/white"
+        style="@style/regular"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="80dp"
+        android:background="@drawable/rect_round_main_color_button"
+        android:backgroundTint="@color/white"
         android:text="모임 설정"
         android:textColor="@color/black" />
+
     <Button
         android:id="@+id/phoneBookBtn"
-        android:layout_width="201dp"
-        android:layout_height="36dp"
-        android:layout_marginBottom="50dp"
-        android:background="@color/white"
+        style="@style/regular"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="80dp"
+        android:background="@drawable/rect_round_main_color_button"
+        android:backgroundTint="@color/white"
         android:text="연락처 동기화"
         android:textColor="@color/black" />
 
     <Button
         android:id="@+id/logoutBtn"
-        android:layout_width="302dp"
-        android:layout_height="42dp"
-        android:background="#FFC4C4"
+        style="@style/regular"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/rect_round_main_color_button"
+        android:backgroundTint="@color/light_accent"
         android:text="로그아웃"
         android:textColor="@color/black"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
 </LinearLayout>
