@@ -1,9 +1,13 @@
 package com.a503.onjeong.domain.videocall.activity
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.a503.onjeong.R
 import com.a503.onjeong.databinding.ActivityGroupSelectBinding
 import com.a503.onjeong.domain.mypage.api.GroupApiService
@@ -26,6 +30,8 @@ class GroupSelectActivity : AppCompatActivity() {
 //        binding.button.setOnClickListener {
 //            getVideoCallToken()
 //        }
+        askForPermissions()
+
         getGroupList()
     }
 
@@ -65,5 +71,32 @@ class GroupSelectActivity : AppCompatActivity() {
         }
     }
 
-
+    fun askForPermissions() {
+        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                    != PackageManager.PERMISSION_GRANTED) &&
+            (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
+                    != PackageManager.PERMISSION_GRANTED)
+        ) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO),
+                102
+            )
+        } else if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.RECORD_AUDIO
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.RECORD_AUDIO),
+                101
+            )
+        } else if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.CAMERA),
+                100
+            )
+        }
+    }
 }

@@ -15,7 +15,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.a503.onjeong.R
@@ -45,8 +44,7 @@ class VideoCallActivity : AppCompatActivity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setContentView(binding.root)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
-        askForPermissions()
-        //        ButterKnife.bind(this);
+//        askForPermissions()
         checkPermission()
 
         removeNotification()
@@ -55,11 +53,6 @@ class VideoCallActivity : AppCompatActivity() {
             leaveSession()
             finish()
         }
-
-
-//        val random = Random()
-//        val randomIndex = random.nextInt(100)
-//        binding.participantName.text = binding.participantName.text.append(randomIndex.toString())
     }
 
     private fun removeNotification() {
@@ -99,34 +92,34 @@ class VideoCallActivity : AppCompatActivity() {
         })
     }
 
-    fun askForPermissions() {
-        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                    != PackageManager.PERMISSION_GRANTED) &&
-            (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
-                    != PackageManager.PERMISSION_GRANTED)
-        ) {
-            ActivityCompat.requestPermissions(
-                this, arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO),
-                MY_PERMISSIONS_REQUEST
-            )
-        } else if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.RECORD_AUDIO
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this, arrayOf(Manifest.permission.RECORD_AUDIO),
-                MY_PERMISSIONS_REQUEST_RECORD_AUDIO
-            )
-        } else if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this, arrayOf(Manifest.permission.CAMERA),
-                MY_PERMISSIONS_REQUEST_CAMERA
-            )
-        }
-    }
+//    fun askForPermissions() {
+//        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+//                    != PackageManager.PERMISSION_GRANTED) &&
+//            (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
+//                    != PackageManager.PERMISSION_GRANTED)
+//        ) {
+//            ActivityCompat.requestPermissions(
+//                this, arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO),
+//                MY_PERMISSIONS_REQUEST
+//            )
+//        } else if (ContextCompat.checkSelfPermission(
+//                this,
+//                Manifest.permission.RECORD_AUDIO
+//            ) != PackageManager.PERMISSION_GRANTED
+//        ) {
+//            ActivityCompat.requestPermissions(
+//                this, arrayOf(Manifest.permission.RECORD_AUDIO),
+//                MY_PERMISSIONS_REQUEST_RECORD_AUDIO
+//            )
+//        } else if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+//            != PackageManager.PERMISSION_GRANTED
+//        ) {
+//            ActivityCompat.requestPermissions(
+//                this, arrayOf(Manifest.permission.CAMERA),
+//                MY_PERMISSIONS_REQUEST_CAMERA
+//            )
+//        }
+//    }
 
     fun checkPermission() {
         if (arePermissionGranted()) {
@@ -151,6 +144,7 @@ class VideoCallActivity : AppCompatActivity() {
         } else {
             val permissionsFragment: DialogFragment = PermissionsDialogFragment()
             permissionsFragment.show(supportFragmentManager, "Permissions Fragment")
+            finish()
         }
     }
 
