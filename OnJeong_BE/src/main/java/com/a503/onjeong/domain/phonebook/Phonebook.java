@@ -21,6 +21,11 @@ public class Phonebook {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @MapsId("friendId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "friend_id")
+    private User friend;
+
     @Column(name = "phonebook_num")
     private String phonebookNum;
 
@@ -32,6 +37,7 @@ public class Phonebook {
             Long userId,
             Long friendId,
             User user,
+            User friend,
             String phonebookNum,
             String phonebookName
     ) {
@@ -39,5 +45,6 @@ public class Phonebook {
         this.phonebookNum = phonebookNum;
         this.phonebookName = phonebookName;
         this.user=user;
+        this.friend=friend;
     }
 }
