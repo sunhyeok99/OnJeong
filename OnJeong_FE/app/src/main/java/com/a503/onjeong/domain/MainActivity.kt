@@ -7,22 +7,28 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Button
 import android.widget.RelativeLayout
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.a503.onjeong.domain.game.activity.GameActivity
 import com.a503.onjeong.R
+import com.a503.onjeong.domain.counselor.activity.CounselorActivity
+import com.a503.onjeong.domain.counselor.api.CreateApiService
+import com.a503.onjeong.domain.counselor.dto.SessionIdRequestDto
+import com.a503.onjeong.domain.game.activity.GameActivity
+import com.a503.onjeong.domain.mypage.activity.MyPageActivity
 import com.a503.onjeong.domain.news.activity.NewsActivity
-import com.a503.onjeong.domain.weather.activity.WeatherActivity
 import com.a503.onjeong.domain.user.api.UserApiService
 import com.a503.onjeong.domain.user.dto.FcmTokenRequestDto
 import com.a503.onjeong.domain.videocall.activity.GroupSelectActivity
+import com.a503.onjeong.domain.weather.activity.WeatherActivity
 import com.a503.onjeong.global.network.RetrofitClient
-import com.a503.onjeong.domain.mypage.activity.MyPageActivity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.messaging.FirebaseMessaging
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -69,6 +75,132 @@ class MainActivity : AppCompatActivity() {
         //firebase test
 
         getFcmToken()
+
+        //상담원 방 생성 및 접속
+        val counselor: Button = findViewById(R.id.btnCounselor)
+        val sharedPreferences = getSharedPreferences("mySharedPreferences", Context.MODE_PRIVATE)
+        val userType = sharedPreferences.getString("type", "") // 사용자 유형 가져오기
+        if (userType == "COUNSELOR") {
+            counselor.visibility = View.VISIBLE
+        } else {
+            counselor.visibility = View.GONE
+        }
+        counselor.setOnClickListener {
+            val userId =
+                getSharedPreferences("mySharedPreferences", Context.MODE_PRIVATE).getLong(
+                    "userId",
+                    0L
+                )
+            if (userId == 0L) {
+                Log.e("Counselor Log", "유저 정보 없음")
+                return@setOnClickListener
+            }
+
+            val TAG = "CounselorActivity";
+            val retrofit = RetrofitClient.getApiClient(this)
+            val service = retrofit.create(CreateApiService::class.java)
+            val call = service.createSessionId(SessionIdRequestDto(userId))
+            call.enqueue(object : Callback<ResponseBody> {
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    if (response.isSuccessful) {
+                        val sessionId: String = response.body()!!.string()
+                        val call2 = service.createConnection(sessionId);
+                        Log.d("Counselor Log", "get sessionId success: " + sessionId)
+                        call2.clone().enqueue(object : Callback<ResponseBody> {
+                            override fun onResponse(
+                                call: Call<ResponseBody>,
+                                response: Response<ResponseBody>
+                            ) {
+                                if (response.isSuccessful) {
+                                    val token: String = response.body()!!.string()
+                                    Log.d("RoomConnection Log", "get token: " + token);
+
+                                    val intent =
+                                        Intent(this@MainActivity, CounselorActivity::class.java)
+                                    intent.putExtra("token", token)
+                                    intent.putExtra("sessionId", sessionId)
+                                    intent.putExtra("userId", userId)
+                                    startActivity(intent)
+                                }
+                            }
+
+                            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                                Log.e("Counselor Log", "can't connection: " + t)
+                            }
+                        })
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    Log.e("Counselor Log", "get sessionId failed: " + t)
+                }
+            })
+        }
+
+        //클라이언트 방 접속
+        val enterRoom: RelativeLayout = findViewById(R.id.btnEnterRoom)
+        enterRoom.setOnClickListener {
+            val userId =
+                getSharedPreferences("mySharedPreferences", Context.MODE_PRIVATE).getLong(
+                    "userId",
+                    0L
+                )
+            if (userId == 0L) {
+                Log.e("Counselor Log", "유저 정보 없음")
+                return@setOnClickListener
+            }
+            val TAG = "CounselorActivity";
+            val retrofit = RetrofitClient.getApiClient(this)
+            val service = retrofit.create(CreateApiService::class.java)
+            val call = service.connectToEmptyRoom()
+            call.clone().enqueue(object : Callback<ResponseBody> {
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    if (response.isSuccessful) {
+                        val sessionId: String = response.body()!!.string()
+                        Log.d("Counselor Log", "get sessionId success: $sessionId")
+                        val call2 = service.getUserToken(sessionId);
+                        Log.d("Counselor Log", "get sessionId success: " + sessionId)
+                        call2.clone().enqueue(object : Callback<ResponseBody> {
+                            override fun onResponse(
+                                call: Call<ResponseBody>,
+                                response: Response<ResponseBody>
+                            ) {
+                                if (response.isSuccessful) {
+                                    val token: String = response.body()!!.string()
+                                    val intent =
+                                        Intent(this@MainActivity, CounselorActivity::class.java)
+                                    Log.d("Counselor Log", "get token: $token")
+                                    intent.putExtra("token", token)
+                                    Log.d("Counselor Log", "get sessionId: $sessionId")
+                                    intent.putExtra("sessionId", sessionId)
+                                    intent.putExtra("userId", userId)
+                                    startActivity(intent)
+                                }
+                            }
+
+                            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                                Log.e("Counselor Log", "can't connection: " + t)
+                            }
+                        })
+                    } else {
+                        Log.e(
+                            "Counselor Log",
+                            "Failed to connect to empty room: ${response.code()}"
+                        )
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    Log.e("Counselor Log", "Failed to connect to empty room", t)
+                }
+            })
+        }
     }
 
     //FCM token 받아오기
