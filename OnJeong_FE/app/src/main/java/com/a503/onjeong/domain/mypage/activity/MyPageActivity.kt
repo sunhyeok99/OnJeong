@@ -163,6 +163,7 @@ class MyPageActivity : AppCompatActivity() {
                             pCur!!.getString(pCur!!.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
                         line += " " + phoneNum[i]
                         phoneNumber = phoneNum[i].toString()
+                        phoneNumber = phoneNumber.replace("-", "");
                         phoneType[i] =
                             pCur!!.getString(pCur!!.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE))
                         i++
