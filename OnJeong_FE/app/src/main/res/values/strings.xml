@@ -2,7 +2,7 @@
     <string name="app_name">OnJeong</string>
 
     <!--    <string name="application_server_url">https://demos.openvidu.io/</string>-->
-    <string name="application_server_url">http://10.0.2.2:8080/</string>
+    <string name="application_server_url">http://i10a503.p.ssafy.io:8080/</string>
     <string name="start_button">Join</string>
     <string name="session_name">Session Name</string>
     <string name="default_session_name">SessionA</string>
@@ -15,4 +15,5 @@
     <string name="accept_permissions_dialog">GIVE PERMISSIONS!</string>
     <string name="cancel_dialog">CANCEL</string>
     <string name="no_internet_connection">NO INTERNET CONNECTION, PLEASE CHECK YOUR CONNECTION</string>
+    <string name="title_activity_welfare">Welfare Activity</string>
 </resources>

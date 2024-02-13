@@ -1,6 +1,7 @@
 package com.a503.onjeong.domain.videocall.activity
 
 import android.Manifest
+import android.app.NotificationManager
 import android.content.Context
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
@@ -14,7 +15,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.a503.onjeong.R
@@ -44,19 +44,23 @@ class VideoCallActivity : AppCompatActivity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setContentView(binding.root)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
-        askForPermissions()
-        //        ButterKnife.bind(this);
+//        askForPermissions()
         checkPermission()
+
+        removeNotification()
 
         binding.finishCall.setOnClickListener {
             leaveSession()
             finish()
         }
+    }
 
-
-//        val random = Random()
-//        val randomIndex = random.nextInt(100)
-//        binding.participantName.text = binding.participantName.text.append(randomIndex.toString())
+    private fun removeNotification() {
+        val notificationId = intent.getIntExtra("notificationId", 0)
+        // Cancel the notification
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.cancel(notificationId)
     }
 
     private fun getConnection(sessionId: String) {
@@ -88,34 +92,34 @@ class VideoCallActivity : AppCompatActivity() {
         })
     }
 
-    fun askForPermissions() {
-        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                    != PackageManager.PERMISSION_GRANTED) &&
-            (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
-                    != PackageManager.PERMISSION_GRANTED)
-        ) {
-            ActivityCompat.requestPermissions(
-                this, arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO),
-                MY_PERMISSIONS_REQUEST
-            )
-        } else if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.RECORD_AUDIO
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this, arrayOf(Manifest.permission.RECORD_AUDIO),
-                MY_PERMISSIONS_REQUEST_RECORD_AUDIO
-            )
-        } else if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this, arrayOf(Manifest.permission.CAMERA),
-                MY_PERMISSIONS_REQUEST_CAMERA
-            )
-        }
-    }
+//    fun askForPermissions() {
+//        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+//                    != PackageManager.PERMISSION_GRANTED) &&
+//            (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
+//                    != PackageManager.PERMISSION_GRANTED)
+//        ) {
+//            ActivityCompat.requestPermissions(
+//                this, arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO),
+//                MY_PERMISSIONS_REQUEST
+//            )
+//        } else if (ContextCompat.checkSelfPermission(
+//                this,
+//                Manifest.permission.RECORD_AUDIO
+//            ) != PackageManager.PERMISSION_GRANTED
+//        ) {
+//            ActivityCompat.requestPermissions(
+//                this, arrayOf(Manifest.permission.RECORD_AUDIO),
+//                MY_PERMISSIONS_REQUEST_RECORD_AUDIO
+//            )
+//        } else if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+//            != PackageManager.PERMISSION_GRANTED
+//        ) {
+//            ActivityCompat.requestPermissions(
+//                this, arrayOf(Manifest.permission.CAMERA),
+//                MY_PERMISSIONS_REQUEST_CAMERA
+//            )
+//        }
+//    }
 
     fun checkPermission() {
         if (arePermissionGranted()) {
@@ -140,91 +144,10 @@ class VideoCallActivity : AppCompatActivity() {
         } else {
             val permissionsFragment: DialogFragment = PermissionsDialogFragment()
             permissionsFragment.show(supportFragmentManager, "Permissions Fragment")
+            finish()
         }
     }
 
-//    fun buttonPressed(view: View?) {
-//        if (binding.startFinishCall.text == resources.getString(R.string.hang_up)) {
-//            // Already connected to a session
-//            leaveSession()
-//            return
-//        }
-//        if (arePermissionGranted()) {
-//            initViews()
-//            viewToConnectingState()
-//            APPLICATION_SERVER_URL = binding.applicationServerUrl.text.toString()
-//            httpClient = CustomHttpClient(APPLICATION_SERVER_URL)
-//            Log.d(TAG, "application server url is $APPLICATION_SERVER_URL")
-//            val sessionId = binding.sessionName.text.toString()
-//            Log.d(TAG, "session id is $sessionId")
-//            getToken(sessionId)
-//        } else {
-//            val permissionsFragment: DialogFragment = PermissionsDialogFragment()
-//            permissionsFragment.show(supportFragmentManager, "Permissions Fragment")
-//        }
-//    }
-
-//    private fun getToken(sessionId: String) {
-//        try {
-//            // Session Request
-//            val sessionBody = RequestBody.create(
-//                MediaType.parse("application/json; charset=utf-8"),
-//                "{\"customSessionId\": \"$sessionId\"}"
-//            )
-//            httpClient!!.httpCall(
-//                "/video-call/sessions",
-//                "POST",
-//                "application/json",
-//                sessionBody,
-//                object : Callback {
-//                    @Throws(IOException::class)
-//                    override fun onResponse(call: Call, response: Response) {
-//                        Log.d(TAG, "responseString: " + response.body()!!.string())
-//
-//                        // Token Request
-//                        val tokenBody = RequestBody.create(
-//                            MediaType.parse("application/json; charset=utf-8"),
-//                            "{}"
-//                        )
-//                        httpClient!!.httpCall(
-//                            "/video-call/sessions/$sessionId/connections",
-//                            "POST",
-//                            "application/json",
-//                            tokenBody,
-//                            object : Callback {
-//                                override fun onResponse(call: Call, response: Response) {
-//                                    var responseString: String? = null
-//                                    try {
-//                                        responseString = response.body()!!.string()
-//                                        Log.d(TAG, "responseString is $responseString")
-//                                    } catch (e: IOException) {
-//                                        Log.e(TAG, "Error getting body", e)
-//                                    }
-//                                    getTokenSuccess(responseString, sessionId)
-//                                }
-//
-//                                override fun onFailure(call: Call, e: IOException) {
-//                                    Log.e(
-//                                        TAG,
-//                                        "Error POST /video-call/sessions/SESSION_ID/connections",
-//                                        e
-//                                    )
-//                                    connectionError(APPLICATION_SERVER_URL)
-//                                }
-//                            })
-//                    }
-//
-//                    override fun onFailure(call: Call, e: IOException) {
-//                        Log.e(TAG, "Error POST /video-call/sessions", e)
-//                        connectionError(APPLICATION_SERVER_URL)
-//                    }
-//                })
-//        } catch (e: IOException) {
-//            Log.e(TAG, "Error getting token", e)
-//            e.printStackTrace()
-//            connectionError(APPLICATION_SERVER_URL)
-//        }
-//    }
 
     private fun getTokenSuccess(token: String?, sessionId: String) {
         // Initialize our session
@@ -234,7 +157,7 @@ class VideoCallActivity : AppCompatActivity() {
 //        val participantName = binding.participantName.text.toString()
         // 이름 변경
         val participantName =
-            getSharedPreferences("mySharedPreferences", Context.MODE_PRIVATE).getLong("userId", 0L)
+            getSharedPreferences("mySharedPreferences", Context.MODE_PRIVATE).getString("name", "")
                 .toString()
         val localParticipant =
             LocalParticipant(
@@ -320,7 +243,7 @@ class VideoCallActivity : AppCompatActivity() {
         val myRunnable = Runnable {
             val rowView = this.layoutInflater.inflate(R.layout.peer_video, null)
             val lp = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
             lp.setMargins(0, 0, 0, 20)

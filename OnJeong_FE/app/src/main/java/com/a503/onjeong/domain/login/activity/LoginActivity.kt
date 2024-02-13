@@ -16,7 +16,7 @@ class LoginActivity : AppCompatActivity() {
 
     // 슴겨야 하는데..
     private val kakaoClientId = "475bd7a6a8dc9f061055c6f827ab4b25"
-    private val redirectUri = "http://10.0.2.2:8080/auth/kakao/redirect"
+    private val redirectUri = "http://i10a503.p.ssafy.io:8080/auth/kakao/redirect"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

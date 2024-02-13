@@ -19,7 +19,7 @@ public class PhonebookControllerImpl implements PhonebookController {
     private final PhonebookService phonebookService;
 
     @Override
-    @PostMapping("/save")
+    @PostMapping("")
     public ResponseEntity<Void> phonebookSave(
             @RequestBody PhonebookAllDTO phonebookAllDTO) { //연락처 동기화
         phonebookService.phonebookSave(phonebookAllDTO);
@@ -27,7 +27,7 @@ public class PhonebookControllerImpl implements PhonebookController {
     }
 
     @Override
-    @GetMapping("/list")
+    @GetMapping("")
     public ResponseEntity<List<PhonebookDTO>> phonebookList(    //phonebook db에 저장되어있는 모든 연락처 가져오기
             Long userId, @RequestParam(required = false) Long groupId) {
         // 모임 생성 , 수정 시 연락처 전부 가져오기 (모임에 있는지 체크 후 반환)

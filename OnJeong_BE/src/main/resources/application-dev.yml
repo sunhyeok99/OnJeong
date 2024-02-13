@@ -18,6 +18,12 @@ spring:
           time_zone: Asia/Seoul
     show-sql: true
 
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+
 kakao:
   REST_KEY: "475bd7a6a8dc9f061055c6f827ab4b25"
   REDIRECT_URI: "http://10.0.2.2:8080/auth/kakao/redirect"

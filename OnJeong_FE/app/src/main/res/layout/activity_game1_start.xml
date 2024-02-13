@@ -2,56 +2,54 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/game_background"
     android:orientation="vertical"
-    android:background="@color/orange"
-    android:gravity="center"
     android:padding="16dp">
 
 
     <LinearLayout
+        android:id="@+id/game1_mainbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/orange"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/game_mark"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_weight="1"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"
-            android:text="팡게임"
-            android:textColor="@color/white"
-            android:textSize="24dp"
-            android:textStyle="bold" />
+            android:layout_weight="1"
+            android:text="퍼즐 게임"
+            style="@style/semi_large" />
 
         <Button
             android:id="@+id/pauseButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_weight="0"
             android:background="@android:drawable/ic_media_pause"
-            android:textColor="@color/white"
             android:padding="16dp"
-            android:textSize="24sp"
-            android:layout_weight="0" />
+            android:textColor="@color/white"
+            android:textSize="24sp" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/game1_scoreBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/orange"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
+
         <TextView
             android:id="@+id/time_text"
             android:layout_width="100dp"
             android:layout_height="80dp"
             android:gravity="center"
             android:text="시간"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="35dp"
             android:textStyle="bold" />
 
@@ -61,26 +59,39 @@
             android:layout_height="80dp"
             android:gravity="center"
             android:text="점수"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="30dp"
             android:textStyle="bold" />
     </LinearLayout>
-    <FrameLayout
-        android:id="@+id/frameLayout"
+
+    <LinearLayout
+        android:id="@+id/frameLinear"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="visible">
-        <include layout="@layout/activity_game_stop"/>
-    </FrameLayout>
+        android:layout_weight="1"
+        android:visibility="gone"
+        android:gravity="center">
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:visibility="visible">
+
+            <include layout="@layout/activity_game_stop" />
+        </FrameLayout>
+    </LinearLayout>
+
+
     <GridLayout
         android:id="@+id/gridLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="40dp"
         android:layout_weight="1"
-        android:background="#0B0B0A"
+        android:background="#6A5959"
         android:columnCount="7"
         android:padding="7dp"
         android:rowCount="7">
@@ -430,6 +441,5 @@
 
 
     </GridLayout>
-
 
 </LinearLayout>

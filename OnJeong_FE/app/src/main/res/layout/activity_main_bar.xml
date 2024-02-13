@@ -3,23 +3,24 @@
     android:id="@+id/mainBar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:padding="5dp">
 
     <Button
         android:id="@+id/btnBack"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="16dp"
-        android:background="@drawable/back" />
+        android:background="@drawable/arrow_back" />
 
     <TextView
         android:id="@+id/mainText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="25sp"
+        android:textSize="26sp"
+        android:fontFamily="@font/nanum_square_b"
         android:textColor="@color/black"
-        android:text="메인"
+        android:text="온 정"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
     <Button
@@ -28,7 +29,7 @@
         android:layout_height="40dp"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/home"/>
+        android:background="@drawable/home"
+        android:backgroundTint="@color/black"/>
 
 </RelativeLayout>

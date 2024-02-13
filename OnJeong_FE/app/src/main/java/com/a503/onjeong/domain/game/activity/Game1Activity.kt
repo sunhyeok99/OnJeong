@@ -18,9 +18,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.a503.onjeong.R
-import com.a503.onjeong.domain.game.activity.Game1Lobby
 import com.a503.onjeong.domain.game.api.GameApiService
 import com.a503.onjeong.domain.game.dto.UserGameDto
 import com.a503.onjeong.domain.game.dto.UserGameResponseDto
@@ -28,7 +26,6 @@ import com.a503.onjeong.global.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.math.abs
 
 class Game1Activity : AppCompatActivity() {
     private lateinit var start: Button
@@ -37,29 +34,35 @@ class Game1Activity : AppCompatActivity() {
     private lateinit var timeTextView: TextView
     private lateinit var scoreTextView: TextView
     private lateinit var gameMarkTextView: TextView
-    private var isTimerRunning = false
     private lateinit var countDownTimer: CountDownTimer
     private lateinit var imageViews: List<ImageView>
     private var selectedIndex = -1
 
     private lateinit var frameLayout: FrameLayout
     private lateinit var gridLayout: GridLayout
+    private lateinit var mainLayout: LinearLayout
     private lateinit var pauseButton: Button
     private lateinit var resumeButton: Button
     private lateinit var exitButton: Button
+    private lateinit var mainBar: LinearLayout
+    private lateinit var scoreBar: LinearLayout
+    private lateinit var lenearFrame: LinearLayout
+
     private val gameImages = listOf(
-        R.drawable.game_image1,
-        R.drawable.game_image3,
-        R.drawable.game_image5,
         R.drawable.game_image7,
+        R.drawable.game_image8,
         R.drawable.game_image9,
-        R.drawable.game_image11
+        R.drawable.game_image10,
+        R.drawable.game_image11,
+        R.drawable.game_image12,
+        R.drawable.game_image13,
     )
     private var imageNum = (0..48).toMutableList()
     private lateinit var sharedPreferences: SharedPreferences
     private var userId: Long = 0
     private var score: Long = 0
-    private var remainTime : Int =0
+    private var isTimerRunning = false
+    private var remainTime: Int = 0
 
     // 각 ImageView의 좌표 범위를 저장할 리스트
     private val imageViewCoordinates = mutableListOf<RectF>()
@@ -86,25 +89,37 @@ class Game1Activity : AppCompatActivity() {
             pauseButton = findViewById(R.id.pauseButton)
             frameLayout = findViewById(R.id.frameLayout)
             gridLayout = findViewById(R.id.gridLayout)
+            mainLayout = findViewById(R.id.game1_mainbar)
 
             resumeButton = findViewById(R.id.gameResume)
             exitButton = findViewById(R.id.gameExit)
+            mainBar = findViewById(R.id.game1_mainbar)
+            scoreBar = findViewById(R.id.game1_scoreBar)
+            lenearFrame = findViewById(R.id.frameLinear)
             pauseButton.setOnClickListener {
                 pauseTimer()
-                val layoutHeight = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 600)
+                val layoutHeight =
+                    LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 600)
                 frameLayout.layoutParams = layoutHeight
-                setColorsOrange()
-                gridLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.orange))
+                gridLayout.visibility = View.GONE
+                mainBar.visibility = View.GONE
+                scoreBar.visibility = View.GONE
+                lenearFrame.visibility = View.VISIBLE
             }
+
             resumeButton.setOnClickListener {
                 resumeTimer()
-                val layoutHeight = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0)
+                val layoutHeight =
+                    LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0)
                 frameLayout.layoutParams = layoutHeight
-                gridLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
-                setColors()
+                gridLayout.visibility = View.VISIBLE
+                mainBar.visibility = View.VISIBLE
+                scoreBar.visibility = View.VISIBLE
+                lenearFrame.visibility = View.GONE
             }
+
             exitButton.setOnClickListener {
-                var intent = Intent(this , Game1Lobby::class.java)
+                var intent = Intent(this, Game1Lobby::class.java)
                 startActivity(intent)
             }
         }
@@ -117,6 +132,7 @@ class Game1Activity : AppCompatActivity() {
                 timeTextView.text = "$secondsLeft 초"
                 remainTime = millisUntilFinished.toInt()
             }
+
             override fun onFinish() {
                 timeTextView.text = "끝"
                 endGame()
@@ -129,7 +145,7 @@ class Game1Activity : AppCompatActivity() {
         timeTextView = findViewById(R.id.time_text)
         scoreTextView = findViewById(R.id.score_text)
         gameMarkTextView = findViewById(R.id.game_mark)
-        gameMarkTextView.text = "팡게임"
+        gameMarkTextView.text = "퍼즐 게임"
         val imageIds = mutableListOf<Int>()
         for (i in 1..49) {
             val resourceId = resources.getIdentifier("game1_block$i", "id", packageName)
@@ -162,7 +178,8 @@ class Game1Activity : AppCompatActivity() {
             imageViews[i].setOnTouchListener(MyTouchListener(i))
         }
         setRandomColors()
-        while(blockCheck()){ }
+        while (blockCheck()) {
+        }
         startTimer(100000)
         score = 0
         scoreTextView.text = "$score 점"
@@ -175,19 +192,12 @@ class Game1Activity : AppCompatActivity() {
             imageView.setImageResource(randomImage)
         }
     }
-    private fun setColors() {
-        for ((index, imageView) in imageViews.withIndex()) {
-            imageView.setImageResource(imageNum[index])
-        }
-    }
-    private fun setColorsOrange() {
-        for ((index, imageView) in imageViews.withIndex()) {
-            imageView.setImageResource(gameImages[1])
-        }
-    }
+
     private fun blockCheck(): Boolean {
         // 가로로 3개 이상인 블록 찾아서 색을 바꿈
-        var flag: Boolean = false
+        var flag1: Boolean = false
+        var flag2: Boolean = false
+        var changingBlocks: MutableList<Int> = mutableListOf()
         for (i in 0 until 7) {
             for (j in 0 until 5) {
                 for (k in 3..7) {
@@ -196,8 +206,8 @@ class Game1Activity : AppCompatActivity() {
                     }
                     val horizontalBlocks = (0 until k).map { i * 7 + j + it }
                     if (checkColor(horizontalBlocks)) {
-                        flag = true
-                        changeColor(horizontalBlocks)
+                        flag1 = true
+                        changingBlocks.addAll(horizontalBlocks)
                         continue
                     }
                 }
@@ -212,15 +222,16 @@ class Game1Activity : AppCompatActivity() {
                     }
                     val verticalBlocks = (0 until k).map { (i + it) * 7 + j }
                     if (checkColor(verticalBlocks)) {
-                        flag = true
-                        changeColor(verticalBlocks)
+                        flag2 = true
+                        changingBlocks.addAll(verticalBlocks)
                         continue
                     }
                 }
             }
         }
         // 만약 터지는 블럭이 있으면 true 반환
-        if (flag) {
+        if (flag1 || flag2) {
+            changeColor(changingBlocks) // 실험 필요 ㄱ자
             return true
         }
         return false
@@ -239,10 +250,19 @@ class Game1Activity : AppCompatActivity() {
     private fun changeColor(blocks: List<Int>) {
         score = score + (blocks.size * 10)
         scoreTextView.text = "$score 점"
+        // 검정으로 전환 후 랜덤색으로
+        for (index in blocks.indices) {
+            Handler(Looper.getMainLooper()).postDelayed({
+                imageViews[blocks[index]].setImageResource(R.color.orange)
+            }, 50)
+        }
+
         for (index in blocks.indices) {
             val randomImage = gameImages.random()
             imageNum[blocks[index]] = randomImage
             Handler(Looper.getMainLooper()).postDelayed({
+                // 터지는 효과
+//                imageViews[blocks[index]].setBackgroundResource(R.attr.selectableItemBackground)
                 imageViews[blocks[index]].setImageResource(randomImage)
             }, 100)
         }
@@ -304,9 +324,10 @@ class Game1Activity : AppCompatActivity() {
                                 switch(tmp, closestIndex)
                             }, 100)
                         }
-                            // blockCheck 가 false나올때까지 돌음
-                        else{
-                        while(blockCheck()){ }
+                        // blockCheck 가 false나올때까지 돌음
+                        else {
+                            while (blockCheck()) {
+                            }
                         }
                     }
                     selectedIndex = -1
@@ -320,7 +341,6 @@ class Game1Activity : AppCompatActivity() {
         }
 
         private fun addAroundView(index: Int) {
-            println(index)
             aroundImageViewIndex.add(index)
             aroundImageView.add(imageViewCoordinates.get(index))
         }
@@ -404,6 +424,7 @@ class Game1Activity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
     private fun pauseTimer() {
         if (isTimerRunning) {
             countDownTimer.cancel()
@@ -411,9 +432,11 @@ class Game1Activity : AppCompatActivity() {
 //            remainTime = (countDownTimer.timeRemaining / 1000)
         }
     }
+
     private fun resumeTimer() {
         if (!isTimerRunning) {
             startTimer(remainTime) // 남은 시간을 받아와서 타이머 다시 시작
         }
     }
+
 }

@@ -8,11 +8,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class FirebaseService {
 
-    public String sendNotification(String token, String content) {
+    public String sendVideoCallNotification(String fcmToken, String sessionId, String callerName) {
         try {
             Message message = Message.builder()
-                    .setToken(token)
-                    .putData("title", content)
+                    .setToken(fcmToken)
+                    .putData("sessionId", sessionId)
+                    .putData("callerName", callerName)
                     .build();
 
             String response = FirebaseMessaging.getInstance().send(message);

@@ -53,9 +53,9 @@ public class UserGroupServiceImpl implements UserGroupService {
     public List<GroupDTO> findAllByGroupId(@NotNull Optional<List<Group>> groupList) {
         List<GroupDTO> groupDTOList = new ArrayList<>();
         for (Group group : groupList.orElseThrow()) {
-            Optional<List<UserGroup>> userList = userGroupRepository.findAllByGroupId(group.getId());
+            List<UserGroup> userList = userGroupRepository.findAllByGroupId(group.getId());
             List<UserDTO> userDTOList = new ArrayList<>();
-            for (UserGroup userGroup : userList.orElseThrow()) {
+            for (UserGroup userGroup : userList) {
                 User user = userGroup.getUser();
                 UserDTO userDTO = UserDTO.builder()
                         .userId(user.getId())
@@ -77,18 +77,18 @@ public class UserGroupServiceImpl implements UserGroupService {
 
     @Override
     public GroupDTO groupDetail(Long groupId) {
-        Optional<List<UserGroup>> userGroupList = userGroupRepository.findAllByGroupId(groupId);
-        List<UserDTO> userDTOList=new ArrayList<>();
-        for(UserGroup userGroup:userGroupList.orElseThrow()){
-            User user=userGroup.getUser();
-            UserDTO userDTO=UserDTO.builder()
+        List<UserGroup> userGroupList = userGroupRepository.findAllByGroupId(groupId);
+        List<UserDTO> userDTOList = new ArrayList<>();
+        for (UserGroup userGroup : userGroupList) {
+            User user = userGroup.getUser();
+            UserDTO userDTO = UserDTO.builder()
                     .phoneNumber(user.getPhoneNumber())
                     .userId(user.getId())
                     .name(user.getName())
                     .build();
             userDTOList.add(userDTO);
         }
-        GroupDTO groupDTO=GroupDTO.builder()
+        GroupDTO groupDTO = GroupDTO.builder()
                 .groupId(groupId)
                 .userList(userDTOList)
                 .build();

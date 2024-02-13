@@ -20,13 +20,13 @@ interface GroupApiService {
     ): Call<List<GroupDTO>>
 
     @Headers("Content-Type: application/json")
-    @POST("/group/create")
+    @POST("/group")
     fun groupCreate(
         @Body groupUserListDTO: GroupUserListDTO
     ): Call<Void>
 
 
-    @DELETE("/group/delete")
+    @DELETE("/group")
     fun groupDelete(
         @Query("groupId") groupId: Long
     ): Call<Void>
@@ -38,7 +38,7 @@ interface GroupApiService {
     ): Call<GroupDTO>
 
     @Headers("Content-Type: application/json")
-    @PUT("/group/update")
+    @PUT("/group")
     fun groupUpdate(
         @Body groupUserListDTO: GroupUserListDTO
     ): Call<Void>

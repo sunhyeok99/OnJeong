@@ -8,6 +8,7 @@ import com.a503.onjeong.domain.user.User;
 import com.a503.onjeong.domain.user.repository.UserRepository;
 import com.a503.onjeong.domain.usergroup.UserGroup;
 import com.a503.onjeong.domain.usergroup.repository.UserGroupRepository;
+import com.a503.onjeong.global.util.S3Util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +42,7 @@ public class PhonebookServiceImpl implements PhonebookService {
                     .phonebookName(phonebook.get(user.getPhoneNumber()))
                     .userId(userId)
                     .user(owner_user)
+                    .friend(user)
                     .friendId(user.getId())
                     .build();
             phonebookRepository.save(phonebook1);
@@ -54,21 +56,24 @@ public class PhonebookServiceImpl implements PhonebookService {
         List<PhonebookDTO> phonebookDTOList = new ArrayList<>();
 
         if (groupId != null) { //모임 생성 시
-            userList = userGroupRepository.findAllByGroupId(groupId).orElseThrow();
+            userList = userGroupRepository.findAllByGroupId(groupId);
         }
         for (Phonebook phonebook : phonebookList.orElseThrow()) {
             int isChecked = 0;
             for (UserGroup userGroup : userList) { //모임 수정 시 이미 있는 구성원 체크
-                if (userGroup.getUser().getId() == phonebook.getPhonebookId().getFriendId()) {
+                if (userGroup.getUser().getId() == phonebook.getFriend().getId()) {
                     isChecked = 1;
                 }
             }
+
+            String profileUrl =userRepository.findById(phonebook.getFriend().getId()).orElseThrow().getProfileUrl();
             PhonebookDTO phonebookDTO = PhonebookDTO.builder()
-                    .freindId(phonebook.getPhonebookId().getFriendId())
+                    .freindId(phonebook.getFriend().getId())
                     .userId(userId)
                     .phonebookNum(phonebook.getPhonebookNum())
                     .phonebookName(phonebook.getPhonebookName())
                     .isChecked(isChecked)
+                    .profileUrl(profileUrl)
                     .build();
             phonebookDTOList.add(phonebookDTO);
         }

@@ -32,7 +32,6 @@ class NewsCrawling {
                     val content2: Elements = document.select(".sa_text_lede") // 내용
                     val content3: Elements = document.select(".sa_thumb_link > img") // 이미지 주소
                     // 각 카테고리의 상위 5개 기사에 대해 정보 수집
-//                    println(content3)
                     for (i in 0 until 8) {
                         // 기사의 제목, 내용, URL, 이미지 주소 추출
                         val title: String = content1[i].text() // 제목

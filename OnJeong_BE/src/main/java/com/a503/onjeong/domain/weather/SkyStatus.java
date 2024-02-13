@@ -33,7 +33,7 @@ public class SkyStatus {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sido")
-    MediumForecastLand mediumForecastLand;
+    private MediumForecastLand mediumForecastLand;
 
     public SkyStatus(ShortForecast shortForecast){
         this.shortForecast = shortForecast;

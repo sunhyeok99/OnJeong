@@ -36,7 +36,7 @@ public class ShortForecast {
     private String base;
 
     @OneToMany(mappedBy = "shortForecast")
-    List<Temperatures> temperaturesList = new ArrayList<>();
+    private List<Temperatures> temperaturesList = new ArrayList<>();
 
     @OneToMany(mappedBy = "shortForecast")
     List<SkyStatus> skyStatusList = new ArrayList<>();

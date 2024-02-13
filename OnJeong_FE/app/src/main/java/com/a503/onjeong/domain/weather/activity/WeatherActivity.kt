@@ -90,6 +90,7 @@ class WeatherActivity : AppCompatActivity() {
                 var idx = 0
                 var cnt = 0;
                 var l = ""
+
                 for (a in address) {
                     var add = a.getAddressLine(0).split(" ")
                     if (add.get(add.size - 1).last().equals('동') ||
@@ -115,6 +116,7 @@ class WeatherActivity : AppCompatActivity() {
                             splitAddr[3]
                         )
                     )
+                    currentAddress.text = splitAddr[1] + " " + splitAddr[2] + " " + splitAddr[3]
                 } else {
                     call = service.getWeatherInfo(
                         WeatherRequestDto(
@@ -124,6 +126,7 @@ class WeatherActivity : AppCompatActivity() {
                             splitAddr[4]
                         )
                     )
+                    currentAddress.text = splitAddr[1] + " " + splitAddr[2] + " " + splitAddr[3] + " " + splitAddr[4]
                 }
 
 
