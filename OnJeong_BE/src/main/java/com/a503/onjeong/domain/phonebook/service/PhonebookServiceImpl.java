@@ -42,6 +42,7 @@ public class PhonebookServiceImpl implements PhonebookService {
                     .phonebookName(phonebook.get(user.getPhoneNumber()))
                     .userId(userId)
                     .user(owner_user)
+                    .friend(user)
                     .friendId(user.getId())
                     .build();
             phonebookRepository.save(phonebook1);
@@ -60,14 +61,14 @@ public class PhonebookServiceImpl implements PhonebookService {
         for (Phonebook phonebook : phonebookList.orElseThrow()) {
             int isChecked = 0;
             for (UserGroup userGroup : userList) { //모임 수정 시 이미 있는 구성원 체크
-                if (userGroup.getUser().getId() == phonebook.getPhonebookId().getFriendId()) {
+                if (userGroup.getUser().getId() == phonebook.getFriend().getId()) {
                     isChecked = 1;
                 }
             }
 
-            String profileUrl =userRepository.findById(phonebook.getPhonebookId().getFriendId()).orElseThrow().getProfileUrl();
+            String profileUrl =userRepository.findById(phonebook.getFriend().getId()).orElseThrow().getProfileUrl();
             PhonebookDTO phonebookDTO = PhonebookDTO.builder()
-                    .freindId(phonebook.getPhonebookId().getFriendId())
+                    .freindId(phonebook.getFriend().getId())
                     .userId(userId)
                     .phonebookNum(phonebook.getPhonebookNum())
                     .phonebookName(phonebook.getPhonebookName())

@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(userId).orElseThrow();
         if (!user.getProfileUrl().equals(DefaultProfileImg))
             s3Util.deleteFile(user.getProfileUrl());
-        user.setProfileUrl("profile_img.png");
+        user.setProfileUrl(DefaultProfileImg);
         userRepository.save(user);
     }
 
