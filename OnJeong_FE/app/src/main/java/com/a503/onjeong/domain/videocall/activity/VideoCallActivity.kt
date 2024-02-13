@@ -148,88 +148,6 @@ class VideoCallActivity : AppCompatActivity() {
         }
     }
 
-//    fun buttonPressed(view: View?) {
-//        if (binding.startFinishCall.text == resources.getString(R.string.hang_up)) {
-//            // Already connected to a session
-//            leaveSession()
-//            return
-//        }
-//        if (arePermissionGranted()) {
-//            initViews()
-//            viewToConnectingState()
-//            APPLICATION_SERVER_URL = binding.applicationServerUrl.text.toString()
-//            httpClient = CustomHttpClient(APPLICATION_SERVER_URL)
-//            Log.d(TAG, "application server url is $APPLICATION_SERVER_URL")
-//            val sessionId = binding.sessionName.text.toString()
-//            Log.d(TAG, "session id is $sessionId")
-//            getToken(sessionId)
-//        } else {
-//            val permissionsFragment: DialogFragment = PermissionsDialogFragment()
-//            permissionsFragment.show(supportFragmentManager, "Permissions Fragment")
-//        }
-//    }
-
-//    private fun getToken(sessionId: String) {
-//        try {
-//            // Session Request
-//            val sessionBody = RequestBody.create(
-//                MediaType.parse("application/json; charset=utf-8"),
-//                "{\"customSessionId\": \"$sessionId\"}"
-//            )
-//            httpClient!!.httpCall(
-//                "/video-call/sessions",
-//                "POST",
-//                "application/json",
-//                sessionBody,
-//                object : Callback {
-//                    @Throws(IOException::class)
-//                    override fun onResponse(call: Call, response: Response) {
-//                        Log.d(TAG, "responseString: " + response.body()!!.string())
-//
-//                        // Token Request
-//                        val tokenBody = RequestBody.create(
-//                            MediaType.parse("application/json; charset=utf-8"),
-//                            "{}"
-//                        )
-//                        httpClient!!.httpCall(
-//                            "/video-call/sessions/$sessionId/connections",
-//                            "POST",
-//                            "application/json",
-//                            tokenBody,
-//                            object : Callback {
-//                                override fun onResponse(call: Call, response: Response) {
-//                                    var responseString: String? = null
-//                                    try {
-//                                        responseString = response.body()!!.string()
-//                                        Log.d(TAG, "responseString is $responseString")
-//                                    } catch (e: IOException) {
-//                                        Log.e(TAG, "Error getting body", e)
-//                                    }
-//                                    getTokenSuccess(responseString, sessionId)
-//                                }
-//
-//                                override fun onFailure(call: Call, e: IOException) {
-//                                    Log.e(
-//                                        TAG,
-//                                        "Error POST /video-call/sessions/SESSION_ID/connections",
-//                                        e
-//                                    )
-//                                    connectionError(APPLICATION_SERVER_URL)
-//                                }
-//                            })
-//                    }
-//
-//                    override fun onFailure(call: Call, e: IOException) {
-//                        Log.e(TAG, "Error POST /video-call/sessions", e)
-//                        connectionError(APPLICATION_SERVER_URL)
-//                    }
-//                })
-//        } catch (e: IOException) {
-//            Log.e(TAG, "Error getting token", e)
-//            e.printStackTrace()
-//            connectionError(APPLICATION_SERVER_URL)
-//        }
-//    }
 
     private fun getTokenSuccess(token: String?, sessionId: String) {
         // Initialize our session
@@ -325,7 +243,7 @@ class VideoCallActivity : AppCompatActivity() {
         val myRunnable = Runnable {
             val rowView = this.layoutInflater.inflate(R.layout.peer_video, null)
             val lp = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
             lp.setMargins(0, 0, 0, 20)
