@@ -13,7 +13,8 @@ class SelectedUserAdapter(private val selectedUserList: List<UserDTO>) :
     RecyclerView.Adapter<SelectedUserViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectedUserViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_user_small, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.activity_check_list_item, parent, false)
         return SelectedUserViewHolder(view)
     }
 
@@ -31,8 +32,8 @@ class SelectedUserAdapter(private val selectedUserList: List<UserDTO>) :
 class SelectedUserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(selectedUser: UserDTO) {
         // 선택된 사용자 정보를 뷰에 설정하는 로직
-        val userImage = itemView.findViewById<ImageView>(R.id.user_image)
-        val userName = itemView.findViewById<TextView>(R.id.user_name)
+        val profileImg = itemView.findViewById<ImageView>(R.id.profileImg)
+        val userName = itemView.findViewById<TextView>(R.id.userName)
 
 
 //            userImage.setImageResource()
