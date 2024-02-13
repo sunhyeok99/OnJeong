@@ -239,7 +239,7 @@ class VideoCallActivity : AppCompatActivity() {
 //        val participantName = binding.participantName.text.toString()
         // 이름 변경
         val participantName =
-            getSharedPreferences("mySharedPreferences", Context.MODE_PRIVATE).getLong("userId", 0L)
+            getSharedPreferences("mySharedPreferences", Context.MODE_PRIVATE).getString("name", "")
                 .toString()
         val localParticipant =
             LocalParticipant(
