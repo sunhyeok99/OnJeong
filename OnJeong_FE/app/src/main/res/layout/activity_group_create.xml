@@ -9,76 +9,71 @@
 
     <TextView
         android:id="@+id/groupNameLabel"
+        style="@style/semi_large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="40dp"
-        android:text="모임 이름"
-        android:textColor="@color/black"
-        android:textSize="20dp" />
+        android:text="모임 이름" />
 
     <EditText
         android:id="@+id/groupName"
+        style="@style/regular"
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="15dp"
         android:layout_marginRight="25dp"
         android:background="#E3E0E0"
-        android:paddingBottom="2dp"
         android:hint="모임의 이름을 입력하세요"
+        android:paddingBottom="2dp"
         android:textColorHint="#555454"
-        android:textColor="@color/black"
-        android:textSize="18dp"
-        android:textStyle="italic"
-        />
+        android:textStyle="italic" />
 
     <TextView
         android:id="@+id/groupUserLabel"
+        style="@style/semi_large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="20dp"
-        android:text="구성원"
-        android:textColor="@color/black"
-        android:textSize="20dp" />
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-    <ListView
-        android:id="@+id/checkListView"
-        android:layout_width="180dp"
-        android:layout_height="320dp"
-        android:layout_weight="1"
-        android:layout_gravity="center"
-        android:orientation="horizontal"
-       android:layout_marginLeft="20dp"
-        >
-    </ListView>
+        android:text="구성원" />
 
-    <ListView
-        android:id="@+id/phonebookListView"
-        android:layout_width="match_parent"
-        android:layout_height="320dp"
-        android:layout_weight="1"
-        android:layout_margin="10dp"
-        android:layout_gravity="center">
-    </ListView>
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ListView
+            android:id="@+id/checkListView"
+            android:layout_width="180dp"
+            android:layout_height="320dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"></ListView>
+
+        <ListView
+            android:id="@+id/phonebookListView"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_weight="1"></ListView>
+    </LinearLayout>
+
     <Button
         android:id="@+id/groupCreateBtn"
+        style="@style/semi_large"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="40dp"
         android:layout_marginTop="20dp"
-        android:text="완료"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
+        android:layout_marginBottom="40dp"
         android:background="@drawable/rect_round_main_color_button"
-        android:elevation="10dp"/>
+        android:elevation="10dp"
+        android:text="완료"
+        android:textStyle="bold" />
 
 
 </LinearLayout>

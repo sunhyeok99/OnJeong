@@ -6,12 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
-    android:background="#FFFFFF">
+    android:background="@color/white">
 
     <include layout="@layout/activity_main_bar" />
-    <FrameLayout
 
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="340dp">
 
@@ -43,9 +42,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:text="누구세요"
-        android:textColor="@color/black"
-        android:textSize="25dp"
-        android:textStyle="bold" />
+        style="@style/large" />
 
 
     <Button
@@ -56,7 +53,7 @@
         android:background="@color/white"
         android:layout_gravity="center"
         android:text="번호 수정"
-        android:textColor="@color/black" />
+        style="@style/regular" />
 
     <Button
         android:id="@+id/groupSettingBtn"
@@ -66,7 +63,7 @@
         android:background="@color/white"
         android:layout_gravity="center"
         android:text="모임 설정"
-        android:textColor="@color/black" />
+        style="@style/regular" />
     <Button
         android:id="@+id/phoneBookBtn"
         android:layout_width="201dp"
@@ -75,7 +72,7 @@
         android:background="@color/white"
         android:layout_gravity="center"
         android:text="연락처 동기화"
-        android:textColor="@color/black" />
+        style="@style/regular" />
 
     <Button
         android:id="@+id/logoutBtn"
@@ -84,7 +81,6 @@
         android:background="#FFC4C4"
         android:layout_gravity="center"
         android:text="로그아웃"
-        android:textColor="@color/black"
-        android:textStyle="bold"/>
+        style="@style/semi_large"/>
 
 </LinearLayout>

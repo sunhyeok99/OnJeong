@@ -79,13 +79,10 @@
         android:layout_gravity="center"
         android:layout_marginBottom="40dp"
         android:layout_marginTop="20dp"
-
         android:layout_marginLeft="30dp"
         android:layout_marginRight="15dp"
         android:text="수정"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
+        style="@style/semi_large"
         android:background="@drawable/rect_round_main_color_button"
         android:elevation="10dp"/>
         <Button
@@ -98,9 +95,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="20dp"
             android:text="삭제"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
+            style="@style/semi_large"
             android:background="@drawable/rect_round_main_color_button"
             android:elevation="10dp"/>
     </LinearLayout>

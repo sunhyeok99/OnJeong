@@ -26,7 +26,7 @@ class GameRankActivity : AppCompatActivity() {
     private lateinit var rankListView: ListView
     private lateinit var adapter: GameAdapter
     private lateinit var selectedButton: Button
-    private lateinit var mainTextView : TextView
+    private lateinit var mainTextView: TextView
     private lateinit var sharedPreferences: SharedPreferences
     private var userId: Long = 0
     private var myRank: String = "-"
@@ -56,7 +56,6 @@ class GameRankActivity : AppCompatActivity() {
             selectedGameCategoryButton.isSelected = true
             // 현재 선택된 버튼을 갱신
             selectedButton = selectedGameCategoryButton
-
 // selectedCategoryButton.text에 따라 tmp에 값을 할당
             when (selectedGameCategoryButton.text) {
                 "퍼즐 게임" -> tmp = 1
@@ -89,14 +88,14 @@ class GameRankActivity : AppCompatActivity() {
 
     }
 
-    private fun getScoreList(userId : Long , tmp : Long) {
+    private fun getScoreList(userId: Long, tmp: Long) {
         rankListView = findViewById(R.id.rankListView)
         // NetRetrofit을 생성
         val retrofit = RetrofitClient.getApiClient(this)
         // NetRetrofit의 service를 통해 newsList 호출
         val service = retrofit.create(GameApiService::class.java)
         var callList = service.topScoreList(tmp)
-        var callDetails = service.myScore(userId , tmp)
+        var callDetails = service.myScore(userId, tmp)
         // response가 null이 아니면 enqueue 호출
         callList.enqueue(object : Callback<List<UserGameResponseDto>> {
             override fun onResponse(
@@ -119,8 +118,10 @@ class GameRankActivity : AppCompatActivity() {
                                         var userGameInfo = response.body()
                                         if (userGameInfo != null) {
                                             // 순서대로 1. 내이름  2. 플레이어 최고점수
-                                            findViewById<TextView>(R.id.my_rank_name).text = userGameInfo.userName
-                                            findViewById<TextView>(R.id.my_rank_score).text = userGameInfo.userGameScore.toString()
+                                            findViewById<TextView>(R.id.my_rank_name).text =
+                                                userGameInfo.userName
+                                            findViewById<TextView>(R.id.my_rank_score).text =
+                                                userGameInfo.userGameScore.toString()
                                             findViewById<TextView>(R.id.my_rank_no).text = myRank
 
                                         }
@@ -131,12 +132,21 @@ class GameRankActivity : AppCompatActivity() {
                                         findViewById<TextView>(R.id.my_rank_no).text = " - "
                                     }
                                 }
-                                override fun onFailure(call: Call<UserGameResponseDto>, t: Throwable) {
+
+                                override fun onFailure(
+                                    call: Call<UserGameResponseDto>,
+                                    t: Throwable
+                                ) {
                                     TODO("Not yet implemented")
                                 }
                             })
 
                             break
+                        } else {
+                            // 스프링에서 정보 불러오기 실패 시 호출
+                            findViewById<TextView>(R.id.my_rank_name).text = "점수 없음"
+                            findViewById<TextView>(R.id.my_rank_score).text = " - "
+                            findViewById<TextView>(R.id.my_rank_no).text = " - "
                         }
                     }
                     adapter = GameAdapter(

@@ -20,8 +20,7 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="게임을 이어서 하시겠습니까?"
-            android:textColor="#000000"
-            android:textSize="28sp" />
+            style="@style/large" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,8 +37,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/green_round"
                 android:text="나가기"
-                android:textColor="@color/black"
-                android:textSize="30dp" />
+                style="@style/large" />
 
             <!-- 랭킹보기 버튼 -->
             <Button
@@ -50,8 +48,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/orange_round"
                 android:text="이어하기"
-                android:textColor="@color/black"
-                android:textSize="30dp" />
+                style="@style/large" />
 
         </LinearLayout>
     </LinearLayout>

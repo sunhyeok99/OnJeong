@@ -17,8 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text="모임을 선택하세요!"
-        android:textColor="#E8000000"
-        android:textSize="20dp"
+       style="@style/bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include" />

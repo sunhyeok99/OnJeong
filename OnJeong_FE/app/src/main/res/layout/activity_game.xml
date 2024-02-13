@@ -26,7 +26,6 @@
             android:layout_column="0"
             android:layout_columnWeight="1"
             android:layout_margin="60dp"
-            android:layout_marginTop="80dp"
             android:background="@drawable/orange_round"
             android:text="퍼즐 게임" />
 
@@ -53,7 +52,6 @@
             android:layout_column="0"
             android:layout_columnWeight="1"
             android:layout_margin="60dp"
-            android:layout_marginBottom="80dp"
             android:background="@drawable/green_round"
             android:text="순위 보기" />
 

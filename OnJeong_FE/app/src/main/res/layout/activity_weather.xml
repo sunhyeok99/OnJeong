@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".domain.login.activity.LoginActivity">
 
+    <include layout="@layout/activity_main_bar"/>
     <!-- 추가: TextView 정의 -->
 
     <ScrollView
