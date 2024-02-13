@@ -22,7 +22,7 @@ public class S3Util {
     private final AmazonS3 amazonS3;
 
     public String uploadFile(MultipartFile file) throws IOException {
-        String S3FileName = UUID.randomUUID()+"";
+        String S3FileName = UUID.randomUUID() + "-" + file.getOriginalFilename();
 
         // ObjectMetadata를 생성하여 content-type 설정
         ObjectMetadata metadata = new ObjectMetadata();
