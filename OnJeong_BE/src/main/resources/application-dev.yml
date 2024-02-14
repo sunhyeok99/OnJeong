@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/onjeong?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
-    username: ssafy
-    password: ssafy
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     hikari:
       maximum-pool-size: 180 #최대 pool 크기
       minimum-idle: 10 #최소 pool 크기
@@ -25,23 +25,23 @@ spring:
 
 
 kakao:
-  REST_KEY: "475bd7a6a8dc9f061055c6f827ab4b25"
-  REDIRECT_URI: "http://10.0.2.2:8080/auth/kakao/redirect"
+  REST_KEY: ${KAKAO_REST_KEY}
+  REDIRECT_URI: ${KAKAO_REDIRECT_URI}
 
 jwt:
-  secret_key: "onjeong-jwt-secret-key-made-by-seheon"
-  issuer: "quwe153@naver.com"
+  secret_key: ${JWT_SECRET_KEY}
+  issuer: ${JWT_ISSUER}
 
 phone:
-  API_KEY: "NCSVYKYPPACZYSME"
-  API_SECRET_KEY: "TJIYE8TQWO1ZW6MYDUO89LFKJGZKA97H"
-  DOMAIN: "https://api.coolsms.co.kr"
+  API_KEY: ${PHONE_API_KEY}
+  API_SECRET_KEY: ${PHONE_API_SECRET_KEY}
+  DOMAIN: ${PHONE_DOMAIN}
 
 cloud:
   aws:
     credentials:
-      accessKey: AKIA47DE5JTIDAD72GXT
-      secretKey: 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
+      accessKey: ${CLOUD_AWS_CREDENTIALS_ACCESSKEY}
+      secretKey: ${CLOUD_AWS_CREDENTIALS_SECRETKEY}
     s3:
       bucket: allfriend
       dir: /allfriend
@@ -52,15 +52,15 @@ cloud:
 
 openvidu:
   url: https://i10a503.p.ssafy.io/
-  secret: MY_SECRET
+  secret: ${OPENVIDU_SECRET}
 
 firebase:
   config: onjeong-firebase-admin-sdk.json
   project:
-    id: onjeong-7bc7a
+    id: ${FIREBASE_ID}
 
 weather:
-  API_KEY: y227EU54aeGEvJWgRtZ%2B5QIY5a3MMabhlk8oUMtFt6qrgwHVWZwBqw3Q9tO4KHCMD6QavaZUsMr7B%2FydM2Xigw%3D%3D
+  API_KEY: ${WEATHER_API_KEY}
 
 logging:
   level:
