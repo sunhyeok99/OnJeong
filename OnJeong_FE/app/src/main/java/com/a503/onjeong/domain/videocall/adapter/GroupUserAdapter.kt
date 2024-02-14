@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.a503.onjeong.R
 import com.a503.onjeong.domain.mypage.dto.UserDTO
+import com.bumptech.glide.Glide
 
 class GroupUserAdapter(
     private val userList: List<UserDTO>,
@@ -29,6 +30,8 @@ class GroupUserAdapter(
         val user = userList[position]
         holder.bindItems(user)
 
+
+
         holder.itemView.setOnClickListener {
             // 사용자를 선택했을 때 호출되는 콜백
             onItemClick(user)
@@ -44,12 +47,10 @@ class GroupUserAdapter(
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var isSelected: Boolean = false
         fun bindItems(user: UserDTO) {
-            val userImage = itemView.findViewById<ImageView>(R.id.user_image)
             val userName = itemView.findViewById<TextView>(R.id.user_name)
-
-//            userImage.setImageResource()
+            val userImage = itemView.findViewById<ImageView>(R.id.user_image)
+            Glide.with(itemView).load(user.profileUrl).into(userImage)
             userName.text = user.getName()
-
             changeSelected(isSelected)
         }
 

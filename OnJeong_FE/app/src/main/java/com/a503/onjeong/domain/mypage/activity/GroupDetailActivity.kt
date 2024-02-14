@@ -4,10 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -175,14 +173,18 @@ class GroupDetailActivity : AppCompatActivity() {
                         call: Call<Void>,
                         response: Response<Void>
                     ) {
+                        val intent = Intent(this@GroupDetailActivity, GroupListActivity::class.java)
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        startActivity(intent)
+                        finish()
                     }
 
                     override fun onFailure(call: Call<Void>, t: Throwable) {
                     }
                 })
             }
-            val intent = Intent(this, GroupListActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(this, GroupListActivity::class.java)
+//            startActivity(intent)
 
         }
 
@@ -192,6 +194,7 @@ class GroupDetailActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
+            finish()
         }
 
         // 뒤로가기 버튼 누르면 뒤로(메인)이동
@@ -200,6 +203,7 @@ class GroupDetailActivity : AppCompatActivity() {
             val intent = Intent(this, GroupListActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
+            finish()
         }
 
     }

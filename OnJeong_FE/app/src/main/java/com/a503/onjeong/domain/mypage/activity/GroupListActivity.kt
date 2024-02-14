@@ -84,6 +84,7 @@ class GroupListActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
+            finish()
         }
 
         // 뒤로가기 버튼 누르면 뒤로(메인)이동
@@ -92,6 +93,7 @@ class GroupListActivity : AppCompatActivity() {
             val intent = Intent(this, MyPageActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
+            finish()
         }
 
     }

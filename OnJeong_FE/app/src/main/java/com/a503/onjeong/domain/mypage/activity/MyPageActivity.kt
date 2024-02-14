@@ -8,8 +8,8 @@ import android.os.Bundle
 import android.provider.ContactsContract
 import android.util.Log
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -84,13 +84,14 @@ class MyPageActivity : AppCompatActivity() {
             val intent = Intent(this@MyPageActivity, TelephoneEditActivity::class.java)
             startActivity(intent)
         }
-        
+
         // 홈버튼 누르면 홈으로 이동하게
         homeButton = findViewById(R.id.btnHome)
         homeButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
+            finish()
         }
         // 뒤로가기 버튼 누르면 뒤로(메인)이동
         backButton = findViewById(R.id.btnBack)
@@ -98,6 +99,7 @@ class MyPageActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
+            finish()
         }
 
         //프로필사진 클릭시 갤러리 접근
@@ -184,6 +186,7 @@ class MyPageActivity : AppCompatActivity() {
         if (call != null) {
             call.enqueue(object : Callback<Void?> {
                 override fun onResponse(call: Call<Void?>, response: Response<Void?>) {
+                    Toast.makeText(applicationContext, "연락처를 불러왔습니다", Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onFailure(call: Call<Void?>, t: Throwable) {
