@@ -54,7 +54,7 @@ class GroupDetailActivity : AppCompatActivity() {
 //        checkListView.adapter = checkListAdapter
 
         checkListAdapter = CheckListAdapter(this, checkList)
-        checkListView.layoutManager = LinearLayoutManager(this)
+        checkListView.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         checkListView.adapter = checkListAdapter
 
         phonebookListView = findViewById(R.id.phonebookListView)
