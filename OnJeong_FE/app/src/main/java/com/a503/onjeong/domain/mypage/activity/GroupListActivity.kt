@@ -82,7 +82,7 @@ class GroupListActivity : AppCompatActivity() {
         homeButton = findViewById(R.id.btnHome)
         homeButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
             finish()
         }
@@ -91,7 +91,7 @@ class GroupListActivity : AppCompatActivity() {
         backButton = findViewById(R.id.btnBack)
         backButton.setOnClickListener {
             val intent = Intent(this, MyPageActivity::class.java)
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
             finish()
         }

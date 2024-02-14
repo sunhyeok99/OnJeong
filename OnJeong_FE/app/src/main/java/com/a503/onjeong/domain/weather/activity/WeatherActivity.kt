@@ -1,18 +1,21 @@
 package com.a503.onjeong.domain.weather.activity
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.a503.onjeong.R
+import com.a503.onjeong.domain.MainActivity
 import com.a503.onjeong.domain.weather.api.WeatherApiService
 import com.a503.onjeong.domain.weather.dto.WeatherRequestDto
 import com.a503.onjeong.domain.weather.dto.WeatherResponseDto
@@ -31,6 +34,7 @@ class WeatherActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_weather)
+        findViewById<TextView>(R.id.mainText).text = "날씨"
 
         val retrofit = RetrofitClient.getApiClient(this)
         val service = retrofit.create(WeatherApiService::class.java)
@@ -81,7 +85,20 @@ class WeatherActivity : AppCompatActivity() {
                 sevenTemperature
             )
 
-
+// 홈버튼 누르면 홈으로 이동하게
+        val homeButton : Button = findViewById(R.id.btnHome)
+        homeButton.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+        }
+        // 뒤로가기 버튼 누르면 뒤로(메인)이동
+        val backButton : Button = findViewById(R.id.btnBack)
+        backButton.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+        }
         getLocation(object : LocationCallback {
             override fun onLocationReceived(address: List<Address>) {
                 // 위치를 받은 후 API 요청 수행
@@ -126,7 +143,8 @@ class WeatherActivity : AppCompatActivity() {
                             splitAddr[4]
                         )
                     )
-                    currentAddress.text = splitAddr[1] + " " + splitAddr[2] + " " + splitAddr[3] + " " + splitAddr[4]
+                    currentAddress.text =
+                        splitAddr[1] + " " + splitAddr[2] + " " + splitAddr[3] + " " + splitAddr[4]
                 }
 
 

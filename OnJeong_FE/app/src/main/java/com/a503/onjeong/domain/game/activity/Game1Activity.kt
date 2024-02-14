@@ -415,10 +415,12 @@ class Game1Activity : AppCompatActivity() {
         rank = findViewById(R.id.game_rank)
         exit.setOnClickListener {
             val intent = Intent(this, Game1Lobby::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
         }
         rank.setOnClickListener {
             val intent = Intent(this, GameRankActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
         }
     }
