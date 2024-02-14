@@ -15,6 +15,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.a503.onjeong.R
 import com.a503.onjeong.domain.MainActivity
+import com.a503.onjeong.domain.login.activity.LoginActivity
 import com.a503.onjeong.domain.mypage.api.PhonebookApiService
 import com.a503.onjeong.domain.mypage.api.ProfileApiService
 import com.a503.onjeong.domain.mypage.dto.PhonebookAllDTO
@@ -31,6 +32,7 @@ class MyPageActivity : AppCompatActivity() {
     private lateinit var homeButton: Button
     private lateinit var backButton: Button
     private lateinit var userProfile: CircleImageView
+    private lateinit var logoutButton: Button
 
     val retrofit = RetrofitClient.getApiClient(this)
     val phonebookApiService = retrofit.create(PhonebookApiService::class.java)
@@ -40,6 +42,7 @@ class MyPageActivity : AppCompatActivity() {
         setContentView(R.layout.activity_mypage)
 
         val sharedPreferences = getSharedPreferences("mySharedPreferences", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
         val userId = sharedPreferences.getLong("userId", 0L)
 
 
@@ -103,6 +106,20 @@ class MyPageActivity : AppCompatActivity() {
         userProfile = findViewById(R.id.userProfile)
         userProfile.setOnClickListener {
             val intent = Intent(this, ProfileSettingActivity::class.java)
+            startActivity(intent)
+        }
+
+        logoutButton = findViewById(R.id.logoutBtn)
+        logoutButton.setOnClickListener {
+            editor.remove("kakaoAccessToken")
+            editor.remove("kakaoRefreshToken")
+            editor.remove("jwtAccessToken")
+            editor.remove("jwtRefreshToken")
+            editor.remove("userId")
+            editor.remove("name")
+            editor.remove("type")
+            editor.apply()
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
     }
