@@ -9,4 +9,6 @@
     <color name="red">#D1180B</color>
     <color name="gray">#D3D1D1</color>
     <color name="heavy_gray">#6A5959</color>
+    <color name="light_gray">#DCDCDC</color>
+    <color name="light_accent">#FFC4C4</color>
 </resources>

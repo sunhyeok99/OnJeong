@@ -1,33 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="300dp"
+    android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:layout_marginBottom="10dp"
-    android:background="#DAEFEAEA">
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:background="@color/white">
 
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/userProfile"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginLeft="10dp"
         android:src="@drawable/profile_img"
-        app:civ_border_color="@color/black"
-        app:civ_border_overlay="true"
-        app:civ_border_width="2dp"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/userName"
+        style="@style/semi_large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:text="최정윤"
-        android:textColor="@color/black"
-        android:textSize="25dp" />
+        app:layout_constraintBottom_toBottomOf="@id/userProfile"
+        app:layout_constraintStart_toEndOf="@id/userProfile"
+        app:layout_constraintTop_toTopOf="@id/userProfile" />
 
     <ImageButton
         android:id="@+id/userDetailBtn"
@@ -36,19 +35,23 @@
         android:layout_gravity="center"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="#DAEFEAEA"
+        android:background="@color/white"
         android:scaleType="fitCenter"
-        android:src="@drawable/user_info_btn" />
+        android:src="@drawable/user_info_btn"
+        app:layout_constraintBottom_toBottomOf="@id/userName"
+        app:layout_constraintStart_toEndOf="@id/userName"
+        app:layout_constraintTop_toTopOf="@id/userName" />
 
 
     <Button
         android:id="@+id/checkBtn"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:layout_marginRight="30dp"
         android:background="#F6BD4E"
         android:text="✔"
         android:textSize="30dp"
-        android:textStyle="bold" />
-</LinearLayout>
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

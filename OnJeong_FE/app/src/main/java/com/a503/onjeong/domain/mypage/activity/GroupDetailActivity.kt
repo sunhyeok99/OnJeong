@@ -7,9 +7,12 @@ import android.text.Editable
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.a503.onjeong.R
 import com.a503.onjeong.domain.MainActivity
 import com.a503.onjeong.domain.mypage.adapter.CheckListAdapter
@@ -31,7 +34,9 @@ class GroupDetailActivity : AppCompatActivity() {
     private lateinit var groupDeleteBtn: Button
     private lateinit var groupUpdateBtn: Button
     private lateinit var phonebookListView: ListView
-    private lateinit var checkListView: ListView
+
+    //    private lateinit var checkListView: ListView
+    private lateinit var checkListView: RecyclerView
     private lateinit var phonebookListAdapter: PhonebookListAdapter
     private lateinit var checkListAdapter: CheckListAdapter
 
@@ -41,11 +46,15 @@ class GroupDetailActivity : AppCompatActivity() {
         var checkList: ArrayList<PhonebookDTO>
         checkList = ArrayList()
         checkListView = findViewById(R.id.checkListView)
-        checkListAdapter = CheckListAdapter( //선택된 구성원 리스트 뽑아주는 어댑터
-            this@GroupDetailActivity,
-            R.layout.activity_check_list_item,
-            checkList
-        )
+//        checkListAdapter = CheckListAdapter( //선택된 구성원 리스트 뽑아주는 어댑터
+//            this@GroupDetailActivity,
+//            R.layout.activity_check_list_item,
+//            checkList
+//        )
+//        checkListView.adapter = checkListAdapter
+
+        checkListAdapter = CheckListAdapter(this, checkList)
+        checkListView.layoutManager = LinearLayoutManager(this)
         checkListView.adapter = checkListAdapter
 
         phonebookListView = findViewById(R.id.phonebookListView)
@@ -102,7 +111,7 @@ class GroupDetailActivity : AppCompatActivity() {
                         R.layout.activity_phonebook_list_item,
                         phonebookList, object : OnButtonClickListener {
                             override fun onButtonClick(data: PhonebookDTO) {
-                                if (data.isChecked==1) {
+                                if (data.isChecked == 1) {
                                     checkList.add(data)
                                 } else {
                                     checkList.remove(data)
@@ -114,8 +123,10 @@ class GroupDetailActivity : AppCompatActivity() {
                     phonebookListView.adapter = phonebookListAdapter
 
                     for (phonebookDTO: PhonebookDTO in phonebookList) {
-                        if (phonebookDTO.isChecked==1) checkList.add(phonebookDTO)
+                        if (phonebookDTO.isChecked == 1) checkList.add(phonebookDTO)
                     }
+                    checkListAdapter.notifyDataSetChanged()
+
 
                 }
 
@@ -137,6 +148,7 @@ class GroupDetailActivity : AppCompatActivity() {
                         response: Response<Void>
                     ) {
                     }
+
                     override fun onFailure(call: Call<Void>, t: Throwable) {
                     }
                 })
@@ -155,7 +167,7 @@ class GroupDetailActivity : AppCompatActivity() {
                 userList.add(phonebookDTO.freindId)
             }
             var groupUserListDTO: GroupUserListDTO =
-                GroupUserListDTO(groupId.toLong() ,userId, groupName.text.toString(),userList)
+                GroupUserListDTO(groupId.toLong(), userId, groupName.text.toString(), userList)
             val res = groupApiService.groupUpdate(groupUserListDTO)
             if (res != null) {
                 res.enqueue(object : Callback<Void> {
