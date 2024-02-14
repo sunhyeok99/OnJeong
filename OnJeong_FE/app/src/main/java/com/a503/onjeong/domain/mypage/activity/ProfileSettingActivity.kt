@@ -48,13 +48,17 @@ class ProfileSettingActivity : AppCompatActivity() {
         homeButton = findViewById(R.id.btnHome)
         homeButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
+            finish()
         }
         // 뒤로가기 버튼 누르면 뒤로(메인)이동
         backButton = findViewById(R.id.btnBack)
         backButton.setOnClickListener {
             val intent = Intent(this, MyPageActivity::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
+            finish()
         }
     }
 
@@ -68,11 +72,16 @@ class ProfileSettingActivity : AppCompatActivity() {
 
         val sharedPreferences = getSharedPreferences("mySharedPreferences", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getLong("userId", 0L)
-        val call =  service.profileDelete(userId);
+        val call = service.profileDelete(userId);
         if (call != null) {
             call.enqueue(object : Callback<Void?> {
                 override fun onResponse(call: Call<Void?>, response: Response<Void?>) {
                     Log.d("성공?", "성공 !!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+
+                    val intent = Intent(this@ProfileSettingActivity, MyPageActivity::class.java)
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    startActivity(intent)
+                    finish()
                 }
 
                 override fun onFailure(call: Call<Void?>, t: Throwable) {
@@ -80,8 +89,8 @@ class ProfileSettingActivity : AppCompatActivity() {
                 }
             })
         }
-        val intent = Intent(this, MyPageActivity::class.java)
-        startActivity(intent)
+//        val intent = Intent(this, MyPageActivity::class.java)
+//        startActivity(intent)
 
     }
 
@@ -105,6 +114,7 @@ class ProfileSettingActivity : AppCompatActivity() {
                 //다이얼로그를 띄워 권한 팝업을 해야하는 이유 및 권한팝업을 허용하여야 접근 가능하다는 사실을 알려줌
                 showPermissionAlertDialog()
             }
+
             else -> {
                 //권한 요청
                 requestPermissions(
@@ -146,13 +156,20 @@ class ProfileSettingActivity : AppCompatActivity() {
                 if (call != null) {
                     call.enqueue(object : Callback<Void?> {
                         override fun onResponse(call: Call<Void?>, response: Response<Void?>) {
+                            val intent =
+                                Intent(this@ProfileSettingActivity, MyPageActivity::class.java)
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            startActivity(intent)
+                            finish()
                         }
+
                         override fun onFailure(call: Call<Void?>, t: Throwable) {
                             Log.d("실패이유:", "$t")
                         }
                     })
                 }
             }
+
             else -> {
                 Toast.makeText(this, "사진을 가져오지 못했습니다.", Toast.LENGTH_SHORT).show()
             }

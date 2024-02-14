@@ -109,14 +109,18 @@ class GroupCreateActivity : AppCompatActivity() {
         homeButton = findViewById(R.id.btnHome)
         homeButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
+            finish()
         }
 
         // 뒤로가기 버튼 누르면 뒤로(메인)이동
         backButton = findViewById(R.id.btnBack)
         backButton.setOnClickListener {
             val intent = Intent(this, GroupListActivity::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
+            finish()
         }
 
         val groupApiservice = retrofit.create(GroupApiService::class.java)
@@ -140,6 +144,10 @@ class GroupCreateActivity : AppCompatActivity() {
                         call: Call<Void>,
                         response: Response<Void>
                     ) {
+                        val intent = Intent(this@GroupCreateActivity, GroupListActivity::class.java)
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        startActivity(intent)
+                        finish()
                     }
 
                     override fun onFailure(call: Call<Void>, t: Throwable) {
@@ -147,8 +155,8 @@ class GroupCreateActivity : AppCompatActivity() {
                 })
             }
             //액티비티 바뀌기
-            val intent = Intent(this, GroupListActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(this, GroupListActivity::class.java)
+//            startActivity(intent)
         }
     }
 
