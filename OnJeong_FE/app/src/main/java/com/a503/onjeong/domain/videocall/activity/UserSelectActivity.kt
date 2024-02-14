@@ -62,6 +62,8 @@ class UserSelectActivity : AppCompatActivity() {
                 val groupDTO: GroupDTO? = response.body()
                 val userList: List<UserDTO>? = groupDTO?.userList
 
+                Log.d("test", "first url is ${userList!!.get(0).profileUrl}")
+
                 if (userList != null) {
                     initRecycler(userList)
                 }
