@@ -86,6 +86,7 @@ public class UserGroupServiceImpl implements UserGroupService {
                     .userId(user.getId())
                     .name(user.getName())
                     .build();
+            userDTO.setProfileUrl(user.getProfileUrl());
             userDTOList.add(userDTO);
         }
         GroupDTO groupDTO = GroupDTO.builder()
