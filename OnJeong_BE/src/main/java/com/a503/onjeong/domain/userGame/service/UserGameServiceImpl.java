@@ -5,11 +5,14 @@ import com.a503.onjeong.domain.user.repository.UserRepository;
 import com.a503.onjeong.domain.userGame.UserGame;
 import com.a503.onjeong.domain.userGame.dto.UserGameDto;
 import com.a503.onjeong.domain.userGame.repository.UserGameRepository;
-import jakarta.persistence.EntityNotFoundException;
+import com.a503.onjeong.global.exception.ExceptionCodeSet;
+import com.a503.onjeong.global.exception.GameException;
+import com.a503.onjeong.global.exception.UserException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,10 +27,15 @@ public class UserGameServiceImpl implements UserGameService {
     // 랭킹 리스트 점수 top10개 반환
     @Override
     @Transactional
-    // gameId에 해당하는 유저들의 score를 불러와서
+    // gameId에 해당하는 유저들의 score를 불러와서 10개만
     // userGameDto로 전환후 return
     public List<UserGameDto> userGameList(Long gameId) {
-        List<UserGame> userGameList = userGameRepository.findTop10ByGameIdOrderByUserGameScoreDesc(gameId);
+        List<UserGame> tmpList = userGameRepository.findByGameIdOrderByUserGameScoreDesc(gameId);
+        List<UserGame> userGameList = new ArrayList<>();
+        long size = Math.min(10, tmpList.size());
+        for(int i = 0;i<size;i++){
+            userGameList.add(tmpList.get(i));
+        }
         List<UserGameDto> userGameDtoList = userGameList.stream()
                 .map(userGame -> UserGameDto.builder()
                         .id(userGame.getId())
@@ -40,26 +48,23 @@ public class UserGameServiceImpl implements UserGameService {
 
         return userGameDtoList;
     }
+
     @Override
     @Transactional
-    // 게임에 관한 정보를 db에 저장
-    public UserGame save(UserGameDto userGameDto) {
-        UserGame userGame = UserGame.builder()
-                .user(userRepository.findById(userGameDto.getUserId()).orElseThrow(() -> new EntityNotFoundException("User not found")))
-                .game(gameRepository.findById(userGameDto.getGameId()).orElseThrow(() -> new EntityNotFoundException("Game not found")))
-                .userGameScore(userGameDto.getUserGameScore())
-                .build();
-        return userGameRepository.save(userGame);
-    }
-    @Override
-    @Transactional
-    // 만약 방금 플레이한 점수(input)가 더 높을 경우 점수 갱신
-    public UserGame updateScore(UserGameDto userGameDto) {
+    // 입력되는 정보로 저장된 데이터가 없으면 save , 저장된 최고점수보다 높으면 update 진행
+    public UserGameDto saveScore(UserGameDto userGameDto) {
         UserGame userGame = userGameRepository.findByUserIdAndGameId(userGameDto.getUserId(), userGameDto.getGameId());
-        if (userGameDto.getUserGameScore() > userGame.getUserGameScore()) {
+        if (userGame == null) {
+            userGame = UserGame.builder()
+                    .user(userRepository.findById(userGameDto.getUserId()).orElseThrow(() -> new UserException(ExceptionCodeSet.USER_NOT_FOUND)))
+                    .game(gameRepository.findById(userGameDto.getGameId()).orElseThrow(() -> new GameException(ExceptionCodeSet.GAME_NOT_FOUND)))
+                    .userGameScore(userGameDto.getUserGameScore())
+                    .build();
+            userGameRepository.save(userGame);
+        } else if (userGame.getUserGameScore() < userGameDto.getUserGameScore()) {
             userGame.setUserGameScore(userGameDto.getUserGameScore());
         }
-        return userGame;
+        return userGameDetails(userGameDto.getUserId() , userGameDto.getGameId());
     }
 
     @Override

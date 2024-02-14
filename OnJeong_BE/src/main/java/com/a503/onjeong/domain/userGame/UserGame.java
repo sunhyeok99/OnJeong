@@ -33,16 +33,15 @@ public class UserGame {
 
     @Builder
     public UserGame(
-            Long id,
             User user,
             Game game,
             Long userGameScore
     ) {
-        this.id = id;
         this.user = user;
         this.game = game;
         this.userGameScore = userGameScore;
     }
+
     // 유저의 최고기록을 갱신
     public void setUserGameScore(Long userGameScore){
         this.userGameScore = userGameScore;

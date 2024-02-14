@@ -7,15 +7,10 @@ import org.jetbrains.annotations.NotNull;
 @NoArgsConstructor
 @Data
 public class UserGameDto {
-    @NotNull
     private Long id;
-    @NotNull
     private Long userId;
-    @NotNull
     private String userName;
-    @NotNull
     private Long gameId;
-    @NotNull
     private Long userGameScore;
 
     @Builder
