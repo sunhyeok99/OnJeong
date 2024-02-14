@@ -253,7 +253,7 @@ class Game1Activity : AppCompatActivity() {
         // 검정으로 전환 후 랜덤색으로
         for (index in blocks.indices) {
             Handler(Looper.getMainLooper()).postDelayed({
-                imageViews[blocks[index]].setImageResource(R.color.orange)
+                imageViews[blocks[index]].setImageResource(R.color.heavy_gray)
             }, 50)
         }
 
@@ -261,8 +261,6 @@ class Game1Activity : AppCompatActivity() {
             val randomImage = gameImages.random()
             imageNum[blocks[index]] = randomImage
             Handler(Looper.getMainLooper()).postDelayed({
-                // 터지는 효과
-//                imageViews[blocks[index]].setBackgroundResource(R.attr.selectableItemBackground)
                 imageViews[blocks[index]].setImageResource(randomImage)
             }, 100)
         }
@@ -424,15 +422,14 @@ class Game1Activity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
+    // 타이머 정지
     private fun pauseTimer() {
         if (isTimerRunning) {
             countDownTimer.cancel()
             isTimerRunning = false
-//            remainTime = (countDownTimer.timeRemaining / 1000)
         }
     }
-
+    // 타이머 재시작
     private fun resumeTimer() {
         if (!isTimerRunning) {
             startTimer(remainTime) // 남은 시간을 받아와서 타이머 다시 시작

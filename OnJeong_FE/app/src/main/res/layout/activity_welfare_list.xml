@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp"
     tools:ignore="ExtraText">
 
     <RelativeLayout
@@ -10,18 +9,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="UselessParent"
-        android:elevation="8dp"
-        android:radius="8dp"
-        android:padding="16dp"
-        android:background="@drawable/white">
+        android:padding="15dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/round_bar"
+        >
 
         <TextView
             android:id="@+id/textViewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
+            style="@style/semi_large"
             android:maxLines="2"
             android:ellipsize="end"/>
 
@@ -31,8 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/textViewTitle"
             android:layout_marginTop="8dp"
-            android:textColor="@color/black"
-            android:textSize="16sp"
+           style="@style/regular"
             android:maxLines="1"
             android:ellipsize="end"/>
 

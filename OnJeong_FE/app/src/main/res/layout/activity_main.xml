@@ -65,7 +65,7 @@
                     android:layout_alignParentBottom="true"
                     android:gravity="center"
                     android:text="날씨"
-                    style="@style/regular"
+                    style="@style/semi_large"
                     card_view:layout_constraintBottom_toBottomOf="parent"
                     card_view:layout_constraintEnd_toEndOf="parent"
                     card_view:layout_constraintStart_toStartOf="parent"

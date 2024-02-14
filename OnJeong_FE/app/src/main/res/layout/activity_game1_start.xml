@@ -91,7 +91,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="40dp"
         android:layout_weight="1"
-        android:background="#6A5959"
+        android:background="@color/heavy_gray"
         android:columnCount="7"
         android:padding="7dp"
         android:rowCount="7">
