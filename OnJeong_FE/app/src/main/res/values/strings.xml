@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">OnJeong</string>
+    <string name="app_name_korean">온정</string>
 
     <!--    <string name="application_server_url">https://demos.openvidu.io/</string>-->
     <string name="application_server_url">http://i10a503.p.ssafy.io:8080/</string>
