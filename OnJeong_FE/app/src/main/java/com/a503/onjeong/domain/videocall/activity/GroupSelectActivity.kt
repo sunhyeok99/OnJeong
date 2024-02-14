@@ -10,6 +10,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.a503.onjeong.R
 import com.a503.onjeong.databinding.ActivityGroupSelectBinding
+import com.a503.onjeong.domain.MainActivity
 import com.a503.onjeong.domain.mypage.api.GroupApiService
 import com.a503.onjeong.domain.mypage.dto.GroupDTO
 import com.a503.onjeong.domain.videocall.adapter.GroupSelectAdapter
@@ -33,6 +34,20 @@ class GroupSelectActivity : AppCompatActivity() {
         askForPermissions()
 
         getGroupList()
+
+        binding.include.mainText.text = "영상통화"
+        binding.include.btnBack.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
+            finish()
+        }
+        binding.include.btnHome.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun getGroupList() {
