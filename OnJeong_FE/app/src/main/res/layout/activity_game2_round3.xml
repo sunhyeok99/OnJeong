@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/game_background3"
+    android:background="@drawable/game_result"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout

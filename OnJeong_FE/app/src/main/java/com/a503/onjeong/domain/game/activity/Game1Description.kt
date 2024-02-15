@@ -19,7 +19,7 @@ class Game1Description : AppCompatActivity() {
         setContentView(R.layout.activity_game1_description)
 
         mainTextView = findViewById(R.id.mainText)
-        mainTextView.text = "게임 설명"
+        mainTextView.text = "게임 방법"
         homeButton = findViewById(R.id.btnHome)
         homeButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
@@ -29,7 +29,7 @@ class Game1Description : AppCompatActivity() {
         // 뒤로가기 버튼 누르면 뒤로(메인)이동
         backButton = findViewById(R.id.btnBack)
         backButton.setOnClickListener {
-            val intent = Intent(this, Game1Lobby::class.java)
+            val intent = Intent(this, GameActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
         }
@@ -37,11 +37,13 @@ class Game1Description : AppCompatActivity() {
         gameStart = findViewById(R.id.gameStart)
         gameStart.setOnClickListener {
             val intent = Intent(this, Game1Activity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
         }
         gameCancel = findViewById(R.id.cancel)
         gameCancel.setOnClickListener {
-            val intent = Intent(this, Game1Lobby::class.java)
+            val intent = Intent(this, GameActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
         }
 
