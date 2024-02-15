@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#DFFFFFFF"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <include layout="@layout/activity_main_bar" />
@@ -27,7 +27,7 @@
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="25dp"
         android:background="@drawable/rect_round_main_color_button"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/light_gray"
         android:text="+"
         android:textColor="@color/black"
         android:textSize="50dp" />

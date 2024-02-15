@@ -120,9 +120,18 @@ class UserSelectActivity : AppCompatActivity() {
 
         binding.callButton.isEnabled = selectedUserList.isNotEmpty()
         binding.callButton.backgroundTintList =
-            if (binding.callButton.isEnabled) ColorStateList.valueOf(getColor(R.color.main_color)) else ColorStateList.valueOf(
+            if (binding.callButton.isEnabled) {ColorStateList.valueOf(getColor(R.color.main_color))
+            } else ColorStateList.valueOf(
                 getColor(R.color.check_gray)
             )
+        binding.callButton.setTextColor(
+            if (binding.callButton.isEnabled) {
+                getColor(R.color.black)
+            } else {
+                getColor(R.color.white)
+            }
+        )
+
     }
 
     private fun getVideoCallToken() {
