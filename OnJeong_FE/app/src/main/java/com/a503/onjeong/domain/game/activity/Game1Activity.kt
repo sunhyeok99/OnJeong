@@ -77,7 +77,8 @@ class Game1Activity : AppCompatActivity() {
         // 종료버튼
         exit = findViewById(R.id.end)
         exit.setOnClickListener {
-            var intent = Intent(this, Game1Lobby::class.java)
+            var intent = Intent(this, GameActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
         }
         // 시작버튼
@@ -119,7 +120,8 @@ class Game1Activity : AppCompatActivity() {
             }
 
             exitButton.setOnClickListener {
-                var intent = Intent(this, Game1Lobby::class.java)
+                var intent = Intent(this, GameActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)
             }
         }
@@ -414,7 +416,7 @@ class Game1Activity : AppCompatActivity() {
         exit = findViewById(R.id.game_exit)
         rank = findViewById(R.id.game_rank)
         exit.setOnClickListener {
-            val intent = Intent(this, Game1Lobby::class.java)
+            val intent = Intent(this, GameActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
         }

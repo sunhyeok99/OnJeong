@@ -69,8 +69,6 @@
         <activity android:name=".domain.MainActivity"/>
         <activity android:name=".domain.news.activity.NewsActivity"/>
         <activity android:name=".domain.game.activity.GameActivity"/>
-        <activity android:name=".domain.game.activity.Game1Lobby"/>
-        <activity android:name=".domain.game.activity.Game2Lobby"/>
         <activity android:name=".domain.game.activity.Game1Description"/>
         <activity android:name=".domain.game.activity.Game2Description"/>
         <activity android:name=".domain.game.activity.Game2Activity"/>

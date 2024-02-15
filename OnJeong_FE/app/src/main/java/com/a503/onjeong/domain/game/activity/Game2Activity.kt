@@ -105,7 +105,8 @@ class Game2Activity : AppCompatActivity() {
         }
 
         exitButton.setOnClickListener {
-            var intent = Intent(this , Game1Lobby::class.java)
+            var intent = Intent(this , GameActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
         }
 
@@ -117,7 +118,8 @@ class Game2Activity : AppCompatActivity() {
                 // 텍스트도 변경
                 exit = findViewById(R.id.end)
                 exit.setOnClickListener {
-                    val intent = Intent(this, Game2Lobby::class.java)
+                    val intent = Intent(this, GameActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                     startActivity(intent)
                 }
                 round1 = findViewById(R.id.start)
@@ -133,6 +135,12 @@ class Game2Activity : AppCompatActivity() {
                 setContentView(R.layout.activity_game2_ready)
                 findViewById<TextView>(R.id.ready_text).text =
                     "2라운드를 시작하시겠습니까? \n 그만하기를 원하시면 종료버튼을 눌러주세요"
+                exit = findViewById(R.id.end)
+                exit.setOnClickListener {
+                    val intent = Intent(this, GameActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    startActivity(intent)
+                }
                 round2 = findViewById(R.id.start)
                 round2.setOnClickListener {
                     setContentView(R.layout.activity_game2_round2)
@@ -146,6 +154,12 @@ class Game2Activity : AppCompatActivity() {
                 setContentView(R.layout.activity_game2_ready)
                 findViewById<TextView>(R.id.ready_text).text =
                     "3라운드를 시작하시겠습니까? \n 종료를 누르시면 랭킹에 반영되지 않습니다."
+                exit = findViewById(R.id.end)
+                exit.setOnClickListener {
+                    val intent = Intent(this, GameActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    startActivity(intent)
+                }
                 round3 = findViewById(R.id.start)
                 round3.setOnClickListener {
                     setContentView(R.layout.activity_game2_round3)
@@ -166,7 +180,7 @@ class Game2Activity : AppCompatActivity() {
                 exit = findViewById(R.id.game_exit)
                 rank = findViewById(R.id.game_rank)
                 exit.setOnClickListener {
-                    val intent = Intent(this, Game2Lobby::class.java)
+                    val intent = Intent(this, GameActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                     startActivity(intent)
                 }

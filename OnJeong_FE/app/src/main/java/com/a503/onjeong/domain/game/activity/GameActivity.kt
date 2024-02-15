@@ -11,9 +11,11 @@ import com.a503.onjeong.R
 class GameActivity : AppCompatActivity() {
     private lateinit var homeButton: Button
     private lateinit var backButton: Button
-    private lateinit var game1: Button
-    private lateinit var game2: Button
     private lateinit var rank: Button
+    private lateinit var game1Start: Button
+    private lateinit var game2Start: Button
+    private lateinit var game1Description: Button
+    private lateinit var game2Description: Button
     private lateinit var mainTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,15 +39,25 @@ class GameActivity : AppCompatActivity() {
             startActivity(intent)
         }
         // 게임 1 버튼
-        game1 = findViewById(R.id.game1)
-        game1.setOnClickListener {
-            val intent = Intent(this, Game1Lobby::class.java)
+        game1Start = findViewById(R.id.game1_start)
+        game1Start.setOnClickListener {
+            val intent = Intent(this, Game1Activity::class.java)
             startActivity(intent)
         }
-        // 게임 2 버튼
-        game2 = findViewById(R.id.game2)
-        game2.setOnClickListener {
-            val intent = Intent(this, Game2Lobby::class.java)
+        // 게임 1 버튼
+        game2Start = findViewById(R.id.game2_start)
+        game2Start.setOnClickListener {
+            val intent = Intent(this, Game2Activity::class.java)
+            startActivity(intent)
+        }
+        game1Description = findViewById(R.id.game1_description)
+        game1Description.setOnClickListener {
+            val intent = Intent(this, Game1Description::class.java)
+            startActivity(intent)
+        }
+        game2Description = findViewById(R.id.game2_description)
+        game2Description.setOnClickListener {
+            val intent = Intent(this, Game2Description::class.java)
             startActivity(intent)
         }
         // 랭킹 버튼

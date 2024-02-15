@@ -14,13 +14,13 @@
 
         <TextView
             android:id="@+id/result_title"
+            style="@style/large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="게임을 이어서 하시겠습니까?"
-            style="@style/large" />
+            android:text="게임을 이어서 하시겠습니까?" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,24 +31,26 @@
             <!-- 나가기 버튼 -->
             <Button
                 android:id="@+id/gameExit"
+                style="@style/large"
                 android:layout_width="0dp"
                 android:layout_height="70dp"
                 android:layout_margin="20dp"
                 android:layout_weight="1"
-                android:background="@drawable/green_round"
-                android:text="나가기"
-                style="@style/large" />
+                android:background="@drawable/rect_round_main_color_button"
+                android:backgroundTint="@color/charcoal"
+                android:textColor="@color/main_color"
+                android:text="나가기" />
 
             <!-- 랭킹보기 버튼 -->
             <Button
                 android:id="@+id/gameResume"
+                style="@style/large"
                 android:layout_width="0dp"
                 android:layout_height="70dp"
                 android:layout_margin="20dp"
                 android:layout_weight="1"
-                android:background="@drawable/orange_round"
-                android:text="이어하기"
-                style="@style/large" />
+                android:background="@drawable/rect_round_main_color_button"
+                android:text="이어하기" />
 
         </LinearLayout>
     </LinearLayout>
