@@ -33,7 +33,7 @@
                 <FrameLayout
                     android:id="@+id/peer_container"
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
+                    android:layout_height="212dp"
                     android:layout_marginBottom="5dp">
 
                     <TextView
@@ -44,151 +44,34 @@
 
                     <org.webrtc.SurfaceViewRenderer
                         android:id="@+id/local_gl_surface_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="180dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="212dp"
                         android:visibility="visible" />
                 </FrameLayout>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="409dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="8dp"
-        android:background="#ffffff"
-        android:orientation="horizontal"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="1.0">
-
-
-        <!-- <ImageButton
-            android:id="@+id/call_mute"
-            android:layout_width="60dp"
-            android:layout_height="66dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="110dp"
-            android:layout_marginTop="-2dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:onClick="buttonPressed"
-            android:scaleType="fitCenter"
-            android:src="@drawable/mic" />
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
-            android:id="@+id/changemode"
-            android:layout_width="60dp"
-            android:layout_height="66dp"
-            android:layout_marginStart="250dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:onClick="buttonPressed"
-            android:scaleType="fitCenter"
-            android:src="@drawable/change_mode" /> -->
-
-        <!--<ImageButton
-            android:layout_width="dp"
-            android:layout_height="66dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="210dp"
-            android:layout_marginTop="43dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:onClick="buttonPressed"
-            android:scaleType="center"
-            android:src="@drawable/share_screen"
-            /> -->
-
-        <!-- <ImageButton
-            android:id="@+id/sharescreen"
-            android:layout_width="60dp"
-            android:layout_height="66dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="-4dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:onClick="buttonPressed"
-            android:scaleType="fitCenter"
-            android:src="@drawable/share_screen" />
-
-        <ImageButton
-            android:id="@+id/videostop"
-            android:layout_width="60dp"
-            android:layout_height="66dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="320dp"
-            android:layout_marginTop="-3dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:onClick="buttonPressed"
-            android:scaleType="fitCenter"
-            android:src="@drawable/video_stop" /> -->
-
-        <Button
             android:id="@+id/start_finish_call"
-            style="@android:style/Widget.Material.Button.Borderless.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/round_button"
             android:onClick="buttonPressed"
-            android:text="@string/start_button" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="9dp"
-            android:gravity="end"
-            android:orientation="vertical"
+            android:rotation="90"
+            android:src="@drawable/call_disabled"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></ImageButton>
 
-
-            <EditText
-                android:id="@+id/application_server_url"
-                style="@android:style/Widget.Material.Button.Borderless.Colored"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/application_server_url"
-                android:inputType="text"
-                android:text="@string/application_server_url" />
-
-            <EditText
-                android:id="@+id/session_name"
-                style="@android:style/Widget.Material.Button.Borderless.Colored"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/session_name"
-                android:inputType="text"
-                android:text="@string/default_session_name" />
-
-            <EditText
-                android:id="@+id/participant_name"
-                style="@android:style/Widget.Material.Button.Borderless.Colored"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/participant_name"
-                android:inputType="text"
-                android:text="@string/default_participant_name" />
-
-        </LinearLayout>
-
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
