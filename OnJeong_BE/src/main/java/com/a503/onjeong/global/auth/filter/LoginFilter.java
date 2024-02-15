@@ -33,7 +33,7 @@ import java.util.Objects;
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     private User user;
-    KakaoDto.UserInfo userInfo;
+    private KakaoDto.UserInfo userInfo;
     private final UserRepository userRepository;
     private final KakaoService kakaoService;
     private final AuthenticationEntryPoint authenticationEntryPoint;

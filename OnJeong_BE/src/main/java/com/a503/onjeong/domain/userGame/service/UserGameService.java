@@ -11,11 +11,11 @@ import java.util.List;
 public interface UserGameService {
 
         // 전체의 랭킹반환(받아서 게임마다 top10만 전송)
-        public List<UserGameDto> userGameList(Long gameId);
+        List<UserGameDto> userGameList(Long gameId);
 
-        public UserGameDto saveScore(UserGameDto userGameDto);
+        UserGameDto saveScore(UserGameDto userGameDto);
 
-        public UserGameDto userGameDetails(Long userId, Long gameId);
+        UserGameDto userGameDetails(Long userId, Long gameId);
 
 
 

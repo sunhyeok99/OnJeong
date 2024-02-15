@@ -139,7 +139,7 @@ class GameRankActivity : AppCompatActivity() {
                                     call: Call<UserGameResponseDto>,
                                     t: Throwable
                                 ) {
-                                    TODO("Not yet implemented")
+                                    Log.e("Game", "랭크 시스템 중 오류가 생겼습니다.")
                                 }
                             })
 

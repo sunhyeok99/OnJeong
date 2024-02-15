@@ -106,7 +106,6 @@ class MainActivity : AppCompatActivity() {
         val btnCounselor: CardView = findViewById(R.id.btnCounselor)
         val sharedPreferences = getSharedPreferences("mySharedPreferences", Context.MODE_PRIVATE)
         val userType = sharedPreferences.getString("type", "") // 사용자 유형 가져오기
-        Log.d("test", "user type is ${userType}")
 
         if (userType == "COUNSELOR") {
             Log.d("test", "counselor")
@@ -114,7 +113,6 @@ class MainActivity : AppCompatActivity() {
             textCounselor.text = "상담방 생성"
 
             btnCounselor.setOnClickListener {
-                Log.d("test", "btnCounselor clicked")
                 val userId =
                     getSharedPreferences("mySharedPreferences", Context.MODE_PRIVATE).getLong(
                         "userId",
@@ -124,7 +122,6 @@ class MainActivity : AppCompatActivity() {
                     Log.e("Counselor Log", "유저 정보 없음")
                     return@setOnClickListener
                 }
-                Log.d("test", "userId is ${userId}")
 
                 val retrofit = RetrofitClient.getApiClient(this)
                 val service = retrofit.create(CreateApiService::class.java)
@@ -137,7 +134,6 @@ class MainActivity : AppCompatActivity() {
                         if (response.isSuccessful) {
                             val sessionId: String = response.body()!!.string()
                             val call2 = service.createConnection(sessionId);
-                            Log.d("Counselor Log", "get sessionId success: " + sessionId)
                             call2.clone().enqueue(object : Callback<ResponseBody> {
                                 override fun onResponse(
                                     call: Call<ResponseBody>,
@@ -145,7 +141,6 @@ class MainActivity : AppCompatActivity() {
                                 ) {
                                     if (response.isSuccessful) {
                                         val token: String = response.body()!!.string()
-                                        Log.d("RoomConnection Log", "get token: " + token);
 
                                         val intent =
                                             Intent(this@MainActivity, CounselorActivity::class.java)
@@ -169,7 +164,6 @@ class MainActivity : AppCompatActivity() {
                 })
             }
         } else if (userType == "USER") {
-            Log.d("test", "user")
 
             btnCounselor.setOnClickListener {
                 val userId =
@@ -192,9 +186,7 @@ class MainActivity : AppCompatActivity() {
                     ) {
                         if (response.isSuccessful) {
                             val sessionId: String = response.body()!!.string()
-                            Log.d("Counselor Log", "get sessionId success: $sessionId")
                             val call2 = service.getUserToken(sessionId);
-                            Log.d("Counselor Log", "get sessionId success: " + sessionId)
                             call2.clone().enqueue(object : Callback<ResponseBody> {
                                 override fun onResponse(
                                     call: Call<ResponseBody>,
@@ -204,9 +196,7 @@ class MainActivity : AppCompatActivity() {
                                         val token: String = response.body()!!.string()
                                         val intent =
                                             Intent(this@MainActivity, CounselorActivity::class.java)
-                                        Log.d("Counselor Log", "get token: $token")
                                         intent.putExtra("token", token)
-                                        Log.d("Counselor Log", "get sessionId: $sessionId")
                                         intent.putExtra("sessionId", sessionId)
                                         intent.putExtra("userId", userId)
                                         startActivity(intent)

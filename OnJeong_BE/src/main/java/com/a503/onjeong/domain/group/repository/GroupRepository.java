@@ -15,6 +15,4 @@ public interface GroupRepository extends JpaRepository<Group, Long> {
 
     Optional<List<Group>> findAllByOwnerId(Long ownerId);
 
-    Optional<Group> findAllById(Long groupId);
-
 }

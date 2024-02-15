@@ -66,7 +66,7 @@ class MyPageActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<UserDTO?>, t: Throwable) {
-                    Log.d("왜실패????", "$t")
+                    Log.e("Profile", "Request failed: ${t.message}")
                 }
             })
         }
@@ -137,7 +137,7 @@ class MyPageActivity : AppCompatActivity() {
         // 사용자에게 연락처 읽기 권한이 있는지 확인
         val status =
             ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS)
-        Log.d("status", "$status")
+
         if (status == PackageManager.PERMISSION_GRANTED) {
 
             // 권한이 이미 허용되어 있을 때의 처리
@@ -194,7 +194,7 @@ class MyPageActivity : AppCompatActivity() {
                         i++
                     }
                 }
-                Log.d("GetContact", "이름 : $name 번호 : $id 전화번호 :$phoneNumber")
+
                 phonebook.put(phoneNumber, name);
             }
         }
@@ -211,6 +211,7 @@ class MyPageActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<Void?>, t: Throwable) {
+                    Log.e("PhoneBook", "Request failed: ${t.message}")
                 }
             })
         }

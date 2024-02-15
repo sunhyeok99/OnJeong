@@ -88,6 +88,7 @@ class UserSelectActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<GroupDTO>, t: Throwable) {
+                Log.e("Group", "Request failed: ${t.message}")
             }
         })
     }
@@ -151,7 +152,6 @@ class UserSelectActivity : AppCompatActivity() {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
                     val sessionId: String = response.body()!!.string()
-                    Log.d("VideoCall Log", "get sessionId success: " + sessionId)
 
                     sendCallRequest(sessionId)
 
@@ -159,8 +159,7 @@ class UserSelectActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Log.e("VideoCall Log", "get sessionId failed: " + t)
-
+                Log.e("videoCall", "Request failed: ${t.message}")
             }
         })
     }

@@ -23,7 +23,6 @@ public class VideoCallControllerImpl implements VideoCallController {
     public ResponseEntity<String> initializeSession(@RequestBody SessionIdRequestDto sessionIdRequestDto)
             throws OpenViduJavaClientException, OpenViduHttpException {
         String sessionId = videoCallService.initializeSession(sessionIdRequestDto);
-        System.out.println("session id is " + sessionId);
         return new ResponseEntity<>(sessionId, HttpStatus.OK);
     }
 
@@ -31,9 +30,7 @@ public class VideoCallControllerImpl implements VideoCallController {
     @GetMapping("/sessions/{sessionId}")
     public ResponseEntity<String> createConnection(@PathVariable("sessionId") String sessionId) throws OpenViduJavaClientException, OpenViduHttpException {
 
-        System.out.println("received session is " + sessionId);
         Connection connection = videoCallService.createConnection(sessionId);
-        System.out.println("connection is " + connection);
         if (connection == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

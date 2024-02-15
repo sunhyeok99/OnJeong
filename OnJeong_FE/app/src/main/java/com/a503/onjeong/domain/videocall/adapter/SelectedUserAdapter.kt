@@ -39,7 +39,6 @@ class SelectedUserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
         val profileImg = itemView.findViewById<ImageView>(R.id.profileImg)
 
         Glide.with(itemView).load(selectedUser.profileUrl).into(profileImg)
-        Log.d("test", "profieURL is ${selectedUser.profileUrl}")
         userName.text = selectedUser.getName()
     }
 }

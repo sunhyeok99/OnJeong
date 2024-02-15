@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
@@ -82,6 +83,7 @@ class GroupDetailActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<GroupDTO>, t: Throwable) {
+                    Log.e("Group", "Request failed: ${t.message}")
                 }
             })
         }
@@ -131,7 +133,7 @@ class GroupDetailActivity : AppCompatActivity() {
 
 
                 override fun onFailure(call: Call<List<PhonebookDTO>>, t: Throwable) {
-
+                    Log.e("Group", "Request failed: ${t.message}")
                 }
             })
         }
@@ -149,6 +151,7 @@ class GroupDetailActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<Void>, t: Throwable) {
+                        Log.e("Group", "Request failed: ${t.message}")
                     }
                 })
             }
@@ -181,6 +184,7 @@ class GroupDetailActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<Void>, t: Throwable) {
+                        Log.e("Group", "Request failed: ${t.message}")
                     }
                 })
             }

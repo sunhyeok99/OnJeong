@@ -85,9 +85,7 @@ public class CustomHttpClient {
                 .header("Content-Type", contentType)
                 .method(method, body)
                 .build();
-        Log.d("test", "before call");
         Call call = client.newCall(request);
-        Log.d("test", "after call");
         call.enqueue(callback);
     }
 

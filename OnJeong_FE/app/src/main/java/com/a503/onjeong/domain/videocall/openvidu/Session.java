@@ -179,7 +179,6 @@ public class Session {
             @Override
             public void onCreateSuccess(SessionDescription sdp) {
                 super.onCreateSuccess(sdp);
-                Log.i("createOffer SUCCESS", sdp.toString());
                 localParticipant.getPeerConnection().setLocalDescription(new CustomSdpObserver("createOffer_setLocalDescription") {
                     @Override
                     public void onSetSuccess() {
@@ -196,7 +195,6 @@ public class Session {
             @Override
             public void onCreateSuccess(SessionDescription sdp) {
                 super.onCreateSuccess(sdp);
-                Log.i("createAnswer SUCCESS", sdp.toString());
                 remoteParticipant.getPeerConnection().setLocalDescription(new CustomSdpObserver("createAnswerSubscribing_setLocalDescription") {
                     @Override
                     public void onSetSuccess() {

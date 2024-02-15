@@ -68,7 +68,6 @@ class VideoCallActivity : AppCompatActivity() {
 
         val service = retrofit.create(VideoCallApiService::class.java)
         val call = service.createConnection(sessionId)
-        Log.d("VideoCall Log", "before send connection request, session id is " + sessionId)
 
         call.enqueue(object : retrofit2.Callback<ResponseBody> {
             override fun onResponse(
@@ -77,16 +76,15 @@ class VideoCallActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     val connectionToken: String = response.body()!!.string()
-                    Log.d("VideoCall Log", "get connection success: " + connectionToken)
                     getTokenSuccess(connectionToken, sessionId)
 //                    finish()
                 } else {
-                    Log.e("VideoCall Log", "get connection failed")
+                    Log.e("VideoCall", "get connection failed")
                 }
             }
 
             override fun onFailure(call: retrofit2.Call<ResponseBody>, t: Throwable) {
-                Log.e("VideoCall Log", "get connection failed: " + t.toString())
+                Log.e("VideoCall", "Request failed: ${t.message}")
 
             }
         })
@@ -132,10 +130,6 @@ class VideoCallActivity : AppCompatActivity() {
 //            Log.d(TAG, "session id is $sessionId")
 //            getToken(sessionId)
             val sessionId = intent.getStringExtra("sessionId")
-            Log.d(
-                "VideoCall Log",
-                "when moved to video call activity, session id is : " + sessionId
-            )
             if (sessionId == null) {
                 leaveSession()
                 finish()

@@ -82,7 +82,6 @@ class ProfileSettingActivity : AppCompatActivity() {
         if (call != null) {
             call.enqueue(object : Callback<Void?> {
                 override fun onResponse(call: Call<Void?>, response: Response<Void?>) {
-                    Log.d("성공?", "성공 !!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
                     val intent = Intent(this@ProfileSettingActivity, MyPageActivity::class.java)
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -91,7 +90,7 @@ class ProfileSettingActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<Void?>, t: Throwable) {
-                    Log.d("왜실패????????????????????????????", "$t")
+                    Log.e("Profile", "Request failed: ${t.message}")
                 }
             })
         }
@@ -170,7 +169,7 @@ class ProfileSettingActivity : AppCompatActivity() {
                         }
 
                         override fun onFailure(call: Call<Void?>, t: Throwable) {
-                            Log.d("실패이유:", "$t")
+                            Log.e("Profile", "Request failed: ${t.message}")
                         }
                     })
                 }

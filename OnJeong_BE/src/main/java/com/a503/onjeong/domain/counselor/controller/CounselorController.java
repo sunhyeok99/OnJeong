@@ -56,10 +56,8 @@ public class CounselorController {
         SessionProperties properties = SessionProperties.fromJson(param).build();
         userId = dto.getUserId();
 
-        System.out.println(properties);
         Session session = openvidu.createSession(properties);
 
-        System.out.println(session.getSessionId());
         return new ResponseEntity<>(session.getSessionId(), HttpStatus.OK);
     }
 
@@ -70,9 +68,9 @@ public class CounselorController {
             throws OpenViduJavaClientException, OpenViduHttpException {
         ObjectMapper mapper = new ObjectMapper();
         Map<String, Object> params = mapper.convertValue(dto, Map.class);
-        System.out.println("sessionID is " + sessionId);
+
         Session session = openvidu.getActiveSession(sessionId);
-        System.out.println(session);
+
         if (session == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -90,9 +88,7 @@ public class CounselorController {
             emptySession.remove(existingRoom);
         }
         emptySession.add(new Room(sessionId, false, userId));
-        for(int i=0; i<emptySession.size(); i++){
-            System.out.println(emptySession.get(i).id + " " + emptySession.get(i).meet + " " + userId);
-        }
+
         ConnectionProperties properties = ConnectionProperties.fromJson(params).build();
         Connection connection = session.createConnection(properties);
         return new ResponseEntity<>(connection.getToken(), HttpStatus.OK);
@@ -105,7 +101,7 @@ public class CounselorController {
             throws OpenViduJavaClientException, OpenViduHttpException {
         ObjectMapper mapper = new ObjectMapper();
         Map<String, Object> params = mapper.convertValue(dto, Map.class);
-        System.out.println("sessionID is " + sessionId);
+
         Session session = openvidu.getActiveSession(sessionId);
         ConnectionProperties properties = ConnectionProperties.fromJson(params).build();
         Connection connection = session.createConnection(properties);
@@ -115,9 +111,6 @@ public class CounselorController {
     //상담원 아이디 가져오기
     @GetMapping("/get/{sessionId}")
     public ResponseEntity<String> getUserId(@PathVariable String sessionId){
-        for(int i=0; i<emptySession.size(); i++){
-            System.out.println(emptySession.get(i).id + " " + emptySession.get(i).meet + " " + emptySession.get(i).user_id);
-        }
         Room roomForUser = null;
             for(Room room : emptySession){
                 if(room.id.equals(sessionId)){
@@ -142,9 +135,6 @@ public class CounselorController {
 
         if(roomToDelete != null){
             emptySession.remove(roomToDelete);
-            for(int i=0; i<emptySession.size(); i++){
-                System.out.println(emptySession.get(i).id + " " + emptySession.get(i).meet);
-            }
             return new ResponseEntity<>("Room deleted successfully", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Room not found", HttpStatus.NOT_FOUND);
@@ -166,7 +156,6 @@ public class CounselorController {
         try {
             Session session = openvidu.getActiveSession(emptyRoom.id);
             Connection connection = session.createConnection(new ConnectionProperties.Builder().build());
-            System.out.println(session.getSessionId());
             return new ResponseEntity<>(session.getSessionId(), HttpStatus.OK);
         } catch (OpenViduJavaClientException | OpenViduHttpException e) {
             e.printStackTrace();

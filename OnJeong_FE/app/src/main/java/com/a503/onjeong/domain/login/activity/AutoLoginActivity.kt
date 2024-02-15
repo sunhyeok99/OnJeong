@@ -41,7 +41,6 @@ class AutoLoginActivity : AppCompatActivity() {
             val call = loginApiService.login(
                 kakaoAccessToken, userId
             )
-            println(kakaoAccessToken)
             call.enqueue(object : Callback<LoginInfoResponseDto> {
                 override fun onResponse(
                     call: Call<LoginInfoResponseDto>,

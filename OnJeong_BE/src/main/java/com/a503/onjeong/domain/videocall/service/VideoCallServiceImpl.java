@@ -42,9 +42,6 @@ public class VideoCallServiceImpl implements VideoCallService {
         Map<String, Object> param = mapper.convertValue(sessionIdRequestDto, Map.class);
         SessionProperties properties = SessionProperties.fromJson(param).build();
         Session session = openvidu.createSession(properties);
-
-        System.out.println("session is " + session);
-
         return session.getSessionId();
     }
 

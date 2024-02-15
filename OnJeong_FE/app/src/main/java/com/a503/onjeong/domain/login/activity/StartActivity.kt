@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.a503.onjeong.R
@@ -67,13 +68,13 @@ class StartActivity : AppCompatActivity() {
                         startActivity(intent)
                         finish()
                     } else {
-                        println("오류")
+                        Log.e("Login", "로그인 과정 중 오류가 생겼습니다.")
                     }
                 }
 
 
                 override fun onFailure(call: Call<LoginInfoResponseDto>, t: Throwable) {
-                    println(t.message.toString())
+                    Log.e("Login", "Request failed: ${t.message}")
                 }
             })
         }

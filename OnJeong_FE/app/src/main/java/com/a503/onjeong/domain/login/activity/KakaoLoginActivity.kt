@@ -61,7 +61,6 @@ class KakaoLoginActivity : AppCompatActivity() {
     private fun extractAuthorizationCode(uri: Uri): String {
         // 여기서 URI 파싱 등을 통해 인가 코드 추출 로직을 작성
         val code = uri.getQueryParameter("code")
-        println("Authorization Code: $code")
         return code.orEmpty() // orEmpty()는 null이면 빈 문자열을 반환
     }
 

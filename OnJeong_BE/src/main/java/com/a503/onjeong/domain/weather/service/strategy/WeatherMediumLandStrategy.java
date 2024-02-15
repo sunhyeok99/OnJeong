@@ -96,7 +96,6 @@ public class WeatherMediumLandStrategy implements WeatherStrategy {
         LocalDateTime now = LocalDateTime.now();
 
         // 2. 하늘/강수 상태/형태 API
-
         MediumForecastLand mediumForecastLand = mediumForecastLandRepository.findCodeBySido(sido1).orElseThrow(
                 () -> new WeatherException(ExceptionCodeSet.ADDRESS_NOT_FOUND)
         );
@@ -144,8 +143,6 @@ public class WeatherMediumLandStrategy implements WeatherStrategy {
                 .getItem();
 
         flag = 0;
-        System.out.println("eeeee");
-        System.out.println(mediumSkyStatusList);
         if (mediumSkyStatusList.isEmpty()) {
             for (int i = 0; i < 4; i++) mediumSkyStatusList.add(new SkyStatus(mediumForecastLand));
             flag = 1;

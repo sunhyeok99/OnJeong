@@ -29,7 +29,4 @@ public interface AuthController {
 
     @GetMapping("/phone")
     ResponseEntity<String> phoneVerification(@RequestParam String phoneNumber);
-
-    @GetMapping("/logout")
-    public void logout();
 }

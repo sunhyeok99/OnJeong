@@ -88,7 +88,7 @@ class TelephoneEditActivity : AppCompatActivity() {
                                     }
 
                                     override fun onFailure(call: Call<Void?>, t: Throwable) {
-
+                                        Log.e("Telephone", "Request failed: ${t.message}")
                                     }
                                 })
                             } else {
@@ -108,13 +108,13 @@ class TelephoneEditActivity : AppCompatActivity() {
                         }
                     } else {
                         // 에러 처리를 여기에 추가
-                        Log.e("Auth", "전화번호 인증 오류")
+                        Log.e("Telephone", "전화번호 인증 오류")
                     }
                 }
 
                 override fun onFailure(call: Call<String>, t: Throwable) {
                     // 실패 처리를 여기에 추가
-                    println("Request failed: ${t.message}")
+                    Log.e("Telephone", "Request failed: ${t.message}")
                 }
             })
         }

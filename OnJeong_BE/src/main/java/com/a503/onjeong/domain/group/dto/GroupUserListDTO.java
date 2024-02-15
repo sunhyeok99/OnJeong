@@ -11,7 +11,7 @@ public class GroupUserListDTO {
     private Long groupId;
     private Long ownerId;
     private String name;
-    private List<Long> userList = new ArrayList<>();
+    private List<Long> userList;
 
     @Builder
     public GroupUserListDTO(

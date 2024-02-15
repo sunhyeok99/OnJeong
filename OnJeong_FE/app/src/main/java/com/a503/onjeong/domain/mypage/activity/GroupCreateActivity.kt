@@ -3,6 +3,7 @@ package com.a503.onjeong.domain.mypage.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
@@ -101,6 +102,7 @@ class GroupCreateActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<List<PhonebookDTO>>, t: Throwable) {
+                    Log.e("Group", "Request failed: ${t.message}")
                 }
             })
         }
@@ -156,6 +158,7 @@ class GroupCreateActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<Void>, t: Throwable) {
+                        Log.e("Group", "Request failed: ${t.message}")
                     }
                 })
             }

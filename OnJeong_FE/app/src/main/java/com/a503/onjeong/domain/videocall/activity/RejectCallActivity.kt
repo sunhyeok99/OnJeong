@@ -17,8 +17,6 @@ class RejectCallActivity : AppCompatActivity() {
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.cancel(notificationId)
 
-        Log.d("FCM log", "in rejectCallActivity, notificationId is ${notificationId}")
-
         // Finish the activity
         finish()
     }

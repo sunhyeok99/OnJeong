@@ -53,10 +53,4 @@ public class AuthControllerImpl implements AuthController {
         return ResponseEntity.ok().body(authService.phoneVerification(phoneNumber));
     }
 
-    /* 로그아웃 */
-    @GetMapping("/logout")
-    public void logout() {
-        // 나중에
-    }
-
 }

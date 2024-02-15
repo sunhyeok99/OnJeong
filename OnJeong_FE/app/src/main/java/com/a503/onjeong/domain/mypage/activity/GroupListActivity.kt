@@ -3,6 +3,7 @@ package com.a503.onjeong.domain.mypage.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
@@ -51,7 +52,7 @@ class GroupListActivity : AppCompatActivity() {
                     response: Response<List<GroupDTO>>
                 ) {
                     val groupList = response.body() ?: emptyList()
-                    println(groupList.size)
+
                     adapter = GroupListAdapter(
                         this@GroupListActivity,
                         R.layout.activity_group_list_item,
@@ -61,7 +62,7 @@ class GroupListActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<List<GroupDTO>>, t: Throwable) {
-
+                    Log.e("Group", "Request failed: ${t.message}")
                 }
             })
         }

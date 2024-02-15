@@ -79,7 +79,6 @@ class WelfareActivity : AppCompatActivity() {
                     val welfareList = response.body()
                     if (welfareList != null) {
                         // 서버로부터 성공적으로 목록을 받았을 때 처리
-                        Log.d("성공",welfareList.data.toString())
                         updateRecyclerView(welfareList.data)
                     } else {
                         // 목록이 null인 경우 처리
