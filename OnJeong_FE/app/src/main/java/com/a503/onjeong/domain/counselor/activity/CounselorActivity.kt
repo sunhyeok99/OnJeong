@@ -1,6 +1,7 @@
 package com.a503.onjeong.domain.counselor.activity
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
@@ -10,9 +11,9 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Button
 import android.widget.EditText
 import android.widget.FrameLayout
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -40,7 +41,7 @@ import retrofit2.Response
 class CounselorActivity : AppCompatActivity() {
     private val TAG = "CounselorActivity"
     var views_container: LinearLayout? = null
-    var start_finish_call: Button? = null
+    var start_finish_call: ImageButton? = null
     var session_name: EditText? = null
     var participant_name: EditText? = null
     var application_server_url: EditText? = null
@@ -63,9 +64,7 @@ class CounselorActivity : AppCompatActivity() {
         setContentView(R.layout.activity_counselor) // 액티비티 레이아웃 설정 부분
         views_container = findViewById(R.id.views_container)
         start_finish_call = findViewById(R.id.start_finish_call)
-        session_name = findViewById(R.id.session_name)
-        participant_name = findViewById(R.id.participant_name)
-        application_server_url = findViewById(R.id.application_server_url)
+
         localVideoView = findViewById(R.id.local_gl_surface_view)
         main_participant = findViewById(R.id.main_participant)
         peer_container = findViewById(R.id.peer_container)
@@ -134,53 +133,10 @@ class CounselorActivity : AppCompatActivity() {
 
     //상담 방 나가기
     fun buttonPressed(view: View?) {
-        if (start_finish_call!!.text == resources.getString(R.string.hang_up)) {
-            val retrofit = getApiClient(this)
-            val service = retrofit.create(CreateApiService::class.java)
 
-            //상담원이 방을 나갈때
-            if (userId == room_user_id) {
-                val call = service.deleteRoom(sessionId!!)
-                call.enqueue(object : Callback<ResponseBody> {
-                    override fun onResponse(
-                        call: Call<ResponseBody>,
-                        response: Response<ResponseBody>
-                    ) {
-                        if (response.isSuccessful) {
-                            Log.d(TAG, "Room deleted successfully")
-                        } else {
-                            Log.e(TAG, "Failed to delete room: " + response.code())
-                        }
-                    }
+        leaveSession()
+        return
 
-                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                        Log.e(TAG, "Failed to delete room", t)
-                    }
-                })
-            }
-            //클라이언트가 방을 나갈때
-            else {
-                val call2 = service.userDisconnect(sessionId!!)
-                call2.enqueue(object : Callback<ResponseBody> {
-                    override fun onResponse(
-                        call: Call<ResponseBody>,
-                        response: Response<ResponseBody>
-                    ) {
-                        if (response.isSuccessful) {
-                            Log.d(TAG, "Room out successfully")
-                        } else {
-                            Log.e(TAG, "Failed to out room: " + response.code())
-                        }
-                    }
-
-                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                        Log.e(TAG, "Failed to delete room", t)
-                    }
-                })
-            }
-            leaveSession()
-            return
-        }
     }
 
     //모든 유저 토큰 성공시 실행
@@ -189,15 +145,17 @@ class CounselorActivity : AppCompatActivity() {
         session = Session(sessionId, token, views_container, this)
 
         //로컬 참여자 초기 실행 및 카메라 연결
-        val participantName = participant_name!!.text.toString()
+        val participantName =
+            getSharedPreferences("mySharedPreferences", Context.MODE_PRIVATE).getString("name", "")
+                .toString()
         val localParticipant =
             LocalParticipant(participantName, session, this.applicationContext, localVideoView)
         localParticipant.startCamera()
         runOnUiThread {
 
             //사용자 화면 초기화
-            main_participant!!.text = participant_name!!.text.toString()
-            main_participant!!.setPadding(20, 3, 20, 3)
+//            main_participant!!.text = participant_name!!.text.toString()
+//            main_participant!!.setPadding(20, 3, 20, 3)
         }
         startWebSocket()
     }
@@ -232,14 +190,13 @@ class CounselorActivity : AppCompatActivity() {
         runOnUiThread {
             localVideoView!!.clearImage()
             localVideoView!!.release()
-            start_finish_call!!.text = resources.getString(R.string.start_button)
             start_finish_call!!.isEnabled = true
-            application_server_url!!.isEnabled = true
-            application_server_url!!.isFocusableInTouchMode = true
-            session_name!!.isEnabled = true
-            session_name!!.isFocusableInTouchMode = true
-            participant_name!!.isEnabled = true
-            participant_name!!.isFocusableInTouchMode = true
+//            application_server_url!!.isEnabled = true
+//            application_server_url!!.isFocusableInTouchMode = true
+//            session_name!!.isEnabled = true
+//            session_name!!.isFocusableInTouchMode = true
+//            participant_name!!.isEnabled = true
+//            participant_name!!.isFocusableInTouchMode = true
             main_participant!!.setText(null)
             main_participant!!.setPadding(0, 0, 0, 0)
         }
@@ -248,18 +205,17 @@ class CounselorActivity : AppCompatActivity() {
     fun viewToConnectingState() {
         runOnUiThread {
             start_finish_call!!.isEnabled = false
-            application_server_url!!.isEnabled = false
-            application_server_url!!.isFocusable = false
-            session_name!!.isEnabled = false
-            session_name!!.isFocusable = false
-            participant_name!!.isEnabled = false
-            participant_name!!.isFocusable = false
+//            application_server_url!!.isEnabled = false
+//            application_server_url!!.isFocusable = false
+//            session_name!!.isEnabled = false
+//            session_name!!.isFocusable = false
+//            participant_name!!.isEnabled = false
+//            participant_name!!.isFocusable = false
         }
     }
 
     fun viewToConnectedState() {
         runOnUiThread {
-            start_finish_call!!.text = resources.getString(R.string.hang_up)
             start_finish_call!!.isEnabled = true
         }
     }
@@ -269,7 +225,7 @@ class CounselorActivity : AppCompatActivity() {
         val myRunnable = Runnable {
             val rowView = this.layoutInflater.inflate(R.layout.peer_video, null)
             val lp = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
             lp.setMargins(0, 0, 0, 20)
@@ -307,10 +263,58 @@ class CounselorActivity : AppCompatActivity() {
         }
         viewToDisconnectedState()
 
+        val retrofit = getApiClient(this)
+        val service = retrofit.create(CreateApiService::class.java)
+
+        //상담원이 방을 나갈때
+        if (userId == room_user_id) {
+            val call = service.deleteRoom(sessionId!!)
+            call.enqueue(object : Callback<ResponseBody> {
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    if (response.isSuccessful) {
+                        Log.d(TAG, "Room deleted successfully")
+                        val intent = Intent(this@CounselorActivity, MainActivity::class.java)
+                        startActivity(intent)
+                        finish() // 현재 Activity 종료
+                    } else {
+                        Log.e(TAG, "Failed to delete room: " + response.code())
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    Log.e(TAG, "Failed to delete room", t)
+                }
+            })
+        }
+        //클라이언트가 방을 나갈때
+        else {
+            val call2 = service.userDisconnect(sessionId!!)
+            call2.enqueue(object : Callback<ResponseBody> {
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    if (response.isSuccessful) {
+                        Log.d(TAG, "Room out successfully")
+                        val intent = Intent(this@CounselorActivity, MainActivity::class.java)
+                        startActivity(intent)
+                        finish() // 현재 Activity 종료
+                    } else {
+                        Log.e(TAG, "Failed to out room: " + response.code())
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    Log.e(TAG, "Failed to delete room", t)
+                }
+            })
+        }
+
         // MainActivity로 돌아가기
-        val intent = Intent(this@CounselorActivity, MainActivity::class.java)
-        startActivity(intent)
-        finish() // 현재 Activity 종료
+
     }
 
     private fun arePermissionGranted(): Boolean {
