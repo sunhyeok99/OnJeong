@@ -111,7 +111,7 @@ class MainActivity : AppCompatActivity() {
         if (userType == "COUNSELOR") {
             Log.d("test", "counselor")
             val textCounselor : TextView = findViewById(R.id.textCounselor)
-            textCounselor.text = "상담방 만들기"
+            textCounselor.text = "상담방 생성"
 
             btnCounselor.setOnClickListener {
                 Log.d("test", "btnCounselor clicked")

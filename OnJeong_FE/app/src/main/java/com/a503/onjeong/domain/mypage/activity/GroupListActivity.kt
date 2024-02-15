@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ListView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.a503.onjeong.R
 import com.a503.onjeong.domain.MainActivity
@@ -24,6 +25,7 @@ class GroupListActivity : AppCompatActivity() {
     private lateinit var groupListView: ListView
     private lateinit var adapter: GroupListAdapter
     private lateinit var groupAddBtn: Button
+    private lateinit var mainText: TextView
 
     // NetRetrofit을 생성
     val retrofit = RetrofitClient.getApiClient(this)
@@ -95,6 +97,9 @@ class GroupListActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        mainText = findViewById(R.id.mainText)
+        mainText.text = "모임 관리"
 
     }
 }
