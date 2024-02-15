@@ -33,6 +33,7 @@ class MyPageActivity : AppCompatActivity() {
     private lateinit var backButton: Button
     private lateinit var userProfile: CircleImageView
     private lateinit var logoutButton: Button
+    private lateinit var mainText: TextView
 
     val retrofit = RetrofitClient.getApiClient(this)
     val phonebookApiService = retrofit.create(PhonebookApiService::class.java)
@@ -104,6 +105,9 @@ class MyPageActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        mainText = findViewById(R.id.mainText)
+        mainText.text = "내 정보"
 
         //프로필사진 클릭시 갤러리 접근
         //삭제 수정 나와야하나

@@ -32,6 +32,7 @@ class GroupDetailActivity : AppCompatActivity() {
     private lateinit var groupDeleteBtn: Button
     private lateinit var groupUpdateBtn: Button
     private lateinit var phonebookListView: ListView
+    private lateinit var mainText: TextView
 
     //    private lateinit var checkListView: ListView
     private lateinit var checkListView: RecyclerView
@@ -205,6 +206,9 @@ class GroupDetailActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        mainText = findViewById(R.id.mainText)
+        mainText.text = "모임 수정"
 
     }
 

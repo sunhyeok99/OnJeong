@@ -20,7 +20,7 @@
         android:textSize="26sp"
         android:fontFamily="@font/nanum_square_b"
         android:textColor="@color/black"
-        android:text="온 정"
+        android:text="온정"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
     <Button

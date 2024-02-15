@@ -29,6 +29,7 @@ class GroupCreateActivity : AppCompatActivity() {
     private lateinit var backButton: Button
     private lateinit var groupCreateBtn: Button
     private lateinit var phonebookListView: ListView
+    private lateinit var mainText: TextView
 
     //    private lateinit var checkListView: ListView
     private lateinit var checkListView: RecyclerView
@@ -122,6 +123,10 @@ class GroupCreateActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        mainText = findViewById(R.id.mainText)
+        mainText.text = "모임 생성"
+
 
         val groupApiservice = retrofit.create(GroupApiService::class.java)
         // 그룹 생성 버튼

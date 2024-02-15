@@ -12,6 +12,7 @@ import android.provider.Settings
 import android.util.Log
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -31,6 +32,7 @@ import java.io.File
 class ProfileSettingActivity : AppCompatActivity() {
     private lateinit var homeButton: Button
     private lateinit var backButton: Button
+    private lateinit var mainText: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_setting)
@@ -60,6 +62,10 @@ class ProfileSettingActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        mainText = findViewById(R.id.mainText)
+        mainText.text = "사진 관리"
+
     }
 
     fun deleteProfileImg() {
