@@ -39,37 +39,30 @@
             card_view:cardElevation="5dp"
             card_view:cardUseCompatPadding="true">
 
-            <!-- CardView Content -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
-                android:paddingStart="10dp"
-                android:paddingTop="10dp"
-                android:paddingEnd="10dp">
+                android:background="@color/main_color"
+                android:padding="10dp">
 
                 <ImageView
                     android:id="@+id/btnImage1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="30dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/main_weather"
-                    card_view:layout_constraintEnd_toEndOf="parent"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/wb_sunny"
                     card_view:layout_constraintStart_toStartOf="parent"
                     card_view:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    style="@style/large"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:gravity="center"
                     android:text="날씨"
-                    style="@style/semi_large"
                     card_view:layout_constraintBottom_toBottomOf="parent"
-                    card_view:layout_constraintEnd_toEndOf="parent"
-                    card_view:layout_constraintStart_toStartOf="parent"
-                    card_view:layout_constraintTop_toBottomOf="@id/btnImage1" />
+                    card_view:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
@@ -88,37 +81,31 @@
             card_view:cardElevation="5dp"
             card_view:cardUseCompatPadding="true">
 
-            <!-- CardView Content -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
-                android:paddingStart="10dp"
-                android:paddingTop="10dp"
-                android:paddingEnd="10dp">
+                android:background="@color/charcoal"
+                android:padding="10dp">
 
                 <ImageView
                     android:id="@+id/btnImage2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="30dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/main_news"
-                    card_view:layout_constraintEnd_toEndOf="parent"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/newsmode"
                     card_view:layout_constraintStart_toStartOf="parent"
                     card_view:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    style="@style/large"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:gravity="center"
                     android:text="뉴스"
-                    style="@style/regular"
+                    android:textColor="@color/main_color"
                     card_view:layout_constraintBottom_toBottomOf="parent"
-                    card_view:layout_constraintEnd_toEndOf="parent"
-                    card_view:layout_constraintStart_toStartOf="parent"
-                    card_view:layout_constraintTop_toBottomOf="@id/btnImage2" />
+                    card_view:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
@@ -137,37 +124,31 @@
             card_view:cardElevation="5dp"
             card_view:cardUseCompatPadding="true">
 
-            <!-- CardView Content -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
-                android:paddingStart="10dp"
-                android:paddingTop="10dp"
-                android:paddingEnd="10dp">
+                android:background="@color/charcoal"
+                android:padding="10dp">
 
                 <ImageView
                     android:id="@+id/btnImage3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="30dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/main_videocall"
-                    card_view:layout_constraintEnd_toEndOf="parent"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/video_camera_front"
                     card_view:layout_constraintStart_toStartOf="parent"
                     card_view:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    style="@style/large"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:gravity="center"
                     android:text="영상통화"
-                    style="@style/regular"
+                    android:textColor="@color/main_color"
                     card_view:layout_constraintBottom_toBottomOf="parent"
-                    card_view:layout_constraintEnd_toEndOf="parent"
-                    card_view:layout_constraintStart_toStartOf="parent"
-                    card_view:layout_constraintTop_toBottomOf="@id/btnImage3" />
+                    card_view:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
@@ -186,38 +167,31 @@
             card_view:cardElevation="5dp"
             card_view:cardUseCompatPadding="true">
 
-            <!-- CardView Content -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
-                android:paddingStart="10dp"
-                android:paddingTop="10dp"
-                android:paddingEnd="10dp">
+                android:background="@color/main_color"
+                android:padding="10dp">
 
                 <ImageView
                     android:id="@+id/btnImage4"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="30dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/main_countseller"
-                    card_view:layout_constraintEnd_toEndOf="parent"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/support_agent"
                     card_view:layout_constraintStart_toStartOf="parent"
                     card_view:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/textCounselor"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    style="@style/large"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:gravity="center"
                     android:text="상담원 연결"
-                    style="@style/regular"
                     card_view:layout_constraintBottom_toBottomOf="parent"
-                    card_view:layout_constraintEnd_toEndOf="parent"
-                    card_view:layout_constraintStart_toStartOf="parent"
-                    card_view:layout_constraintTop_toBottomOf="@id/btnImage4" />
+                    card_view:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
@@ -236,37 +210,31 @@
             card_view:cardElevation="5dp"
             card_view:cardUseCompatPadding="true">
 
-            <!-- CardView Content -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
-                android:paddingStart="10dp"
-                android:paddingTop="10dp"
-                android:paddingEnd="10dp">
+                android:background="@color/main_color"
+                android:padding="10dp">
 
                 <ImageView
                     android:id="@+id/btnImage5"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="30dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/main_welfare"
-                    card_view:layout_constraintEnd_toEndOf="parent"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/payments"
+
                     card_view:layout_constraintStart_toStartOf="parent"
                     card_view:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    style="@style/large"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:gravity="center"
                     android:text="복지 서비스"
-                    style="@style/regular"
                     card_view:layout_constraintBottom_toBottomOf="parent"
-                    card_view:layout_constraintEnd_toEndOf="parent"
-                    card_view:layout_constraintStart_toStartOf="parent"
-                    card_view:layout_constraintTop_toBottomOf="@id/btnImage5" />
+                    card_view:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
@@ -285,37 +253,32 @@
             card_view:cardElevation="5dp"
             card_view:cardUseCompatPadding="true">
 
-            <!-- CardView Content -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
-                android:paddingStart="10dp"
-                android:paddingTop="10dp"
-                android:paddingEnd="10dp">
+                android:background="@color/charcoal"
+                android:padding="10dp">
 
                 <ImageView
                     android:id="@+id/btnImage6"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="30dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/main_edu"
-                    card_view:layout_constraintEnd_toEndOf="parent"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/stylus_note"
+
                     card_view:layout_constraintStart_toStartOf="parent"
                     card_view:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    style="@style/large"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:gravity="center"
                     android:text="온라인 교육"
-                    style="@style/regular"
+                    android:textColor="@color/main_color"
                     card_view:layout_constraintBottom_toBottomOf="parent"
-                    card_view:layout_constraintEnd_toEndOf="parent"
-                    card_view:layout_constraintStart_toStartOf="parent"
-                    card_view:layout_constraintTop_toBottomOf="@id/btnImage6" />
+                    card_view:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
@@ -334,37 +297,32 @@
             card_view:cardElevation="5dp"
             card_view:cardUseCompatPadding="true">
 
-            <!-- CardView Content -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
-                android:paddingStart="10dp"
-                android:paddingTop="10dp"
-                android:paddingEnd="10dp">
+                android:background="@color/charcoal"
+                android:padding="10dp">
 
                 <ImageView
                     android:id="@+id/btnImage7"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="30dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/main_game"
-                    card_view:layout_constraintEnd_toEndOf="parent"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/sports_esports"
+
                     card_view:layout_constraintStart_toStartOf="parent"
                     card_view:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    style="@style/large"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:gravity="center"
                     android:text="게임"
-                    style="@style/regular"
+                    android:textColor="@color/main_color"
                     card_view:layout_constraintBottom_toBottomOf="parent"
-                    card_view:layout_constraintEnd_toEndOf="parent"
-                    card_view:layout_constraintStart_toStartOf="parent"
-                    card_view:layout_constraintTop_toBottomOf="@id/btnImage7" />
+                    card_view:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
@@ -383,37 +341,31 @@
             card_view:cardElevation="5dp"
             card_view:cardUseCompatPadding="true">
 
-            <!-- CardView Content -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
-                android:paddingStart="10dp"
-                android:paddingTop="10dp"
-                android:paddingEnd="10dp">
+                android:background="@color/main_color"
+                android:padding="10dp">
 
                 <ImageView
                     android:id="@+id/btnImage8"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="30dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/main_info"
-                    card_view:layout_constraintEnd_toEndOf="parent"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/groups"
+
                     card_view:layout_constraintStart_toStartOf="parent"
                     card_view:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    style="@style/large"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:gravity="center"
                     android:text="내 정보"
-                    style="@style/regular"
                     card_view:layout_constraintBottom_toBottomOf="parent"
-                    card_view:layout_constraintEnd_toEndOf="parent"
-                    card_view:layout_constraintStart_toStartOf="parent"
-                    card_view:layout_constraintTop_toBottomOf="@id/btnImage8" />
+                    card_view:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
