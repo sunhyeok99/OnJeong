@@ -99,9 +99,6 @@ class Game1Activity : AppCompatActivity() {
             lenearFrame = findViewById(R.id.frameLinear)
             pauseButton.setOnClickListener {
                 pauseTimer()
-                val layoutHeight =
-                    LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 600)
-                frameLayout.layoutParams = layoutHeight
                 gridLayout.visibility = View.GONE
                 mainBar.visibility = View.GONE
                 scoreBar.visibility = View.GONE
@@ -110,9 +107,6 @@ class Game1Activity : AppCompatActivity() {
 
             resumeButton.setOnClickListener {
                 resumeTimer()
-                val layoutHeight =
-                    LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0)
-                frameLayout.layoutParams = layoutHeight
                 gridLayout.visibility = View.VISIBLE
                 mainBar.visibility = View.VISIBLE
                 scoreBar.visibility = View.VISIBLE
