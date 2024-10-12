@@ -9,7 +9,7 @@
 ### App
 - Android Studio
 
-### Server
+### Server 
 - Java 17 (OpenJDK 17)
 - Spring boot 3.2.1
     - 의존성 관리
